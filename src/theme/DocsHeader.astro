@@ -1,0 +1,25 @@
+---
+import config from 'virtual:starlight/user-config';
+import Search from 'virtual:starlight/components/Search';
+import ThemeToggle from 'virtual:starlight/components/ThemeSelect';
+
+const docsHome = import.meta.env.BASE_URL;
+const { siteTitle } = Astro.locals.starlightRoute;
+const docsRoot = docsHome.replace(/\/$/, '');
+const libraryLogo = `${docsRoot}/hokusai-icon.png`;
+---
+
+<header class="site-theme-header">
+  <div class="site-theme-brand">
+    <a href={docsHome}>
+      <img class="site-theme-library-logo" src={libraryLogo} alt="" />
+      <span class="site-theme-library-name">{siteTitle}</span>
+    </a>
+    <span>Documentation</span>
+  </div>
+  <div class="site-theme-header-actions">
+    <a class="site-theme-main-site" href="https://ivantokar.com">ivantokar.com</a>
+    {config.pagefind && <Search />}
+    <ThemeToggle />
+  </div>
+</header>

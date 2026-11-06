@@ -1,0 +1,42 @@
+---
+import { googleTagManagerId } from './gtm';
+
+const isProduction = import.meta.env.PROD && !!googleTagManagerId;
+---
+
+{
+  isProduction && (
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      />
+    </noscript>
+  )
+}
+
+<a class="sl-skip-link" href="#_top">Skip to content</a>
+
+<style>
+  @layer starlight.core {
+    a {
+      clip: rect(0, 0, 0, 0);
+      inset-inline-start: 0.75rem;
+      position: fixed;
+      top: 0.75rem;
+    }
+
+    a:focus {
+      background-color: var(--sl-color-text-accent);
+      box-shadow: var(--sl-shadow-lg);
+      clip: unset;
+      color: var(--sl-color-text-invert);
+      display: block;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      z-index: var(--sl-z-index-skiplink);
+    }
+  }
+</style>

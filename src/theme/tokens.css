@@ -1,0 +1,34 @@
+/*
+ * Single source of truth for the ivantokar.com palette.
+ * Apps map these to their own names (Tailwind @theme, shadcn variables,
+ * Starlight); do not redefine palette values elsewhere.
+ */
+:root {
+  --ivantokar-bg: #0f0f0f;
+  --ivantokar-text: #f2f2f2;
+  --ivantokar-muted: #b3b3b3;
+  --ivantokar-border: #2e2e2e;
+  --ivantokar-panel: #1a1a1a;
+  --ivantokar-code-bg: #1b1b1b;
+  --ivantokar-code-border: #2f2f2f;
+  --ivantokar-accent: #fb4934;
+  --ivantokar-accent-foreground: #0f0f0f;
+  --ivantokar-link-hover: #fb4934;
+  --ivantokar-warning: #fabd2f;
+  --ivantokar-success: #b8bb26;
+}
+
+:root[data-theme='light'] {
+  --ivantokar-bg: #faf9f6;
+  --ivantokar-text: #1c1917;
+  --ivantokar-muted: #625d57;
+  --ivantokar-border: #d8d2ca;
+  --ivantokar-panel: #f0ece6;
+  --ivantokar-code-bg: #f0ece6;
+  --ivantokar-code-border: #d8d2ca;
+  --ivantokar-accent: #fb4934;
+  --ivantokar-accent-foreground: #0f0f0f;
+  --ivantokar-link-hover: #fb4934;
+  --ivantokar-warning: #b57614;
+  --ivantokar-success: #6f6b0d;
+}

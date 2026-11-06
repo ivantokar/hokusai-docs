@@ -1,0 +1,46 @@
+---
+title: Hokusai
+description: High-performance Swift image processing powered by libvips.
+template: splash
+hero:
+  title: Hokusai
+  tagline: High-performance JPEG, PNG, WebP, AVIF, and PDF image processing powered by libvips.
+  image:
+    html: '<img src="/oss/hokusai/hokusai-icon.png" alt="Hokusai logo" />'
+  actions:
+    - text: Get Started
+      link: /oss/hokusai/guide/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: View API
+      link: /oss/hokusai/reference/api/
+      icon: right-arrow
+---
+
+import { CardGrid, Card } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card icon="code-branch" title="Immutable pipelines">Compose transformations synchronously, branch safely across tasks, and evaluate only at an output terminal.</Card>
+  <Card icon="analytics" title="libvips powered">Process images on demand with small pixel regions and efficient native concurrency.</Card>
+  <Card icon="apple" title="Native Swift integration">Use typed Swift APIs directly, with first-party Vapor request and response helpers.</Card>
+  <Card icon="document" title="Image-based PDFs">Export the evaluated pipeline as a Cairo-backed one-page PDF for reports and generated documents.</Card>
+</CardGrid>
+
+## Why Hokusai?
+
+Hokusai 1.0 is the core Swift package for high-performance server-side image processing. It accepts `Data` or file `URL` inputs, provides typed JPEG, PNG, WebP, AVIF, and PDF outputs, and keeps blocking native evaluation away from Swift's cooperative executor.
+
+- **High performance:** libvips processes images efficiently without child processes.
+- **Safe concurrency:** immutable pipelines can be branched across tasks before output evaluation.
+- **Typed output:** choose JPEG, PNG, WebP, AVIF, or Cairo-backed PDF with Swift APIs.
+- **Server integration:** decode uploads and return correctly typed responses through Hokusai Vapor.
+
+## Quick example
+
+```swift
+let thumbnail = try await Hokusai(url: URL(fileURLWithPath: "photo.jpg"))
+    .autoOrient()
+    .resize(width: 400)
+    .jpeg(quality: 85)
+    .write(to: URL(fileURLWithPath: "thumbnail.jpg"))
+```
