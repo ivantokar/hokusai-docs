@@ -12,9 +12,11 @@ description: Encoders, terminals and metadata retention.
 
 What the installed libvips can read and write is reported by `Hokusai.capabilities()`.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Encoders](/oss/hokusai/encoding-output/formats)
+- [Output terminals](/oss/hokusai/encoding-output/terminals)
+- [Metadata retention](/oss/hokusai/encoding-output/metadata)
 
 ## Read next
 

@@ -1,0 +1,70 @@
+---
+pageId: channels-transparency.alpha-and-channels
+title: Channels & alpha
+description: Extract channels, build alpha from a mask, flatten transparency and add or drop the alpha channel.
+---
+
+import Example from '../../../components/Example.astro';
+
+An image has colour channels and, optionally, an **alpha** channel that says how opaque each pixel is. These operations read, build and remove those channels.
+
+## Extract a channel \{#extract-channel}
+`extractChannel(_:)` keeps one channel as a grey image: `.red`, `.green`, `.blue`, `.alpha` or `.luminance`. The source is read as sRGB (a grey or CMYK source is converted first). Asking for `.alpha` of an image that has none throws `HokusaiError.invalidOption` when the pipeline is evaluated.
+
+<Example
+  id="channels.extract"
+  results={[
+    { file: 'red.png', label: '.red', alt: 'The red channel of the landscape as a grey image; the lighthouse stripes are bright.' },
+    { file: 'green.png', label: '.green', alt: 'The green channel as a grey image.' },
+    { file: 'blue.png', label: '.blue', alt: 'The blue channel as a grey image; the sky is bright.' },
+    { file: 'luminance.png', label: '.luminance', alt: 'The luminance of the landscape as a grey image.' },
+    { file: 'emblem-alpha.png', label: '.alpha of the emblem', alt: 'A white disc on black: the emblem is opaque inside and transparent in its corners.' },
+  ]}
+/>
+
+## Alpha from a mask \{#with-alpha}
+`withAlpha(from:)` uses the **luminance of another pipeline** as this image's alpha: white keeps a pixel, black hides it. An existing alpha channel is replaced. The mask must come out the same size as the image, or the terminal throws; resize one of them first. Combine with `extractChannel` to move alpha from one image to another.
+
+<Example
+  id="channels.with-alpha"
+  results={[
+    { file: 'faded.png', label: 'withAlpha(from: mask)', alt: 'The landscape fading to transparent towards the left edge, where the mask is black.' },
+  ]}
+/>
+
+The size mismatch above is reported as `invalidOption(name: "mask", reason: "must be 1600×1000 like the image, but is 800×500; resize one of them first")`.
+
+## Removing and adding alpha \{#flatten}
+| Operation | What it does |
+| --- | --- |
+| `flatten(background:)` | Composites over a solid colour (default `.white`) and removes alpha. Does nothing when there is no alpha. |
+| `removeAlpha()` | Drops the alpha channel **without compositing**, so fully transparent pixels show their raw colour. Does nothing when there is no alpha. |
+| `ensureAlpha(opacity:)` | Adds an alpha channel of constant `opacity` (`0…1`, default `1`) when there is none; an existing alpha is left as it is. |
+
+<Example
+  id="channels.flatten"
+  results={[
+    { file: 'flatten.png', label: 'flatten', alt: 'The emblem on a paper-coloured square; the transparent corners are now paper.' },
+    { file: 'remove-alpha.png', label: 'removeAlpha', alt: 'The emblem on black corners: the raw colour of the transparent pixels.' },
+    { file: 'half-alpha.png', label: 'ensureAlpha(0.5)', alt: 'The landscape at half opacity, shown over the page background.' },
+    { file: 'emblem.jpg', label: 'flatten, then JPEG', alt: 'The flattened emblem encoded as a JPEG.' },
+  ]}
+/>
+
+The program printed that the opaque landscape has 3 channels and no alpha, and 4 channels with alpha after `ensureAlpha(opacity: 0.5)`.
+
+`removeAlpha` is rarely what you want for graphics: the colour stored under transparent pixels is usually black (above), which appears as soon as the alpha is gone. Use `flatten` to choose the colour yourself.
+
+## JPEG needs flattening \{#jpeg}
+JPEG cannot store alpha. When you encode a transparent image as JPEG, flatten it onto a deliberate colour first (the last output above), or the transparent areas fall back to whatever the encoder does with the channel. See [Order of operations](/oss/hokusai/interactions/flatten-before-jpeg).
+
+## Errors \{#errors}
+| Situation | Result |
+| --- | --- |
+| `extractChannel(.alpha)` on an image with no alpha | `invalidOption`, from the terminal method |
+| `withAlpha(from:)` with a mask of another size | `invalidOption` ("mask … must be W×H like the image"), from the terminal method |
+| `ensureAlpha(opacity:)` or a layer opacity outside `0…1` | `invalidOption`, thrown immediately |
+
+## Related \{#related}
+- [Tone & color](/oss/hokusai/effects-color/tone-and-color), [Text & composition](/oss/hokusai/text-composition/)
+- [Encoding & output](/oss/hokusai/encoding-output/)

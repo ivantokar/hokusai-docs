@@ -12,9 +12,10 @@ Hokusai is built on three ideas.
 
 Terminals run the blocking native work off Swift's cooperative executor. Cancelling the calling task stops the work and throws `CancellationError`.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Deferred evaluation](/oss/hokusai/core-concepts/evaluation)
+- [Order of operations](/oss/hokusai/interactions/)
 
 ## Read next
 

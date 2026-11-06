@@ -1,0 +1,41 @@
+---
+pageId: inspection.metadata
+title: Reading metadata
+description: What metadata() reports, what it does not, and how pages and animation are described.
+---
+
+import Example from '../../../components/Example.astro';
+
+`metadata()` has one meaning: **what the root source reported when it was opened.** It never describes the transformed pipeline. It is `async` because it opens the source off Swift's cooperative executor on Hokusai's evaluation scheduler, and it reads only the header.
+
+<Example id="inspect.metadata" />
+
+## What it showed \{#results}
+| Source | Format | Stored size | Oriented size | Channels | Pages | EXIF |
+| --- | --- | --- | --- | --- | --- | --- |
+| `scene.png` | png | 1600 × 1000 | 1600 × 1000 | 3 (no alpha) | 1 | none |
+| `phone.jpg` | jpeg | 1000 × 1600 | **1600 × 1000** | 3 | 1 | 32 bytes |
+| `emblem.png` | png | 400 × 400 | 400 × 400 | 4 (alpha) | 1 | none |
+| `page.pdf` | pdf | 300 × 300 | 300 × 300 | 4 | 1 | none |
+
+- `image.metadata()` and `image.resize(width: 100).metadata()` are **equal** (the program printed `true`). What a pipeline produces is described by `OutputInfo` from a terminal, not by `metadata()`.
+- A composite pipeline reports only its **base** source; call `metadata()` on an overlay's own value to inspect it.
+- Because only the header is read, half a PNG still reports 1600 × 1000, even though decoding its pixels would fail. Pixels are checked by terminals, not by `metadata()`.
+- `InputOptions` apply: the selected `page`, the limits and the access mode.
+
+## Fields \{#fields}
+- **Dimensions** (`width`, `height`) are the stored size of the selected page. EXIF orientation is a separate typed `orientation` (`ImageOrientation`, `nil` when absent or invalid); `orientedSize` swaps width and height only for quarter-turn orientations, as `phone.jpg` shows.
+- **`pixel`** (`PixelMetadata`): `channels`, `hasAlpha`, a curated `interpretation` (`.grayscale`, `.sRGB`, `.rgb`, `.cmyk`, `.lab`, …; it says how stored values are read and does **not** mean an ICC profile was applied), `sampleFormat`, `bitsPerSample`, and for PNG whether it is palette-based.
+- **`format`** comes from the loader libvips used, not from a file name; `nil` when it cannot be identified (for example JPEG XL). AVIF and HEIC share one loader and are told apart by their HEIF compression.
+- **`pages`** (`PageMetadata`): `count > 1` means multi-page.
+- **`animation`**: loop count and per-frame delays; present **only when the source carries frame delays**, so a multi-page TIFF is not reported as animated.
+- **Density**: one value in DPI plus the source's preferred unit when it records one. libvips reports 1 pixel/mm for a file with no recorded resolution; that default is treated as "none", not as 25.4 DPI.
+- **Embedded blocks** (`exif`, `iccProfile`, `xmp`, `iptc`) are owned raw `Data`. The IPTC block is the Photoshop image-resource block carrying the IPTC records, exactly as libvips exposes it; `xmpString` decodes XMP only when it is valid UTF-8.
+- `sourceByteSize` is exact for `Data` and the file size for a file.
+
+## Command line \{#cli}
+`hokusai inspect --input photo.jpg` prints the same facts as a table; `--json` prints one JSON object for scripts.
+
+## Related \{#related}
+- [Metadata retention](/oss/hokusai/encoding-output/metadata): what the *output* keeps
+- [Input options](/oss/hokusai/sources-input/input-options)

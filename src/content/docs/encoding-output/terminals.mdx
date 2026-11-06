@@ -1,0 +1,46 @@
+---
+pageId: encoding-output.terminals
+title: Output terminals
+description: "data(), write(to:), writeChunks, raw and outputFormat: what each does and when to use it."
+---
+
+import Example from '../../../components/Example.astro';
+
+A pipeline does nothing until a **terminal** runs. Terminals run the blocking native work off Swift's cooperative executor, are `async`, and are where decode, pixel and encode errors are thrown. Cancelling the calling task stops the work and throws `CancellationError`; the pipeline stays valid and can be evaluated again.
+
+| Terminal | Returns | Use it for |
+| --- | --- | --- |
+| `data()` | `Output` (`data`, `info`) | Bytes in memory: an HTTP body, a database column. Needs an encoder. |
+| `write(to:)` | `OutputInfo` | A file; written through a temporary file and renamed. |
+| `writeChunks(chunkSize:_:)` | `OutputInfo` | Streaming with backpressure. Needs an encoder. |
+| `raw(_:premultiplied:background:)` | `RawImage` | Pixels without encoding ([Raw pixels](/oss/hokusai/sources-input/raw-pixels)). Must have **no** encoder selected. |
+| `metadata()` | `ImageMetadata` | The source's header ([Inspection](/oss/hokusai/inspection/metadata)). |
+
+`OutputInfo` carries `format`, `width`, `height`, `byteCount` and, for PDF, `pdf` (`pageCount`, `pageWidth`, `pageHeight`).
+
+<Example id="encode.terminals" />
+
+## Reading the results \{#results}
+- **`data()`** printed the format, size and byte count it produced.
+- **`write(to:)` infers the encoder from the extension only when you selected none** (`inferred.webp` was written as WebP). **An explicit encoder always wins**: `png()` with a `.jpg` name writes PNG data to `really-png.jpg`, so choose a matching extension yourself.
+- **`writeChunks`** delivered 9,660 bytes in 3 chunks of at most 4,096 bytes, and `OutputInfo.byteCount` agreed. At most `chunkSize × 4` bytes of encoded output are held in the hand-off, so a slow consumer slows encoding down instead of growing memory. `chunkSize` is `1…67,108,864` (default 64 KiB). TIFF cannot be written forward-only, so it is encoded in memory first and then streamed. If `consume` throws, encoding stops and that error is thrown; after a failure or cancellation the consumer has received a partial stream and must discard it.
+- **`outputFormat`** is known before evaluation (`avif`, and `nil` when no encoder is selected), so a server can set `Content-Type` before the first byte.
+
+## File output guarantees \{#files}
+`write(to:)` writes to a temporary file (`.name.hokusai-…`) in the destination directory and renames it over the destination only when the write finished, so a failed or cancelled write leaves an existing file exactly as it was and never leaves half an image. A replaced file keeps its permissions; a symbolic link stays a link and its target is replaced. A destination that is a file the pipeline reads (including through a symbolic link) is refused with `invalidOption` ("output URL") before anything is written: write to a different file and replace the original yourself. A destination that cannot be opened or written throws `HokusaiError.io` with a `.write` operation and the system's reason.
+
+## Errors \{#errors}
+| Situation | Result |
+| --- | --- |
+| `data()` or `writeChunks` without an encoder | `invalidOption(name: "output format", …"call jpeg(), png(), webp(), avif(), pdf(), or encode(using:) before data()")` |
+| `write(to:)` with an unknown extension and no encoder | `invalidOption(name: "output URL", …"use a supported image extension or select an encoder")` |
+| `write(to:)` an `.svg` name | `unsupported`: SVG is an input format, not an encoder |
+| `raw` with an encoder selected | `invalidOption(name: "raw", …)`: use `data()` for an encoded image |
+| Output over `RuntimeConfiguration.maxOutputPixels` | `resource` (`outputPixels`), before any pixel is computed |
+
+## Where the encoder goes \{#order}
+The encoder is terminal configuration, not an image operation: `jpeg(quality: 70).resize(width: 300)` and `resize(width: 300).jpeg(quality: 70)` produce byte-identical output, and selecting a second encoder replaces the first ([Order of operations](/oss/hokusai/interactions/encoder-position)).
+
+## Related \{#related}
+- [Encoders](/oss/hokusai/encoding-output/formats), [Metadata retention](/oss/hokusai/encoding-output/metadata)
+- [Runtime & performance](/oss/hokusai/runtime-performance/)

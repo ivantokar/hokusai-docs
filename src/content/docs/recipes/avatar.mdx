@@ -1,0 +1,29 @@
+---
+pageId: recipes.avatar
+title: Circular avatar
+description: A square crop masked to a circle, with a flat fallback for places without alpha.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** From any photo, make a 256 × 256 circular avatar. **Inputs:** [`scene.png`, `emblem.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures) (its alpha channel is the circle). **Needs:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.avatar"
+  results={[
+    { file: 'avatar.png', label: 'avatar.png', alt: 'A circular crop of the landscape centred on the lighthouse, with transparent corners.' },
+    { file: 'avatar.webp', label: 'avatar.webp', alt: 'The same circular avatar as a WebP with transparency.' },
+    { file: 'avatar.jpg', label: 'avatar.jpg (flat)', alt: 'The circular avatar on a paper-coloured square, as a JPEG.' },
+  ]}
+/>
+
+## How it works \{#how}
+1. **`resize(width: 256, height: 256, fit: .cover, position: .attention)`** makes the square and keeps the interesting part in it.
+2. **A circular mask** is the alpha channel of an existing round image, resized to 256 px: `extractChannel(.alpha)` turns it into a grey image, white inside the disc and black outside.
+3. **`withAlpha(from: mask)`** uses that luminance as the avatar's alpha: white keeps pixels, black hides them. The mask must come out the **same size** as the avatar, which is why both are 256 px ([channels](/oss/hokusai/channels-transparency/alpha-and-channels#with-alpha)).
+4. **PNG or WebP keep the transparency**; for places that cannot show alpha, `flatten(background:)` onto the page colour and encode JPEG ([why flatten last](/oss/hokusai/interactions/flatten-before-jpeg)).
+
+## Variations \{#variations}
+- **A different shape:** any image with an alpha channel or a grey image of the right size works as the mask (a rounded square, a hexagon).
+- **A soft edge:** `blur(sigma: 2)` on the mask before `withAlpha` feathers the edge.
+- **Retina:** build at 512 and let the page scale it down.

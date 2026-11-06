@@ -15,9 +15,11 @@ description: Every way to create a Hokusai pipeline.
 
 `InputOptions` selects the `page` of a multi-page source, the `access` mode (`random` or `sequential`), the `failOn` decode-failure level and the `limits`. `InputLimits` bounds `maxBytes`, `maxPixels` and `maxChannels` before any native work. Raw pixel formats are `gray8`, `grayAlpha8`, `rgb8`, `rgba8` and their 16-bit forms.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Input options & limits](/oss/hokusai/sources-input/input-options)
+- [Raw pixels](/oss/hokusai/sources-input/raw-pixels)
+- [Large uploads](/oss/hokusai/sources-input/uploads)
 
 ## Read next
 

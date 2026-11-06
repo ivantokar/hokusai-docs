@@ -1,0 +1,49 @@
+---
+pageId: effects-color.filters
+title: Filters
+description: Median, convolution, linear and colour-matrix transforms, morphology and edge detection.
+---
+
+import Example from '../../../components/Example.astro';
+
+The advanced pixel operations work on the colour channels and **leave alpha alone**; the sample type (8 or 16 bit) is kept.
+
+<Example
+  id="effects.filters"
+  results={[
+    { file: 'median.png', label: 'median(size: 7)', alt: 'The landscape with the sea ripples smoothed away and thin details removed.' },
+    { file: 'convolve-sharpen.png', label: 'convolve: sharpen', alt: 'The landscape sharpened by a 3 by 3 kernel.' },
+    { file: 'convolve-emboss.png', label: 'convolve: emboss', alt: 'The landscape as an embossed relief on mid grey.' },
+    { file: 'sepia.png', label: 'recombine(.sepia)', alt: 'The landscape in sepia tones.' },
+    { file: 'swap-red-blue.png', label: 'recombine(.swapRedBlue)', alt: 'The landscape with red and blue channels swapped.' },
+    { file: 'sobel.png', label: 'edges(.sobel)', alt: 'White outlines of hills, lighthouse and sun on black.' },
+    { file: 'canny.png', label: 'edges(.canny)', alt: 'Very thin, faint ridge lines where the landscape changes abruptly.' },
+    { file: 'binary.png', label: 'threshold(110)', alt: 'A black and white mask of the landscape.' },
+    { file: 'mask-dilate.png', label: 'threshold + dilate(3)', alt: 'The mask with its white areas grown; thin black stripes vanish.' },
+    { file: 'mask-erode.png', label: 'threshold + erode(3)', alt: 'The mask with its white areas shrunk; the black lighthouse stripes grow.' },
+  ]}
+/>
+
+## Reference \{#reference}
+| Operation | Parameters | Notes |
+| --- | --- | --- |
+| `median(size:)` | `3`; `1…101` | Each pixel becomes the median of its `size × size` neighbourhood. |
+| `convolve(_ kernel:)` | `ConvolutionKernel` | Output = (sum of neighbourhood × `values`) ÷ `scale` + `offset`, limited to the sample range; edge pixels read the nearest edge pixel. |
+| `linear(multiply:add:)` | `1`, `0`; `multiply` `−1000…1000`, `add` `−65535…65535` | Per-sample `x · multiply + add` on a 0…255 scale (16-bit scales it), clamped. |
+| `recombine(_ matrix:)` | `ColorMatrix` | 3 × 3 mix of red, green, blue (read as sRGB). Presets `.sepia`, `.luminance`, `.swapRedBlue`, or nine finite coefficients. |
+| `dilate(radius:)` | `1`; `1…50` | Each sample becomes the maximum of the `2 · radius + 1` square: grows bright areas. |
+| `erode(radius:)` | `1`; `1…50` | The minimum: shrinks bright areas. |
+| `edges(_ detector:)` | `.sobel`, `.scharr`, `.prewitt`, `.canny(sigma:)` | Strength of luminance change as **one** channel. Canny `sigma` in `0.1…20`, default `1.4`. |
+
+### ConvolutionKernel \{#kernel}
+`ConvolutionKernel(width:height:values:scale:offset:)` has sides `1…51` and exactly `width × height` finite `values` (row by row, top to bottom); `scale` is finite and not zero (default `1`), `offset` finite (default `0`). It throws `invalidOption` otherwise. A kernel whose coefficients sum to **1** keeps brightness (sharpening: `[0,-1,0,-1,5,-1,0,-1,0]`); one that sums to **0** (edges, emboss) leaves flat areas black, so give it an `offset` such as `128` to centre the result on grey, as the emboss example does.
+
+### Morphology \{#morphology}
+`dilate` and `erode` work on each channel separately, so they are most useful on a black-and-white mask (made with [`threshold`](/oss/hokusai/effects-color/tone-and-color)). `erode` then `dilate` removes specks; `dilate` then `erode` closes small gaps. Above, `dilate` removes the thin black lighthouse stripes of the mask and `erode` widens them.
+
+## Errors \{#errors}
+Out-of-range values throw `HokusaiError.invalidOption` when the pipeline is built: `median(size: 200)`, `dilate(radius: 60)`, `edges(.canny(sigma: 50))` (see [Tone & color](/oss/hokusai/effects-color/tone-and-color#errors) for the measured messages). A malformed kernel or matrix throws when you construct it.
+
+## Related \{#related}
+- [Channels & transparency](/oss/hokusai/channels-transparency/)
+- [Blur & sharpen](/oss/hokusai/effects-color/blur-sharpen)

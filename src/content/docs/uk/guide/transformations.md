@@ -1,6 +1,6 @@
 ---
 pageId: guide.transformations
-translatedFrom: 04f74e1a1c94
+translatedFrom: "04f74e1a1c94"
 title: Перетворення
 ---
 

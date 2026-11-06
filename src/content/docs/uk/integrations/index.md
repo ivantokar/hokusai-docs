@@ -1,6 +1,6 @@
 ---
 pageId: integrations.index
-translatedFrom: 378de6e0719f
+translatedFrom: "c34cb6c2de46"
 title: Інтеграції
 description: Hokusai у вебфреймворках і NIO.
 ---
@@ -13,9 +13,12 @@ description: Hokusai у вебфреймворках і NIO.
 
 Адаптери поділяють з основною бібліотекою лише мажорну версію.
 
-:::note[Докладні посібники в розробці]
-На цій сторінці перелічено, що надає Hokusai у задокументованому релізі. Посібники з кожної операції, з параметрами, значеннями за замовчуванням, візуальними результатами та взаємодіями, додаються; точний контракт API міститься в коментарях до вихідного коду бібліотеки.
-:::
+## Посібники {#guides}
+
+- [Vapor: повний сервіс](/oss/hokusai/uk/integrations/vapor-service)
+- [Hokusai Hummingbird](/oss/hokusai/uk/integrations/hummingbird)
+- [macOS](/oss/hokusai/uk/integrations/macos)
+- [Docker](/oss/hokusai/uk/integrations/docker)
 
 ## Читайте далі {#read-next}
 

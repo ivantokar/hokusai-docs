@@ -15,9 +15,10 @@ Two different things produce PDF files.
 
 Raster pages are sized from the image (`.image(dpi:)`), as `.a4`, `.letter` or exact `.points`. Vector text is laid out by Pango with a typed `VectorTextStyle` and can be plain or markup; fills can be solid colours or linear gradients.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Raster PDF](/oss/hokusai/pdf/raster)
+- [Vector documents](/oss/hokusai/pdf/vector)
 
 ## Read next
 

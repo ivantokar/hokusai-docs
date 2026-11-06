@@ -1,0 +1,29 @@
+---
+pageId: recipes.thumbnails
+title: Gallery thumbnails
+description: Several sizes from one source, produced concurrently and never enlarged.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** Produce 320, 640 and 1280-pixel-wide WebP versions of every photo for a responsive gallery. **Inputs:** [`scene.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Needs:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.thumbnails"
+  results={[
+    { file: 'thumb-320.webp', label: '320 · 4.1 KB', alt: 'The landscape at 320 by 200 pixels.' },
+    { file: 'thumb-640.webp', label: '640 · 9.3 KB', alt: 'The landscape at 640 by 400 pixels.' },
+    { file: 'thumb-1280.webp', label: '1280 · 20.3 KB', alt: 'The landscape at 1280 by 800 pixels.' },
+  ]}
+/>
+
+## How it works \{#how}
+- A pipeline is **immutable**, so one `source` can branch into three outputs; the task group evaluates them concurrently ([why this is safe](/oss/hokusai/core-concepts/evaluation#immutable)). Hokusai's scheduler limits how many evaluations run at once, so spawning more tasks than cores is safe.
+- **`withoutEnlargement: true`** means a 500-pixel original is never blown up to 1280: the request returns the original size for that rung instead ([guards](/oss/hokusai/geometry/resize#guards)). It uses a width only, so the aspect ratio is kept and nothing is cropped.
+- The results printed: 320 → 320 × 200 (4,058 bytes), 640 → 640 × 400 (9,290 bytes), 1280 → 1280 × 800 (20,308 bytes).
+
+## Variations \{#variations}
+- **Square thumbnails:** `resize(width: 320, height: 320, fit: .cover, position: .attention)`; with `withoutEnlargement` on a small source this combination throws, so use `fit: .inside` or check `metadata()` first ([the pitfall](/oss/hokusai/geometry/resize#guards)).
+- **Two formats:** add `.jpeg(quality: 82)` outputs from the same branches for browsers without WebP.
+- **Streaming to storage:** use `data()` per rung and upload the bytes, or `writeChunks` for large outputs.
+- **Memory-bound services:** set `RuntimeConfiguration.maxConcurrentEvaluations` ([Runtime](/oss/hokusai/runtime-performance/runtime)).

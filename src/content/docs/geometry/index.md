@@ -16,9 +16,11 @@ description: Resizing, cropping, rotating and reshaping the pixel grid.
 | `trim(threshold:)`, `trim(_:)` | Removes a uniform border. |
 | `smartCrop(width:height:strategy:)` | Crops to the most interesting region (`attention` or `entropy`). |
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Resize](/oss/hokusai/geometry/resize)
+- [Crop & canvas](/oss/hokusai/geometry/crop-and-canvas)
+- [Rotate, flip & affine](/oss/hokusai/geometry/rotate-flip-affine)
 
 ## Read next
 

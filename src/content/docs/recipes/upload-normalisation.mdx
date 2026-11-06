@@ -1,0 +1,30 @@
+---
+pageId: recipes.upload-normalisation
+title: Upload normalisation
+description: Turn an untrusted upload into a bounded, upright, metadata-free WebP.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** Accept an image from a user and store a safe, consistent version: bounded input, upright pixels, at most 1600 px, no private metadata. **Inputs:** [`phone.jpg`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures) (sideways, with EXIF). **Needs:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.upload"
+  results={[
+    { file: 'normalised.webp', label: 'normalised.webp', alt: 'The scene upright and 1600 by 1000 pixels, as a WebP.' },
+  ]}
+/>
+
+The program printed `upload → 1600 × 1000 webp exif: 0 bytes`, and for a non-image upload a `HokusaiError`.
+
+## How it works \{#how}
+1. **`InputOptions(failOn: .truncated, limits: …)`** bounds the input *before* pixel work: 20 MB of bytes and 50 megapixels here. Tighten these to your policy ([limits](/oss/hokusai/sources-input/input-options#limits)).
+2. **`autoOrient()`** makes the pixels upright, so the stored size (1000 × 1600) no longer matters ([why](/oss/hokusai/interactions/orientation-and-resize)).
+3. **`resize(width: 1600, height: 1600, fit: .inside, withoutEnlargement: true)`** caps the long side at 1600 and never enlarges: a safe choice for unknown sizes, unlike `.cover` ([guards](/oss/hokusai/geometry/resize#guards)).
+4. **`webp(quality: 82)`** and the **default metadata policy** drop EXIF, XMP and IPTC; the read-back showed 0 bytes of EXIF ([metadata](/oss/hokusai/encoding-output/metadata)).
+5. **Errors are typed**: a bad upload throws `HokusaiError` from `data()`, not from the constructor. In a server, map it to 400/413/422 ([troubleshooting](/oss/hokusai/troubleshooting-migration/troubleshooting)).
+
+## Variations \{#variations}
+- **Large bodies:** use `Hokusai(spooling:)` so the upload is not held in memory ([uploads](/oss/hokusai/sources-input/uploads)).
+- **Untrusted formats:** turn on `RuntimeConfiguration.blockUntrustedOperations` to refuse PDF, SVG and similar loaders ([runtime](/oss/hokusai/runtime-performance/runtime)).
+- **Keep the colour profile only:** the default already does; use `MetadataPolicy(exif: .remove, icc: .preserve)` to be explicit.

@@ -7,119 +7,364 @@
   },
   "scale": {
     "docs": "none = no page; overview = family landing page and stale or shallow existing coverage; detailed = operation-level guide (parameters, defaults, errors, interactions)",
-    "example": "none | planned | verified (executable Swift run in CI)",
+    "example": "none | planned | verified (executable Swift: run in CI for operations; compiled in CI for server integrations)",
     "visual": "none | planned | generated (output produced by Hokusai from a licensed fixture)"
   },
   "families": [
     {
-      "id": "core-concepts", "title": "Core concepts", "nav": "core-concepts", "owner": "#169",
-      "pages": ["guide.pipelines", "core-concepts.index"], "docs": "overview", "example": "none", "visual": "none",
-      "members": ["=Hokusai:Hokusai"]
-    },
-    {
-      "id": "sources-input", "title": "Sources & input", "nav": "sources-input", "owner": "#169",
-      "pages": ["sources-input.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "core-concepts",
+      "title": "Core concepts",
+      "nav": "core-concepts",
+      "owner": "#169",
+      "pages": [
+        "guide.pipelines",
+        "core-concepts.index",
+        "core-concepts.evaluation",
+        "interactions.index",
+        "interactions.resize-blur-sharpen",
+        "interactions.orientation-and-resize",
+        "interactions.flatten-before-jpeg",
+        "interactions.trim-and-extend",
+        "interactions.composite-order",
+        "interactions.encoder-position"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.init", "HokusaiNIO:Hokusai.init", "Hokusai:InputOptions", "Hokusai:InputLimits",
-        "Hokusai:RawImage", "Hokusai:RawPixelFormat"
+        "=Hokusai:Hokusai"
       ]
     },
     {
-      "id": "geometry", "title": "Geometry", "nav": "geometry", "owner": "#170",
-      "pages": ["guide.transformations", "geometry.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "sources-input",
+      "title": "Sources & input",
+      "nav": "sources-input",
+      "owner": "#169",
+      "pages": [
+        "sources-input.index",
+        "sources-input.input-options",
+        "sources-input.raw-pixels",
+        "sources-input.uploads"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.autoOrient", "Hokusai:Hokusai.resize", "Hokusai:Hokusai.rotate", "Hokusai:Hokusai.flip",
-        "Hokusai:Hokusai.flop", "Hokusai:Hokusai.extract", "Hokusai:Hokusai.extend", "Hokusai:Hokusai.affine",
-        "Hokusai:Hokusai.trim", "Hokusai:Hokusai.smartCrop", "Hokusai:ResizeFit", "Hokusai:ResizePosition",
-        "Hokusai:ResizeKernel", "Hokusai:Gravity", "Hokusai:ExtendMode", "Hokusai:Interpolation", "Hokusai:ImageSize",
-        "Hokusai:AffineMatrix", "Hokusai:AffineOffset", "Hokusai:AffineArea", "Hokusai:TrimOptions",
-        "Hokusai:TrimBackground", "Hokusai:SmartCropStrategy"
+        "Hokusai:Hokusai.init",
+        "HokusaiNIO:Hokusai.init",
+        "Hokusai:InputOptions",
+        "Hokusai:InputLimits",
+        "Hokusai:RawImage",
+        "Hokusai:RawPixelFormat"
       ]
     },
     {
-      "id": "effects-color", "title": "Effects & color", "nav": "effects-color", "owner": "#171",
-      "pages": ["effects-color.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "geometry",
+      "title": "Geometry",
+      "nav": "geometry",
+      "owner": "#170",
+      "pages": [
+        "geometry.index",
+        "geometry.resize",
+        "geometry.crop-and-canvas",
+        "geometry.rotate-flip-affine",
+        "guide.transformations"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.blur", "Hokusai:Hokusai.sharpen", "Hokusai:Hokusai.grayscale", "Hokusai:Hokusai.tint",
-        "Hokusai:Hokusai.normalize", "Hokusai:Hokusai.clahe", "Hokusai:Hokusai.gamma", "Hokusai:Hokusai.negate",
-        "Hokusai:Hokusai.median", "Hokusai:Hokusai.convolve", "Hokusai:Hokusai.linear", "Hokusai:Hokusai.recombine",
-        "Hokusai:Hokusai.dilate", "Hokusai:Hokusai.erode", "Hokusai:Hokusai.edges", "Hokusai:Hokusai.threshold",
-        "Hokusai:Hokusai.modulate", "Hokusai:Hokusai.convert", "Hokusai:Color", "Hokusai:ColorSpace",
-        "Hokusai:BlurPrecision", "Hokusai:SharpenOptions", "Hokusai:ConvolutionKernel", "Hokusai:ColorMatrix",
+        "Hokusai:Hokusai.autoOrient",
+        "Hokusai:Hokusai.resize",
+        "Hokusai:Hokusai.rotate",
+        "Hokusai:Hokusai.flip",
+        "Hokusai:Hokusai.flop",
+        "Hokusai:Hokusai.extract",
+        "Hokusai:Hokusai.extend",
+        "Hokusai:Hokusai.affine",
+        "Hokusai:Hokusai.trim",
+        "Hokusai:Hokusai.smartCrop",
+        "Hokusai:ResizeFit",
+        "Hokusai:ResizePosition",
+        "Hokusai:ResizeKernel",
+        "Hokusai:Gravity",
+        "Hokusai:ExtendMode",
+        "Hokusai:Interpolation",
+        "Hokusai:ImageSize",
+        "Hokusai:AffineMatrix",
+        "Hokusai:AffineOffset",
+        "Hokusai:AffineArea",
+        "Hokusai:TrimOptions",
+        "Hokusai:TrimBackground",
+        "Hokusai:SmartCropStrategy"
+      ]
+    },
+    {
+      "id": "effects-color",
+      "title": "Effects & color",
+      "nav": "effects-color",
+      "owner": "#171",
+      "pages": [
+        "effects-color.index",
+        "effects-color.blur-sharpen",
+        "effects-color.tone-and-color",
+        "effects-color.filters"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
+      "members": [
+        "Hokusai:Hokusai.blur",
+        "Hokusai:Hokusai.sharpen",
+        "Hokusai:Hokusai.grayscale",
+        "Hokusai:Hokusai.tint",
+        "Hokusai:Hokusai.normalize",
+        "Hokusai:Hokusai.clahe",
+        "Hokusai:Hokusai.gamma",
+        "Hokusai:Hokusai.negate",
+        "Hokusai:Hokusai.median",
+        "Hokusai:Hokusai.convolve",
+        "Hokusai:Hokusai.linear",
+        "Hokusai:Hokusai.recombine",
+        "Hokusai:Hokusai.dilate",
+        "Hokusai:Hokusai.erode",
+        "Hokusai:Hokusai.edges",
+        "Hokusai:Hokusai.threshold",
+        "Hokusai:Hokusai.modulate",
+        "Hokusai:Hokusai.convert",
+        "Hokusai:Color",
+        "Hokusai:ColorSpace",
+        "Hokusai:BlurPrecision",
+        "Hokusai:SharpenOptions",
+        "Hokusai:ConvolutionKernel",
+        "Hokusai:ColorMatrix",
         "Hokusai:EdgeDetector"
       ]
     },
     {
-      "id": "channels-transparency", "title": "Channels & transparency", "nav": "channels-transparency", "owner": "#171",
-      "pages": ["channels-transparency.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "channels-transparency",
+      "title": "Channels & transparency",
+      "nav": "channels-transparency",
+      "owner": "#171",
+      "pages": [
+        "channels-transparency.index",
+        "channels-transparency.alpha-and-channels"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.extractChannel", "Hokusai:Hokusai.withAlpha", "Hokusai:Hokusai.ensureAlpha",
-        "Hokusai:Hokusai.flatten", "Hokusai:Hokusai.removeAlpha", "Hokusai:Channel"
+        "Hokusai:Hokusai.extractChannel",
+        "Hokusai:Hokusai.withAlpha",
+        "Hokusai:Hokusai.ensureAlpha",
+        "Hokusai:Hokusai.flatten",
+        "Hokusai:Hokusai.removeAlpha",
+        "Hokusai:Channel"
       ]
     },
     {
-      "id": "text-composition", "title": "Text & composition", "nav": "text-composition", "owner": "#172",
-      "pages": ["guide.composition-and-pdf", "text-composition.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "text-composition",
+      "title": "Text & composition",
+      "nav": "text-composition",
+      "owner": "#172",
+      "pages": [
+        "text-composition.index",
+        "text-composition.text",
+        "text-composition.composite",
+        "guide.composition-and-pdf"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.composite", "Hokusai:Hokusai.text", "Hokusai:Hokusai.drawText", "Hokusai:CompositeLayer",
-        "Hokusai:Placement", "Hokusai:BlendMode", "Hokusai:CompositingSpace", "Hokusai:TextContent",
-        "Hokusai:TextWrap", "Hokusai:TextAlignment", "Hokusai:TextLayout", "Hokusai:TextStroke", "Hokusai:TextShadow",
+        "Hokusai:Hokusai.composite",
+        "Hokusai:Hokusai.text",
+        "Hokusai:Hokusai.drawText",
+        "Hokusai:CompositeLayer",
+        "Hokusai:Placement",
+        "Hokusai:BlendMode",
+        "Hokusai:CompositingSpace",
+        "Hokusai:TextContent",
+        "Hokusai:TextWrap",
+        "Hokusai:TextAlignment",
+        "Hokusai:TextLayout",
+        "Hokusai:TextStroke",
+        "Hokusai:TextShadow",
         "Hokusai:TextStyle"
       ]
     },
     {
-      "id": "encoding-output", "title": "Encoding & output", "nav": "encoding-output", "owner": "#173",
-      "pages": ["reference.formats-and-compatibility", "encoding-output.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "encoding-output",
+      "title": "Encoding & output",
+      "nav": "encoding-output",
+      "owner": "#173",
+      "pages": [
+        "encoding-output.index",
+        "encoding-output.formats",
+        "encoding-output.terminals",
+        "encoding-output.metadata",
+        "reference.formats-and-compatibility"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.encode", "Hokusai:Hokusai.jpeg", "Hokusai:Hokusai.png", "Hokusai:Hokusai.webp",
-        "Hokusai:Hokusai.avif", "Hokusai:Hokusai.heif", "Hokusai:Hokusai.tiff", "Hokusai:Hokusai.gif",
-        "Hokusai:Hokusai.metadataPolicy", "Hokusai:Hokusai.outputFormat", "Hokusai:Hokusai.data", "Hokusai:Hokusai.write",
-        "Hokusai:Hokusai.writeChunks", "Hokusai:Hokusai.raw", "Hokusai:Encoder", "Hokusai:Output",
-        "Hokusai:OutputInfo", "Hokusai:ImageFormat", "Hokusai:MetadataPolicy", "Hokusai:JPEGOptions",
-        "Hokusai:PNGOptions", "Hokusai:PNGPalette", "Hokusai:WebPOptions", "Hokusai:WebPPreset", "Hokusai:AVIFOptions",
-        "Hokusai:HEIFOptions", "Hokusai:HEIFCompression", "Hokusai:HEIFBitDepth", "Hokusai:ChromaSubsampling",
-        "Hokusai:TIFFOptions", "Hokusai:TIFFCompression", "Hokusai:TIFFPredictor", "Hokusai:TIFFTiling",
+        "Hokusai:Hokusai.encode",
+        "Hokusai:Hokusai.jpeg",
+        "Hokusai:Hokusai.png",
+        "Hokusai:Hokusai.webp",
+        "Hokusai:Hokusai.avif",
+        "Hokusai:Hokusai.heif",
+        "Hokusai:Hokusai.tiff",
+        "Hokusai:Hokusai.gif",
+        "Hokusai:Hokusai.metadataPolicy",
+        "Hokusai:Hokusai.outputFormat",
+        "Hokusai:Hokusai.data",
+        "Hokusai:Hokusai.write",
+        "Hokusai:Hokusai.writeChunks",
+        "Hokusai:Hokusai.raw",
+        "Hokusai:Encoder",
+        "Hokusai:Output",
+        "Hokusai:OutputInfo",
+        "Hokusai:ImageFormat",
+        "Hokusai:MetadataPolicy",
+        "Hokusai:JPEGOptions",
+        "Hokusai:PNGOptions",
+        "Hokusai:PNGPalette",
+        "Hokusai:WebPOptions",
+        "Hokusai:WebPPreset",
+        "Hokusai:AVIFOptions",
+        "Hokusai:HEIFOptions",
+        "Hokusai:HEIFCompression",
+        "Hokusai:HEIFBitDepth",
+        "Hokusai:ChromaSubsampling",
+        "Hokusai:TIFFOptions",
+        "Hokusai:TIFFCompression",
+        "Hokusai:TIFFPredictor",
+        "Hokusai:TIFFTiling",
         "Hokusai:GIFOptions"
       ]
     },
     {
-      "id": "inspection", "title": "Inspection", "nav": "inspection", "owner": "#169",
-      "pages": ["inspection.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "inspection",
+      "title": "Inspection",
+      "nav": "inspection",
+      "owner": "#169",
+      "pages": [
+        "inspection.index",
+        "inspection.metadata"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "none",
       "members": [
-        "Hokusai:Hokusai.metadata", "Hokusai:ImageMetadata", "Hokusai:ImageOrientation", "Hokusai:PixelMetadata",
-        "Hokusai:PixelInterpretation", "Hokusai:PixelSampleFormat", "Hokusai:ResolutionUnit", "Hokusai:PageMetadata",
-        "Hokusai:AnimationMetadata", "Hokusai:ImageDensity"
+        "Hokusai:Hokusai.metadata",
+        "Hokusai:ImageMetadata",
+        "Hokusai:ImageOrientation",
+        "Hokusai:PixelMetadata",
+        "Hokusai:PixelInterpretation",
+        "Hokusai:PixelSampleFormat",
+        "Hokusai:ResolutionUnit",
+        "Hokusai:PageMetadata",
+        "Hokusai:AnimationMetadata",
+        "Hokusai:ImageDensity"
       ]
     },
     {
-      "id": "pdf", "title": "PDF", "nav": "pdf", "owner": "#174",
-      "pages": ["pdf.index", "guide.composition-and-pdf"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "pdf",
+      "title": "PDF",
+      "nav": "pdf",
+      "owner": "#174",
+      "pages": [
+        "pdf.index",
+        "pdf.raster",
+        "pdf.vector",
+        "guide.composition-and-pdf"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "generated",
       "members": [
-        "Hokusai:Hokusai.pdf", "Hokusai:PDFPageSize", "Hokusai:PDFPageOrientation", "Hokusai:PDFMargins",
-        "Hokusai:PDFDocumentMetadata", "Hokusai:PDFOptions", "Hokusai:PDFOutputDetails", "HokusaiPDF:"
+        "Hokusai:Hokusai.pdf",
+        "Hokusai:PDFPageSize",
+        "Hokusai:PDFPageOrientation",
+        "Hokusai:PDFMargins",
+        "Hokusai:PDFDocumentMetadata",
+        "Hokusai:PDFOptions",
+        "Hokusai:PDFOutputDetails",
+        "HokusaiPDF:"
       ]
     },
     {
-      "id": "runtime-performance", "title": "Runtime & performance", "nav": "runtime-performance", "owner": "#178",
-      "pages": ["runtime-performance.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "runtime-performance",
+      "title": "Runtime & performance",
+      "nav": "runtime-performance",
+      "owner": "#178",
+      "pages": [
+        "runtime-performance.index",
+        "runtime-performance.runtime",
+        "runtime-performance.performance"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "none",
       "members": [
-        "Hokusai:Hokusai.initialize", "Hokusai:Hokusai.configure", "Hokusai:Hokusai.capabilities",
-        "Hokusai:Hokusai.runtimeStatus", "Hokusai:RuntimeConfiguration", "Hokusai:ConcurrencyLimit",
-        "Hokusai:RuntimeCapabilities", "Hokusai:RuntimeStatus", "Hokusai:AccessMode", "Hokusai:DecodeFailureLevel"
+        "Hokusai:Hokusai.initialize",
+        "Hokusai:Hokusai.configure",
+        "Hokusai:Hokusai.capabilities",
+        "Hokusai:Hokusai.runtimeStatus",
+        "Hokusai:RuntimeConfiguration",
+        "Hokusai:ConcurrencyLimit",
+        "Hokusai:RuntimeCapabilities",
+        "Hokusai:RuntimeStatus",
+        "Hokusai:AccessMode",
+        "Hokusai:DecodeFailureLevel"
       ]
     },
     {
-      "id": "troubleshooting-migration", "title": "Troubleshooting & migration", "nav": "troubleshooting-migration", "owner": "#178",
-      "pages": ["guide.migration", "changelog", "troubleshooting-migration.index"], "docs": "overview", "example": "none", "visual": "none",
+      "id": "troubleshooting-migration",
+      "title": "Troubleshooting & migration",
+      "nav": "troubleshooting-migration",
+      "owner": "#178",
+      "pages": [
+        "troubleshooting-migration.index",
+        "troubleshooting-migration.troubleshooting",
+        "guide.migration",
+        "changelog"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "none",
       "members": [
-        "Hokusai:HokusaiError", "Hokusai:FailureContext", "Hokusai:ResourceFailure", "Hokusai:ResourceKind",
+        "Hokusai:HokusaiError",
+        "Hokusai:FailureContext",
+        "Hokusai:ResourceFailure",
+        "Hokusai:ResourceKind",
         "Hokusai:FileOperation"
       ]
     },
     {
-      "id": "integrations", "title": "Integrations", "nav": "integrations", "owner": "#177",
-      "pages": ["vapor.overview", "vapor.uploads-and-responses", "integrations.index"], "docs": "overview", "example": "none", "visual": "none",
-      "members": ["HokusaiNIO:", "HokusaiVapor:", "HokusaiHummingbird:"]
+      "id": "integrations",
+      "title": "Integrations",
+      "nav": "integrations",
+      "owner": "#177",
+      "pages": [
+        "integrations.index",
+        "vapor.overview",
+        "vapor.uploads-and-responses",
+        "integrations.vapor-service",
+        "integrations.hummingbird",
+        "integrations.macos",
+        "integrations.docker"
+      ],
+      "docs": "detailed",
+      "example": "verified",
+      "visual": "none",
+      "members": [
+        "HokusaiNIO:",
+        "HokusaiVapor:",
+        "HokusaiHummingbird:"
+      ]
     }
   ],
   "cli": {
@@ -127,27 +372,109 @@
     "owner": "#178",
     "page": "reference.cli",
     "commands": [
-      { "name": "run", "status": "current", "note": "A pipeline written as API-named steps; one step per public operation and encoder; --json" },
-      { "name": "info", "status": "current" },
-      { "name": "inspect", "status": "current", "note": "--json" },
-      { "name": "benchmark", "status": "current", "note": "pipeline workloads, compare; worker is internal" },
-      { "name": "resize", "status": "deprecated", "note": "use `run`; removed in the next major version" },
-      { "name": "thumbnail", "status": "deprecated", "note": "use `run`; removed in the next major version" },
-      { "name": "convert", "status": "deprecated", "note": "use `run`; removed in the next major version" },
-      { "name": "rotate", "status": "deprecated", "note": "use `run`; removed in the next major version" },
-      { "name": "crop", "status": "deprecated", "note": "use `run`; removed in the next major version" },
-      { "name": "text", "status": "deprecated", "note": "use `run`; removed in the next major version" }
-    ]
+      {
+        "name": "run",
+        "status": "current",
+        "note": "A pipeline written as API-named steps; one step per public operation and encoder; --json"
+      },
+      {
+        "name": "info",
+        "status": "current"
+      },
+      {
+        "name": "inspect",
+        "status": "current",
+        "note": "--json"
+      },
+      {
+        "name": "benchmark",
+        "status": "current",
+        "note": "pipeline workloads, compare; worker is internal"
+      },
+      {
+        "name": "resize",
+        "status": "deprecated",
+        "note": "use `run`; removed in the next major version"
+      },
+      {
+        "name": "thumbnail",
+        "status": "deprecated",
+        "note": "use `run`; removed in the next major version"
+      },
+      {
+        "name": "convert",
+        "status": "deprecated",
+        "note": "use `run`; removed in the next major version"
+      },
+      {
+        "name": "rotate",
+        "status": "deprecated",
+        "note": "use `run`; removed in the next major version"
+      },
+      {
+        "name": "crop",
+        "status": "deprecated",
+        "note": "use `run`; removed in the next major version"
+      },
+      {
+        "name": "text",
+        "status": "deprecated",
+        "note": "use `run`; removed in the next major version"
+      }
+    ],
+    "docs": "detailed"
   },
   "nativeRestrictions": [
-    { "capability": "HEIF / AVIF, JPEG XL, JPEG 2000, SVG and PDF input, other optional codecs", "note": "Depend on how libvips was built, not on Hokusai. `Hokusai.capabilities()` and `hokusai info` report them.", "family": "encoding-output" },
-    { "capability": "Pango text rendering and font files", "note": "Needs a libvips with Pango; `TextStyle.fontFile` also needs fontconfig and a wrong file is only a libvips warning.", "family": "text-composition" },
-    { "capability": "Magic Kernel resize kernels", "note": "libvips 8.17 or newer; reported instead of assumed.", "family": "geometry" },
-    { "capability": "AVIF orientation as container rotation", "note": "Written by libvips 8.18, not by the 8.16 baseline; call autoOrient() first on older builds.", "family": "encoding-output" },
-    { "capability": "HokusaiPDF", "note": "Needs Pango 1.44 or newer; the Hokusai product does not.", "family": "pdf" }
+    {
+      "capability": "HEIF / AVIF, JPEG XL, JPEG 2000, SVG and PDF input, other optional codecs",
+      "note": "Depend on how libvips was built, not on Hokusai. `Hokusai.capabilities()` and `hokusai info` report them.",
+      "family": "encoding-output"
+    },
+    {
+      "capability": "Pango text rendering and font files",
+      "note": "Needs a libvips with Pango; `TextStyle.fontFile` also needs fontconfig and a wrong file is only a libvips warning.",
+      "family": "text-composition"
+    },
+    {
+      "capability": "Magic Kernel resize kernels",
+      "note": "libvips 8.17 or newer; reported instead of assumed.",
+      "family": "geometry"
+    },
+    {
+      "capability": "AVIF orientation as container rotation",
+      "note": "Written by libvips 8.18, not by the 8.16 baseline; call autoOrient() first on older builds.",
+      "family": "encoding-output"
+    },
+    {
+      "capability": "HokusaiPDF",
+      "note": "Needs Pango 1.44 or newer; the Hokusai product does not.",
+      "family": "pdf"
+    }
   ],
   "future": [
-    { "item": "Move all PDF output out of the core into HokusaiPDF", "issue": "hokusai#152", "note": "Planned for 3.0; Hokusai.pdf() is the current raster export." },
-    { "item": "Public thumbnail pipeline counterpart", "note": "The deprecated `thumbnail` command exists; no `Hokusai.thumbnail` API in 2.2.2." }
-  ]
+    {
+      "item": "Move all PDF output out of the core into HokusaiPDF",
+      "issue": "hokusai#152",
+      "note": "Planned for 3.0; Hokusai.pdf() is the current raster export."
+    },
+    {
+      "item": "Public thumbnail pipeline counterpart",
+      "note": "The deprecated `thumbnail` command exists; no `Hokusai.thumbnail` API in 2.2.2."
+    }
+  ],
+  "recipes": {
+    "owner": "#176",
+    "pages": [
+      "recipes.index",
+      "recipes.social-card",
+      "recipes.thumbnails",
+      "recipes.watermark",
+      "recipes.avatar",
+      "recipes.contact-sheet",
+      "recipes.pdf-report",
+      "recipes.upload-normalisation"
+    ],
+    "example": "verified",
+    "visual": "generated"
+  }
 }

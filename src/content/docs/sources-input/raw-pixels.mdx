@@ -1,0 +1,48 @@
+---
+pageId: sources-input.raw-pixels
+title: Raw pixels
+description: Create a pipeline from pixels you hold, and read pixels back out with a fully described layout.
+---
+
+import Example from '../../../components/Example.astro';
+
+When pixels already exist in memory (a camera frame, a rendered chart, test data), `Hokusai(raw:width:height:format:rowStride:premultiplied:limits:)` builds a pipeline from them, and `raw(_:premultiplied:background:)` returns pixels as a `RawImage`. Raw and encoded pipelines share every transformation.
+
+## RawPixelFormat \{#formats}
+Samples are interleaved (`RGBRGB…`), unsigned, with no padding between pixels. Colour channels come first and alpha, when present, last. 16-bit samples use the machine's byte order, which is little-endian on every supported platform. Colour is sRGB; grey is the same transfer curve with one channel. **No colour profile is applied to raw pixels.**
+
+| Format | Channels | Bytes per pixel |
+| --- | --- | --- |
+| `gray8` | grey | 1 |
+| `grayAlpha8` | grey, alpha | 2 |
+| `rgb8` | red, green, blue | 3 |
+| `rgba8` | red, green, blue, alpha | 4 |
+| `gray16` | grey | 2 |
+| `grayAlpha16` | grey, alpha | 4 |
+| `rgb16` | red, green, blue | 6 |
+| `rgba16` | red, green, blue, alpha | 8 |
+
+## Input \{#input}
+Parameters: the `data`, `width` and `height` (`1…2,147,483,647`), the `format`, an optional `rowStride` (bytes between row starts; `nil` means tightly packed, `width × bytesPerPixel`), `premultiplied` (whether colour channels were already multiplied by alpha; they are divided out on load, so every later operation sees straight alpha; ignored for formats without alpha), and `limits`. Dimensions, stride and byte count are checked with overflow detection **before any native call**, so a lying header cannot wrap around.
+
+<Example
+  id="input.raw"
+  results={[
+    { file: 'tiny.png', label: '4 × 2 → 200', alt: 'A tiny 4 by 2 image hand-built from raw pixels, enlarged with nearest-neighbour: eight coloured blocks.' },
+  ]}
+/>
+
+## Output \{#output}
+`raw(_ format:premultiplied:background:)` (defaults `.rgba8`, `false`, `.white`) returns a `RawImage` that states everything needed to read it: `data`, `width`, `height`, `format`, `rowStride`, `premultiplied`, `byteCount`. Rows run top to bottom and pixels left to right. Hokusai's own output is tightly packed (`rowStride == width × bytesPerPixel`, and the example printed stride 192 and 12,288 bytes for a 64 × 64 `rgb8` frame). Pass the `RawImage` back to `Hokusai(raw:)` unchanged to round-trip. `background` fills transparency when the format has no alpha.
+
+`raw` has **no encoder**: calling it on a pipeline that has one selected throws `invalidOption` ("an encoder is selected; raw output has no encoder, so use data() for an encoded image").
+
+## Errors \{#errors}
+| Situation | Result |
+| --- | --- |
+| Byte count does not match the geometry | `invalidInput`: "raw data is 10 bytes; a 4×2 rgba8 image with a row stride of 16 needs 32" |
+| Non-positive or oversize dimension, a stride too small, or an overflowing row | `invalidOption`, thrown by the initializer |
+| Limits exceeded | `resource` |
+
+## Related \{#related}
+- [Output terminals](/oss/hokusai/encoding-output/terminals), [Input options](/oss/hokusai/sources-input/input-options)

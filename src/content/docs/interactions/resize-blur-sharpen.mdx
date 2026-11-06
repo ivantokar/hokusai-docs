@@ -1,0 +1,38 @@
+---
+pageId: interactions.resize-blur-sharpen
+title: Resize, blur & sharpen
+description: Why blur and sharpen belong after the resize, with both orders side by side.
+---
+
+import Example from '../../../components/Example.astro';
+
+Resizing changes the scale at which every other pixel operation acts. `blur(sigma: 6)` means "6 pixels of blur", and 6 pixels on a 1600-pixel image is a small fraction of what 6 pixels is on a 640-pixel image.
+
+## Blur \{#blur}
+<Example
+  id="order.resize-blur"
+  results={[
+    { file: 'blur-then-resize.png', label: 'blur → resize', alt: 'A close-up of the lighthouse after blurring at full size and then shrinking: only slightly soft.' },
+    { file: 'resize-then-blur.png', label: 'resize → blur', alt: 'The same close-up shrunk first and then blurred with the same sigma: clearly blurred, stripes smeared.' },
+  ]}
+/>
+
+The two pipelines differ on average by 2.28 grey levels per pixel (0 to 255). Blurring at 1600 px with `sigma: 6` and then shrinking leaves an image that is only slightly soft; shrinking and then blurring with the same `sigma` blurs much more, because 6 pixels is now a larger part of the picture. **Choose the order for the effect you want**, but for a result that looks the same at every output size, resize first and compute `sigma` for the final size. Blurring before a large reduction is also wasted work, since the reduction averages the pixels anyway.
+
+## Sharpen \{#sharpen}
+Shrinking softens an image, and sharpening **before** the reduction is mostly averaged away:
+
+<Example
+  id="order.resize-sharpen"
+  results={[
+    { file: 'plain.png', label: 'resize only', alt: 'A close-up of the lighthouse shrunk with no sharpening.' },
+    { file: 'sharpen-then-resize.png', label: 'sharpen → resize', alt: 'Almost indistinguishable from the plain version.' },
+    { file: 'resize-then-sharpen.png', label: 'resize → sharpen', alt: 'A visibly crisper close-up with stronger edges on the stripes.' },
+  ]}
+/>
+
+Measured against the plain resize, the average change per pixel is **0.17** for sharpen → resize and **0.51** for resize → sharpen, three times as much. Sharpen after resizing, with a `sigma` chosen for the output size.
+
+## Related \{#related}
+- [Blur & sharpen](/oss/hokusai/effects-color/blur-sharpen), [Resize](/oss/hokusai/geometry/resize)
+- [Order of operations](/oss/hokusai/interactions/)

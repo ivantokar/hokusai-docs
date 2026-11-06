@@ -1,0 +1,63 @@
+---
+pageId: integrations.macos
+title: macOS
+description: Install the native libraries, build with SwiftPM, run the executable examples and understand the linker warnings.
+---
+
+On macOS, Hokusai links libvips and Cairo from the system, in practice from Homebrew. Anything that **runs** your binary needs those libraries installed.
+
+## Install \{#install}
+```bash
+brew install vips cairo pkg-config
+brew install pango        # only if you use HokusaiPDF
+```
+
+Hokusai needs macOS 13 or later, Swift 6.0 or later, libvips 8.16+ and Cairo 1.16+. Check what you got:
+
+```bash
+pkg-config --modversion vips cairo      # e.g. 8.18.7 and 1.18.6
+swift run hokusai info                  # or the prebuilt hokusai archive from the GitHub Release
+```
+
+`hokusai info` prints the formats and capabilities of **your** installation (HEIF, AVIF, text rendering, PDF input), which is what your code can use ([Runtime](/oss/hokusai/runtime-performance/runtime#capabilities)).
+
+## Add Hokusai \{#add}
+```swift
+// Package.swift
+dependencies: [
+    .package(url: "https://github.com/ivantokar/hokusai.git", from: "2.0.0")
+],
+targets: [
+    .executableTarget(name: "MyTool", dependencies: [
+        .product(name: "Hokusai", package: "hokusai"),
+        // .product(name: "HokusaiPDF", package: "hokusai"),   // vector PDF documents
+        // .product(name: "HokusaiNIO", package: "hokusai"),   // SwiftNIO ByteBuffer
+    ])
+]
+```
+
+## The runnable examples \{#examples}
+Every image and code block in this documentation is produced by a SwiftPM package in the repository, so it doubles as a macOS project to start from:
+
+```bash
+git clone https://github.com/ivantokar/hokusai-docs.git
+cd hokusai-docs/examples
+swift run DocsExamples run resize        # run the examples whose id starts with "resize"
+swift run DocsExamples run               # run all of them; results go to ../public/generated
+```
+
+## Linker warnings \{#warnings}
+Building against Homebrew's libraries prints warnings of this form:
+
+```text
+ld: warning: building for macOS-13.0, but linking with dylib '/opt/homebrew/opt/vips/lib/libvips.42.dylib' which was built for newer version 27.0
+```
+
+They are harmless at build time, and they tell you something real: the Homebrew libraries target a newer macOS than the package's minimum (13), so a binary linked this way runs on the macOS versions your Homebrew libraries support. If you distribute a binary to other Macs, those Macs need compatible libvips and Cairo installed (or bundled by you): Hokusai does not bundle native libraries.
+
+## In an app \{#app}
+Pipelines are immutable values and terminals are `async`, so they fit a Swift concurrency app directly: build the pipeline on any actor, evaluate it in a `Task`, and hand the `Output.data` to `NSImage` or `Image`. Cancel the task when the user changes the input; the terminal throws `CancellationError` and nothing half-written is left behind. Configure `RuntimeConfiguration` once at launch, before the first evaluation.
+
+## Related \{#related}
+- [Installation](/oss/hokusai/guide/installation), [Docker](/oss/hokusai/integrations/docker)
+- [CLI](/oss/hokusai/reference/cli)

@@ -1,6 +1,6 @@
 ---
 pageId: guide.pipelines
-translatedFrom: 7b3604aeaac0
+translatedFrom: "7b3604aeaac0"
 title: Конвеєри та конкурентність
 ---
 

@@ -1,6 +1,6 @@
 ---
 pageId: guide.composition-and-pdf
-translatedFrom: 9feb11d5d2e6
+translatedFrom: "9feb11d5d2e6"
 title: Текст, композиція та PDF
 ---
 

@@ -16,9 +16,9 @@ Every failure is a `HokusaiError`:
 
 Run `hokusai info` to see the native versions and capabilities of the runtime you installed.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Troubleshooting](/oss/hokusai/troubleshooting-migration/troubleshooting)
 
 ## Read next
 

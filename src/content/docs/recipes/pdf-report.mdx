@@ -1,0 +1,28 @@
+---
+pageId: recipes.pdf-report
+title: PDF report
+description: A vector PDF with real text and images prepared by Hokusai.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** A one-page A4 report whose text stays selectable and searchable, with crops of a photo prepared by Hokusai. **Inputs:** [`scene.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Needs:** Hokusai 2.2.2 with the **`HokusaiPDF`** product and Pango 1.44+.
+
+<Example
+  id="recipe.report"
+  results={[
+    { file: 'field-report.pdf', label: 'field-report.pdf', alt: 'An A4 page with a navy header reading Field report, three square crops of the landscape and a caption below.' },
+  ]}
+/>
+
+## How it works \{#how}
+- **Layout is vector** (`HokusaiPDF`): the header bar is a rectangle, the title and caption are real text (the caption uses Pango markup for the bold part). Select the title in a PDF viewer to confirm.
+- **Images are Hokusai pipelines**: three `resize(…, fit: .cover, position: …)` crops of one source, embedded as rasters at the frame size. Pages are drawn one at a time, so memory is that of one page.
+- **Coordinates are points from the top-left**; `A4` portrait is 595.276 × 841.89 pt.
+- The result: 1 page, 360,320 bytes.
+
+## Variations \{#variations}
+- **A raster PDF** of an image (a scan, a chart): `image.pdf(pageSize: .a4(), margins: .all(36), background: .white)` ([Raster PDF](/oss/hokusai/pdf/raster)); the text is then pixels.
+- **More pages:** `VectorDocument(pages: [...])`.
+- **Reproducible output:** set `PDFDocumentMetadata.creationDate`, otherwise Cairo records the current time.
+- **A gradient cover:** `.background(.linearGradient(from:to:angle:))` ([Vector documents](/oss/hokusai/pdf/vector)).

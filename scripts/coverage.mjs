@@ -66,6 +66,11 @@ for (const family of coverage.families) {
   if (!["none", "planned", "verified"].includes(family.example)) errors.push(`${family.id}: bad example status`);
   if (!["none", "planned", "generated"].includes(family.visual)) errors.push(`${family.id}: bad visual status`);
 }
+for (const id of coverage.recipes?.pages ?? []) {
+  const page = pages.get(id);
+  if (!page) errors.push(`recipes: page "${id}" does not exist`);
+  else if (!page.en || !page.uk) errors.push(`recipes: page "${id}" is missing its ${page.en ? "Ukrainian" : "English"} edition`);
+}
 for (const source of api.sources) {
   const expected = coverage.target[source.repo];
   if (expected !== source.tag.replace(/^v/, "")) errors.push(`public-api.json lists ${source.repo}@${source.tag}, coverage target is ${expected}`);
@@ -107,6 +112,9 @@ function report() {
   lines.push("## Families", "", "| Family | Symbols | Owner | Docs | Example | Visual | Pages |", "| --- | ---: | --- | --- | --- | --- | --- |");
   for (const { family, symbols } of byFamily.values()) {
     lines.push(`| ${family.title} | ${symbols.length} | ${family.owner} | ${family.docs} | ${family.example} | ${family.visual} | ${family.pages.map((p) => `\`${p}\``).join(", ")} |`);
+  }
+  if (coverage.recipes) {
+    lines.push("", `Recipes (${coverage.recipes.owner}): ${coverage.recipes.pages.length} pages, example ${coverage.recipes.example}, visual ${coverage.recipes.visual}: ${coverage.recipes.pages.map((p) => `\`${p}\``).join(", ")}.`);
   }
   lines.push("", `Total public symbols: ${api.symbols.length}. Every one is mapped to a family; the gaps are the rows whose docs are not \`detailed\` or whose examples and visuals are not \`verified\`/\`generated\`.`, "");
   lines.push("## Command line", "", `Source: ${coverage.cli.source}. Owner ${coverage.cli.owner}, page \`${coverage.cli.page}\`.`, "", "| Command | Status | Note |", "| --- | --- | --- |");

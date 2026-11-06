@@ -1,6 +1,6 @@
 ---
 pageId: changelog
-translatedFrom: 9f7ef6ad3de4
+translatedFrom: "9f7ef6ad3de4"
 title: Журнал змін
 ---
 

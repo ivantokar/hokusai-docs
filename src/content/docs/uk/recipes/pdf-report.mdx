@@ -1,0 +1,29 @@
+---
+pageId: recipes.pdf-report
+translatedFrom: "dcee0c391e82"
+title: PDF-звіт
+description: Векторний PDF зі справжнім текстом і зображеннями, підготовленими Hokusai.
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Мета.** Односторінковий звіт A4, текст якого лишається виділюваним і придатним до пошуку, з обрізаннями фото, підготовленими Hokusai. **Вхідні дані:** [`scene.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Потрібно:** Hokusai 2.2.2 із продуктом **`HokusaiPDF`** та Pango 1.44+.
+
+<Example
+  id="recipe.report"
+  results={[
+    { file: 'field-report.pdf', label: 'field-report.pdf', alt: 'Сторінка A4 із темно-синьою шапкою Field report, трьома квадратними обрізаннями пейзажу та підписом нижче.' },
+  ]}
+/>
+
+## Як це працює \{#how}
+- **Компонування векторне** (`HokusaiPDF`): смуга шапки — це прямокутник, заголовок і підпис — справжній текст (підпис використовує розмітку Pango для жирної частини). Виділіть заголовок у переглядачі PDF, щоб переконатися.
+- **Зображення — це конвеєри Hokusai**: три обрізання `resize(…, fit: .cover, position: …)` одного джерела, вбудовані як растри за розміром рамки. Сторінки малюються по одній, тож пам'ять — як для однієї сторінки.
+- **Координати — пункти від лівого верхнього кута**; A4 книжкова — 595,276 × 841,89 пт.
+- Результат: 1 сторінка, 360 320 байтів.
+
+## Варіації \{#variations}
+- **Растровий PDF** зображення (скан, діаграма): `image.pdf(pageSize: .a4(), margins: .all(36), background: .white)` ([Растровий PDF](/oss/hokusai/uk/pdf/raster)); текст тоді — це пікселі.
+- **Більше сторінок:** `VectorDocument(pages: [...])`.
+- **Відтворюваний вивід:** задайте `PDFDocumentMetadata.creationDate`, інакше Cairo запише поточний час.
+- **Обкладинка з градієнтом:** `.background(.linearGradient(from:to:angle:))` ([Векторні документи](/oss/hokusai/uk/pdf/vector)).

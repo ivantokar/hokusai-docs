@@ -1,0 +1,52 @@
+---
+pageId: pdf.raster
+translatedFrom: "57d68f4a8164"
+title: Растровий PDF
+description: Експорт конвеєра в односторінковий PDF із розміром сторінки, полями, прив’язкою, тлом, межею роздільності та властивостями документа.
+---
+
+import Example from '../../../../components/Example.astro';
+
+`pdf(pageSize:margins:anchor:background:maxEffectiveDPI:metadata:)` — це кодувальник **растрового документа**. Виконані пікселі вбудовуються як зображення на одній сторінці Cairo. Текст, намальований у конвеєрі, вже став пікселями, тож він **не виділюється**, а вхідний PDF, який растеризують і записують знову, втрачає векторний вміст, посилання та структуру. Для тексту, що лишається текстом, використовуйте [векторні документи](/oss/hokusai/uk/pdf/vector).
+
+| Параметр | Тип | За замовчуванням | Примітки |
+| --- | --- | --- | --- |
+| `pageSize` | `PDFPageSize` | `.image()` | `.image(dpi:)` (типово 72), `.a4(_ orientation)`, `.letter(_ orientation)`, `.points(width:height:)`. |
+| `margins` | `PDFMargins` | `.none` | Пункти: `PDFMargins(top:leading:bottom:trailing:)` або `.all(_)`. |
+| `anchor` | `Gravity` | `.center` | Де в межах полів розташований вписаний растр. |
+| `background` | `Color?` | `nil` | Заливає сторінку за растром. `nil` лишає сторінку незафарбованою, а прозорі пікселі лишаються прозорими; для друку використовуйте `.white`. |
+| `maxEffectiveDPI` | `Double?` | `nil` | Якщо ефективна роздільність растру на сторінці перевищує це значення, його зменшують (Lanczos) перед вбудовуванням. Типово вимкнено: Hokusai ніколи не ресемплює через те, що сторінка має фізичний розмір. |
+| `metadata` | `PDFDocumentMetadata?` | `nil` | `title`, `author`, `subject`, `keywords`, `creator`, `creationDate`, `modificationDate`. Нічого не копіюється з EXIF, XMP чи IPTC зображення. |
+
+<Example
+  id="pdf.raster"
+  results={[
+    { file: 'image.pdf', label: '.image()', alt: 'Сторінка розміру зображення: 800 на 500 пунктів, заповнена пейзажем.' },
+    { file: 'a4.pdf', label: '.a4(), поля 36', alt: 'Книжкова сторінка A4 з пейзажем по центру в межах білих полів 36 пунктів.' },
+    { file: 'letter-landscape.pdf', label: '.letter(.landscape), .north', alt: 'Альбомна сторінка US Letter кольору паперу з пейзажем, прив’язаним угорі.' },
+  ]}
+/>
+
+Програма вивела факти про сторінку з `OutputInfo.pdf`:
+
+| Виклик | Сторінка (пункти) | Розмір файлу |
+| --- | --- | --- |
+| `pdf()` для 800 px | 800 × 500 (72 dpi) | 188 866 байтів |
+| `pdf(pageSize: .image(dpi: 150))` | 384 × 240 | 188 866 байтів |
+| `pdf(pageSize: .a4(), margins: .all(36), background: .white)` | 595 × 842 | 188 921 байт |
+| `pdf(pageSize: .letter(.landscape), …)` | 792 × 612 | 188 933 байти |
+
+Розмір сторінки змінює сторінку, а не вбудований растр: розмір файлу майже не змінюється. Фіксований розмір паперу не має роздільності; ефективний DPI растру випливає з його розміру в пікселях і площі, в яку його розміщено. Змініть розмір зображення до потрібної роздільності *перед* `pdf()` (для 150 dpi на A4 це приблизно 1240 px завширшки) або задайте `maxEffectiveDPI`.
+
+## Вивід і помилки \{#errors}
+`write(to:)` записує файл безпосередньо в міру того, як його створює Cairo; `data()` збирає байти того самого запису. `OutputInfo.pdf` повідомляє `pageCount`, `pageWidth` і `pageHeight`.
+
+| Виклик | Результат |
+| --- | --- |
+| `.image(dpi: 0)` | `invalidOption(name: "pageSize.dpi", …"must be a finite value greater than zero")` |
+| Хибні поле, межа DPI чи розмір сторінки | `invalidOption`, викидається під час виклику `pdf` |
+| Підтримка PDF-виводу | PDF-вивід використовує Cairo і не залежить від підтримки PDF-входу; `capabilities().outputFormats` показує, що може записувати ця збірка |
+
+## Пов'язане \{#related}
+- [Векторні документи](/oss/hokusai/uk/pdf/vector), [Кодувальники](/oss/hokusai/uk/encoding-output/formats)
+- [Рецепт PDF-звіту](/oss/hokusai/uk/recipes/pdf-report)

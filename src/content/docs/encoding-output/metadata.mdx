@@ -1,0 +1,48 @@
+---
+pageId: encoding-output.metadata
+title: Metadata retention
+description: Choose which embedded metadata the encoded output keeps, and what each format can carry.
+---
+
+import Example from '../../../components/Example.astro';
+
+Embedded metadata (EXIF, XMP, IPTC, the ICC colour profile, the orientation tag, resolution) travels with the source but not necessarily with the output. What an encoded file keeps is a typed `MetadataPolicy` selected with `metadataPolicy(_:)`. It is terminal configuration: it does not change pixels, the last call wins, and it is applied identically by `data()`, `write(to:)` and `writeChunks`.
+
+## The policies \{#policies}
+| Policy | Result |
+| --- | --- |
+| `.default` | Removes EXIF, XMP, IPTC and comments; **keeps the ICC profile, orientation and density**, because they affect how an image displays. Privacy-minimising but rendering-safe. |
+| `.preserveAll` | Keeps everything the format can carry. |
+| `.removeAll` | Removes everything, including profile, orientation tag and density. Pixels are untouched, so an image that relied on one of them may display differently. |
+| custom | `MetadataPolicy(exif:icc:xmp:iptc:other:orientation:density:)`, each `.preserve` or `.remove`. |
+
+<Example id="encode.metadata" />
+
+For `phone.jpg` (camera make and software in EXIF, orientation 6, 1000 × 1600 stored pixels) the output metadata read back was:
+
+| Policy | EXIF bytes | Orientation |
+| --- | --- | --- |
+| `.default` | 126 | `right` (kept) |
+| `.preserveAll` | 162 | `right` |
+| `.removeAll` | 0 | none |
+| `exif: .preserve, icc: .remove, orientation: .remove` | 162 | `up` |
+
+## Details worth knowing \{#details}
+- **Orientation is not privacy metadata.** `.remove` deletes the tag **without rotating pixels**; [`autoOrient()`](/oss/hokusai/geometry/rotate-flip-affine#auto-orient) applies it. If EXIF is kept in full, removing the orientation writes the neutral value "up" (as the last row shows). With the default policy, the EXIF block that remains is a minimal one: the orientation and the technical entries libvips writes itself, with none of the descriptive or location fields.
+- **Density.** Formats always record some resolution, so `.remove` stops the source's from being carried over and the encoder writes its own default.
+- **ICC retention is not a colour conversion**: no profile is applied, attached or changed.
+- Earlier versions removed everything including the profile; since the default changed, an image with a profile keeps it.
+
+## What each format can carry \{#formats}
+| | EXIF | XMP | IPTC | ICC | Orientation | Density |
+| --- | --- | --- | --- | --- | --- | --- |
+| JPEG | yes | yes | yes | yes | EXIF tag | yes |
+| PNG | yes | yes | no | yes | EXIF tag | yes |
+| WebP | yes | yes | no | yes | EXIF tag | no |
+| AVIF | yes | yes | no | yes | container rotation | no |
+
+A family a format cannot carry is simply absent from its output. **AVIF is the exception for orientation**: it stores a rotation of the container rather than a tag, and a reader applies it and reports no tag. Whether libvips writes that rotation depends on the build (libvips 8.18 does; the 8.16 baseline keeps the orientation only as an EXIF tag that AVIF viewers ignore). For AVIF on such a build, call `autoOrient()` first so the pixels are upright.
+
+## Related \{#related}
+- [Inspection](/oss/hokusai/inspection/metadata): what the source contained
+- [Upload normalisation recipe](/oss/hokusai/recipes/upload-normalisation)

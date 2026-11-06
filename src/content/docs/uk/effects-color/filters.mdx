@@ -1,0 +1,50 @@
+---
+pageId: effects-color.filters
+translatedFrom: "79f66abaea26"
+title: Фільтри
+description: Медіана, згортка, лінійні й матричні кольорові перетворення, морфологія та виявлення країв.
+---
+
+import Example from '../../../../components/Example.astro';
+
+Розширені піксельні операції працюють з кольоровими каналами й **не чіпають альфу**; тип вибірки (8 чи 16 біт) зберігається.
+
+<Example
+  id="effects.filters"
+  results={[
+    { file: 'median.png', label: 'median(size: 7)', alt: 'Пейзаж зі згладженою рябиною моря й вилученими тонкими деталями.' },
+    { file: 'convolve-sharpen.png', label: 'convolve: різкість', alt: 'Пейзаж, загострений ядром 3 на 3.' },
+    { file: 'convolve-emboss.png', label: 'convolve: рельєф', alt: 'Пейзаж як рельєф на середньо-сірому тлі.' },
+    { file: 'sepia.png', label: 'recombine(.sepia)', alt: 'Пейзаж у тонах сепії.' },
+    { file: 'swap-red-blue.png', label: 'recombine(.swapRedBlue)', alt: 'Пейзаж із поміняними червоним і синім каналами.' },
+    { file: 'sobel.png', label: 'edges(.sobel)', alt: 'Білі контури пагорбів, маяка й сонця на чорному.' },
+    { file: 'canny.png', label: 'edges(.canny)', alt: 'Дуже тонкі слабкі лінії-хребти там, де пейзаж різко змінюється.' },
+    { file: 'binary.png', label: 'threshold(110)', alt: 'Чорно-біла маска пейзажу.' },
+    { file: 'mask-dilate.png', label: 'threshold + dilate(3)', alt: 'Маска зі збільшеними білими ділянками; тонкі чорні смуги зникли.' },
+    { file: 'mask-erode.png', label: 'threshold + erode(3)', alt: 'Маска зі зменшеними білими ділянками; чорні смуги маяка стали ширшими.' },
+  ]}
+/>
+
+## Довідник \{#reference}
+| Операція | Параметри | Примітки |
+| --- | --- | --- |
+| `median(size:)` | `3`; `1…101` | Кожен піксель стає медіаною свого околу `size × size`. |
+| `convolve(_ kernel:)` | `ConvolutionKernel` | Вивід = (сума околу × `values`) ÷ `scale` + `offset`, обмежена діапазоном вибірки; крайні пікселі читають найближчий крайній піксель. |
+| `linear(multiply:add:)` | `1`, `0`; `multiply` `−1000…1000`, `add` `−65535…65535` | Для кожної вибірки `x · multiply + add` за шкалою 0…255 (16-бітні масштабують її), з обмеженням. |
+| `recombine(_ matrix:)` | `ColorMatrix` | Змішування червоного, зеленого, синього матрицею 3 × 3 (читаються як sRGB). Пресети `.sepia`, `.luminance`, `.swapRedBlue` або дев'ять скінченних коефіцієнтів. |
+| `dilate(radius:)` | `1`; `1…50` | Кожна вибірка стає максимумом квадрата `2 · radius + 1`: збільшує світлі ділянки. |
+| `erode(radius:)` | `1`; `1…50` | Мінімум: зменшує світлі ділянки. |
+| `edges(_ detector:)` | `.sobel`, `.scharr`, `.prewitt`, `.canny(sigma:)` | Сила зміни яскравості як **один** канал. `sigma` Canny у `0.1…20`, типово `1.4`. |
+
+### ConvolutionKernel \{#kernel}
+`ConvolutionKernel(width:height:values:scale:offset:)` має сторони `1…51` і рівно `width × height` скінченних `values` (рядок за рядком, зверху вниз); `scale` скінченний і не нуль (типово `1`), `offset` скінченний (типово `0`). Інакше викидається `invalidOption`. Ядро, чиї коефіцієнти дають суму **1**, зберігає яскравість (різкість: `[0,-1,0,-1,5,-1,0,-1,0]`); ядро із сумою **0** (краї, рельєф) лишає пласкі ділянки чорними, тож задайте `offset`, як-от `128`, щоб центрувати результат на сірому, як у прикладі рельєфу.
+
+### Морфологія \{#morphology}
+`dilate` і `erode` працюють із кожним каналом окремо, тож найкорисніші на чорно-білій масці (створеній через [`threshold`](/oss/hokusai/uk/effects-color/tone-and-color)). `erode`, потім `dilate` прибирає крапки; `dilate`, потім `erode` закриває малі проміжки. Вище `dilate` прибирає тонкі чорні смуги маяка в масці, а `erode` розширює їх.
+
+## Помилки \{#errors}
+Значення поза діапазоном викидають `HokusaiError.invalidOption` під час побудови конвеєра: `median(size: 200)`, `dilate(radius: 60)`, `edges(.canny(sigma: 50))` (виміряні повідомлення дивіться в [Тон і колір](/oss/hokusai/uk/effects-color/tone-and-color#errors)). Некоректне ядро чи матриця викидають помилку під час створення.
+
+## Пов'язане \{#related}
+- [Канали та прозорість](/oss/hokusai/uk/channels-transparency/)
+- [Розмиття та різкість](/oss/hokusai/uk/effects-color/blur-sharpen)

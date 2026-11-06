@@ -1,6 +1,6 @@
 ---
 pageId: guide.migration
-translatedFrom: 4c2f54a5002f
+translatedFrom: "4c2f54a5002f"
 title: Міграція
 ---
 

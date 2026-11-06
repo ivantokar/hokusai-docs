@@ -12,9 +12,9 @@ description: Named channels and the alpha channel.
 | `flatten(background:)` | Composites onto a solid colour and removes alpha. |
 | `removeAlpha()` | Drops the alpha channel. |
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Channels & alpha](/oss/hokusai/channels-transparency/alpha-and-channels)
 
 ## Read next
 

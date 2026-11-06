@@ -12,9 +12,12 @@ description: Hokusai in web frameworks and NIO.
 
 Adapters share only the major version of the core library.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Vapor: a complete service](/oss/hokusai/integrations/vapor-service)
+- [Hokusai Hummingbird](/oss/hokusai/integrations/hummingbird)
+- [macOS](/oss/hokusai/integrations/macos)
+- [Docker](/oss/hokusai/integrations/docker)
 
 ## Read next
 

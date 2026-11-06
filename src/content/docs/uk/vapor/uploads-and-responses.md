@@ -1,6 +1,6 @@
 ---
 pageId: vapor.uploads-and-responses
-translatedFrom: 85e2a059a5c3
+translatedFrom: "85e2a059a5c3"
 title: Завантаження та відповіді
 ---
 

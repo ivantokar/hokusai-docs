@@ -1,0 +1,40 @@
+---
+pageId: core-concepts.evaluation
+title: Deferred evaluation
+description: What happens when you build a pipeline, what happens when a terminal runs, and which errors come from where.
+---
+
+A Hokusai pipeline is a **recipe**. Building it records what to do and validates the options; **nothing is opened or computed** until a terminal (`data()`, `write(to:)`, `writeChunks`, `raw`, `metadata()`) runs. This page is the mental model behind every other page.
+
+## Build time and run time \{#phases}
+| Phase | What happens | Errors thrown here |
+| --- | --- | --- |
+| Build (`Hokusai(url:)`, `.resize(…)`, `.jpeg(…)`) | Records the step; validates options (dimensions, quality, colours, ranges) | `invalidOption`, `invalidInput` for a malformed value or an unusable raw buffer, `unsupported` for something known unavailable (a resize kernel, a missing encoder feature) |
+| Terminal | Opens the source, runs the steps, encodes | `io` (missing file), `decode` (not an image, truncated), `transform` (a native step failed, e.g. an `extract` outside the image), `resource` (a limit), `encode`, `runtime` |
+
+So `Hokusai(url: URL(fileURLWithPath: "missing.png"))` **succeeds**; the `io` error ("file not found") comes from the terminal. A source of garbage bytes also builds fine and fails with `decode` when evaluated. Wrap the terminal, not the constructor, in your error handling, and treat the two kinds differently: a build-time `invalidOption` is a programming or request-validation error; a terminal error describes the input.
+
+## Immutable, so branchable \{#immutable}
+Every step returns a **new value** and leaves its source untouched. One pipeline can feed several outputs, concurrently:
+
+```swift
+let source = try Hokusai(url: photo).autoOrient()
+async let card  = source.resize(width: 1200, height: 630).webp().data()
+async let thumb = source.resize(width: 320).jpeg().data()
+let (c, t) = try await (card, thumb)
+```
+
+Building costs almost nothing, so build freely and evaluate once per output. Nothing is cached between evaluations except libvips' own operation cache; a source file is read again each time.
+
+## Order is the meaning \{#order}
+A pipeline means exactly the operations you wrote, in the order you wrote them. Hokusai may change *how* it runs them, never *what* they produce, so it applies only a short list of equivalence-preserving rules: it skips operations that are provably the identity (a rotation by whole turns, compositing no layers), and within one terminal it builds a source or layer that several parts share only once. It never reorders operations (a `trim` or smart crop stays where you put it), fuses resizes, selects `.sequential` access for you, or keeps results between evaluations. Output metadata and encoder choices are not image operations: the last `.png()` / `.webp()` / `metadataPolicy(_:)` wins. See [Order of operations](/oss/hokusai/interactions/) for the visible consequences.
+
+## Terminals run off the cooperative executor \{#executor}
+The blocking native work runs on Hokusai's evaluation scheduler, not on Swift's cooperative threads, so a long encode cannot starve unrelated `async` work. Evaluations beyond the scheduler's limit wait as suspended tasks in FIFO order ([Runtime](/oss/hokusai/runtime-performance/runtime)).
+
+## Cancellation \{#cancellation}
+Cancelling the calling task removes a waiting evaluation or asks libvips to stop a running one; either way the terminal throws `CancellationError`, and the pipeline can be evaluated again. A `write(to:)` that is cancelled at any moment leaves an existing destination exactly as it was ([Output terminals](/oss/hokusai/encoding-output/terminals#files)).
+
+## Related \{#related}
+- [Pipelines & concurrency](/oss/hokusai/guide/pipelines), [Input options](/oss/hokusai/sources-input/input-options)
+- [Troubleshooting](/oss/hokusai/troubleshooting-migration/troubleshooting)

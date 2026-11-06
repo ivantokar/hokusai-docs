@@ -1,6 +1,6 @@
 ---
 pageId: effects-color.index
-translatedFrom: 70eae98f6b04
+translatedFrom: "1b35b9101c39"
 title: Ефекти та колір
 description: Фільтри, тон і кольорові операції.
 ---
@@ -17,9 +17,11 @@ description: Фільтри, тон і кольорові операції.
 | `dilate(radius:)`, `erode(radius:)`, `edges(_:)` | Морфологія та виявлення країв (`sobel`, `scharr`, `prewitt`, `canny`). |
 | `convert(to:)` | Перетворює на `sRGB` або `grayscale`. |
 
-:::note[Докладні посібники в розробці]
-На цій сторінці перелічено, що надає Hokusai у задокументованому релізі. Посібники з кожної операції, з параметрами, значеннями за замовчуванням, візуальними результатами та взаємодіями, додаються; точний контракт API міститься в коментарях до вихідного коду бібліотеки.
-:::
+## Посібники {#guides}
+
+- [Розмиття та різкість](/oss/hokusai/uk/effects-color/blur-sharpen)
+- [Тон і колір](/oss/hokusai/uk/effects-color/tone-and-color)
+- [Фільтри](/oss/hokusai/uk/effects-color/filters)
 
 ## Читайте далі {#read-next}
 

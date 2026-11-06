@@ -1,0 +1,1300 @@
+{
+  "examples" : {
+    "channels.extract" : [
+      {
+        "bytes" : 17121,
+        "file" : "blue.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 2111,
+        "file" : "emblem-alpha.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 200
+      },
+      {
+        "bytes" : 17690,
+        "file" : "green.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 17469,
+        "file" : "luminance.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 15273,
+        "file" : "red.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "channels.flatten" : [
+      {
+        "bytes" : 13324,
+        "file" : "emblem.jpg",
+        "format" : "jpeg",
+        "height" : 200,
+        "width" : 200
+      },
+      {
+        "bytes" : 8881,
+        "file" : "flatten.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 200
+      },
+      {
+        "bytes" : 27283,
+        "file" : "half-alpha.png",
+        "format" : "png",
+        "height" : 125,
+        "width" : 200
+      },
+      {
+        "bytes" : 5715,
+        "file" : "remove-alpha.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 200
+      }
+    ],
+    "channels.with-alpha" : [
+      {
+        "bytes" : 237434,
+        "file" : "faded.png",
+        "format" : "png",
+        "height" : 300,
+        "width" : 480
+      }
+    ],
+    "composite.blend" : [
+      {
+        "bytes" : 6632,
+        "file" : "difference.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 4052,
+        "file" : "multiply.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 458,
+        "file" : "over.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 6166,
+        "file" : "overlay.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 3722,
+        "file" : "screen.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 5782,
+        "file" : "softLight.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "composite.order" : [
+      {
+        "bytes" : 6656,
+        "file" : "big-on-top.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 5476,
+        "file" : "layer-pipeline.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 8506,
+        "file" : "small-on-top.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "composite.placement" : [
+      {
+        "bytes" : 11178,
+        "file" : "at.webp",
+        "format" : "webp",
+        "height" : 350,
+        "width" : 560
+      },
+      {
+        "bytes" : 9782,
+        "file" : "clipped.webp",
+        "format" : "webp",
+        "height" : 350,
+        "width" : 560
+      },
+      {
+        "bytes" : 10216,
+        "file" : "gravity.webp",
+        "format" : "webp",
+        "height" : 350,
+        "width" : 560
+      },
+      {
+        "bytes" : 20852,
+        "file" : "tile.webp",
+        "format" : "webp",
+        "height" : 350,
+        "width" : 560
+      }
+    ],
+    "composite.space" : [
+      {
+        "bytes" : 1793,
+        "file" : "linear.png",
+        "format" : "png",
+        "height" : 120,
+        "width" : 360
+      },
+      {
+        "bytes" : 1543,
+        "file" : "srgb.png",
+        "format" : "png",
+        "height" : 120,
+        "width" : 360
+      }
+    ],
+    "effects.blur" : [
+      {
+        "bytes" : 36616,
+        "file" : "emblem-blur.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 200
+      },
+      {
+        "bytes" : 6954,
+        "file" : "sigma-1.webp",
+        "format" : "webp",
+        "height" : 300,
+        "width" : 480
+      },
+      {
+        "bytes" : 2444,
+        "file" : "sigma-10.webp",
+        "format" : "webp",
+        "height" : 300,
+        "width" : 480
+      },
+      {
+        "bytes" : 2892,
+        "file" : "sigma-4.webp",
+        "format" : "webp",
+        "height" : 300,
+        "width" : 480
+      }
+    ],
+    "effects.convert" : [
+      {
+        "bytes" : 17469,
+        "file" : "grayscale-1ch.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 23305,
+        "file" : "grayscale-rgb.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "effects.filters" : [
+      {
+        "bytes" : 588,
+        "file" : "binary.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 3666,
+        "file" : "canny.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 83739,
+        "file" : "convolve-emboss.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 103677,
+        "file" : "convolve-sharpen.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 566,
+        "file" : "mask-dilate.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 554,
+        "file" : "mask-erode.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 44481,
+        "file" : "median.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 37796,
+        "file" : "sepia.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 26407,
+        "file" : "sobel.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 59360,
+        "file" : "swap-red-blue.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "effects.limits" : [
+
+    ],
+    "effects.sharpen" : [
+      {
+        "bytes" : 52767,
+        "file" : "custom.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      },
+      {
+        "bytes" : 42425,
+        "file" : "default.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      },
+      {
+        "bytes" : 41904,
+        "file" : "none.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      },
+      {
+        "bytes" : 46173,
+        "file" : "sigma-2.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      }
+    ],
+    "effects.tone" : [
+      {
+        "bytes" : 3636,
+        "file" : "clahe.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 3166,
+        "file" : "dull.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 5376,
+        "file" : "gamma.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 4230,
+        "file" : "grayscale.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 5008,
+        "file" : "modulate.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 6050,
+        "file" : "negate.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 7216,
+        "file" : "normalize.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 6104,
+        "file" : "original.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 1296,
+        "file" : "threshold.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 4960,
+        "file" : "tint.webp",
+        "format" : "webp",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "encode.alpha-jpeg" : [
+      {
+        "bytes" : 7775,
+        "file" : "flattened.jpg",
+        "format" : "jpeg",
+        "height" : 200,
+        "width" : 200
+      },
+      {
+        "bytes" : 6721,
+        "file" : "unflattened.jpg",
+        "format" : "jpeg",
+        "height" : 200,
+        "width" : 200
+      }
+    ],
+    "encode.formats" : [
+      {
+        "bytes" : 109302,
+        "file" : "converted-lossless.webp",
+        "format" : "webp",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 5644,
+        "file" : "converted.avif",
+        "format" : "avif",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 68023,
+        "file" : "converted.gif",
+        "format" : "gif",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 27281,
+        "file" : "converted.jpg",
+        "format" : "jpeg",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 188899,
+        "file" : "converted.png",
+        "format" : "png",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 133022,
+        "file" : "converted.tiff",
+        "format" : "tiff",
+        "height" : 500,
+        "preview" : "converted.tiff.preview.png",
+        "width" : 800
+      },
+      {
+        "bytes" : 11992,
+        "file" : "converted.webp",
+        "format" : "webp",
+        "height" : 500,
+        "width" : 800
+      }
+    ],
+    "encode.metadata" : [
+
+    ],
+    "encode.png" : [
+      {
+        "bytes" : 12622,
+        "file" : "level-1.png",
+        "format" : "png",
+        "height" : 400,
+        "width" : 400
+      },
+      {
+        "bytes" : 6233,
+        "file" : "level-9.png",
+        "format" : "png",
+        "height" : 400,
+        "width" : 400
+      },
+      {
+        "bytes" : 3790,
+        "file" : "palette.png",
+        "format" : "png",
+        "height" : 400,
+        "width" : 400
+      }
+    ],
+    "encode.quality" : [
+      {
+        "bytes" : 3663,
+        "file" : "q10.jpg",
+        "format" : "jpeg",
+        "height" : 380,
+        "width" : 380
+      },
+      {
+        "bytes" : 1436,
+        "file" : "q10.webp",
+        "format" : "webp",
+        "height" : 380,
+        "width" : 380
+      },
+      {
+        "bytes" : 5536,
+        "file" : "q40.jpg",
+        "format" : "jpeg",
+        "height" : 380,
+        "width" : 380
+      },
+      {
+        "bytes" : 1990,
+        "file" : "q40.webp",
+        "format" : "webp",
+        "height" : 380,
+        "width" : 380
+      },
+      {
+        "bytes" : 9682,
+        "file" : "q85.jpg",
+        "format" : "jpeg",
+        "height" : 380,
+        "width" : 380
+      },
+      {
+        "bytes" : 3662,
+        "file" : "q85.webp",
+        "format" : "webp",
+        "height" : 380,
+        "width" : 380
+      }
+    ],
+    "encode.terminals" : [
+      {
+        "bytes" : 5036,
+        "file" : "inferred.webp",
+        "format" : "webp",
+        "height" : 250,
+        "width" : 400
+      },
+      {
+        "bytes" : 73375,
+        "file" : "really-png.jpg",
+        "format" : "png",
+        "height" : 250,
+        "width" : 400
+      }
+    ],
+    "geometry.affine" : [
+      {
+        "bytes" : 7206,
+        "file" : "scale-crop.png",
+        "format" : "png",
+        "height" : 100,
+        "width" : 260
+      },
+      {
+        "bytes" : 15236,
+        "file" : "shear.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 280
+      }
+    ],
+    "geometry.auto-orient" : [
+      {
+        "bytes" : 83189,
+        "file" : "stored.jpg",
+        "format" : "jpeg",
+        "height" : 1600,
+        "width" : 1000
+      },
+      {
+        "bytes" : 77614,
+        "file" : "upright.jpg",
+        "format" : "jpeg",
+        "height" : 1000,
+        "width" : 1600
+      }
+    ],
+    "geometry.extend" : [
+      {
+        "bytes" : 8305,
+        "file" : "copy.png",
+        "format" : "png",
+        "height" : 240,
+        "width" : 240
+      },
+      {
+        "bytes" : 11852,
+        "file" : "mirror.png",
+        "format" : "png",
+        "height" : 240,
+        "width" : 240
+      },
+      {
+        "bytes" : 11852,
+        "file" : "repeat.png",
+        "format" : "png",
+        "height" : 240,
+        "width" : 240
+      },
+      {
+        "bytes" : 8940,
+        "file" : "to-size.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 320
+      }
+    ],
+    "geometry.extract" : [
+      {
+        "bytes" : 47336,
+        "file" : "lighthouse-after-resize.png",
+        "format" : "png",
+        "height" : 280,
+        "width" : 200
+      },
+      {
+        "bytes" : 68610,
+        "file" : "lighthouse.png",
+        "format" : "png",
+        "height" : 560,
+        "width" : 400
+      }
+    ],
+    "geometry.flip-flop" : [
+      {
+        "bytes" : 59402,
+        "file" : "flip.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      },
+      {
+        "bytes" : 59013,
+        "file" : "flop.png",
+        "format" : "png",
+        "height" : 225,
+        "width" : 360
+      }
+    ],
+    "geometry.limits" : [
+
+    ],
+    "geometry.rotate" : [
+      {
+        "bytes" : 19930,
+        "file" : "rotate-30-transparent.png",
+        "format" : "png",
+        "height" : 273,
+        "width" : 273
+      },
+      {
+        "bytes" : 23586,
+        "file" : "rotate-30.png",
+        "format" : "png",
+        "height" : 273,
+        "width" : 273
+      },
+      {
+        "bytes" : 9200,
+        "file" : "rotate-90.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 200
+      }
+    ],
+    "geometry.smart-crop" : [
+      {
+        "bytes" : 71604,
+        "file" : "attention.png",
+        "format" : "png",
+        "height" : 500,
+        "width" : 500
+      },
+      {
+        "bytes" : 25969,
+        "file" : "entropy.png",
+        "format" : "png",
+        "height" : 500,
+        "width" : 500
+      }
+    ],
+    "geometry.trim" : [
+      {
+        "bytes" : 11415,
+        "file" : "framed.png",
+        "format" : "png",
+        "height" : 260,
+        "width" : 320
+      },
+      {
+        "bytes" : 9811,
+        "file" : "trimmed-margin.png",
+        "format" : "png",
+        "height" : 224,
+        "width" : 224
+      },
+      {
+        "bytes" : 9200,
+        "file" : "trimmed.png",
+        "format" : "png",
+        "height" : 200,
+        "width" : 200
+      }
+    ],
+    "input.options" : [
+
+    ],
+    "input.pages" : [
+      {
+        "bytes" : 114421,
+        "file" : "one.pdf",
+        "format" : "pdf",
+        "height" : 375,
+        "preview" : "one.pdf.preview.png",
+        "width" : 600
+      }
+    ],
+    "input.raw" : [
+      {
+        "bytes" : 716,
+        "file" : "tiny.png",
+        "format" : "png",
+        "height" : 100,
+        "width" : 200
+      }
+    ],
+    "input.spool" : [
+
+    ],
+    "inspect.metadata" : [
+      {
+        "bytes" : 17828,
+        "file" : "page.pdf",
+        "format" : "pdf",
+        "height" : 300,
+        "preview" : "page.pdf.preview.png",
+        "width" : 300
+      }
+    ],
+    "order.composite" : [
+      {
+        "bytes" : 2798,
+        "file" : "blur-all.webp",
+        "format" : "webp",
+        "height" : 250,
+        "width" : 400
+      },
+      {
+        "bytes" : 3474,
+        "file" : "blur-photo-only.webp",
+        "format" : "webp",
+        "height" : 250,
+        "width" : 400
+      },
+      {
+        "bytes" : 7284,
+        "file" : "composite-then-resize.webp",
+        "format" : "webp",
+        "height" : 250,
+        "width" : 400
+      },
+      {
+        "bytes" : 7756,
+        "file" : "resize-then-composite.webp",
+        "format" : "webp",
+        "height" : 250,
+        "width" : 400
+      }
+    ],
+    "order.encoder" : [
+
+    ],
+    "order.flatten" : [
+      {
+        "bytes" : 14762,
+        "file" : "flatten-then-rotate.jpg",
+        "format" : "jpeg",
+        "height" : 219,
+        "width" : 219
+      },
+      {
+        "bytes" : 11745,
+        "file" : "rotate-then-flatten.jpg",
+        "format" : "jpeg",
+        "height" : 219,
+        "width" : 219
+      }
+    ],
+    "order.orientation" : [
+      {
+        "bytes" : 27199,
+        "file" : "orient-first.jpg",
+        "format" : "jpeg",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 51716,
+        "file" : "resize-first.jpg",
+        "format" : "jpeg",
+        "height" : 800,
+        "width" : 1280
+      }
+    ],
+    "order.resize-blur" : [
+      {
+        "bytes" : 48379,
+        "file" : "blur-then-resize.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      },
+      {
+        "bytes" : 59383,
+        "file" : "resize-then-blur.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      }
+    ],
+    "order.resize-sharpen" : [
+      {
+        "bytes" : 40962,
+        "file" : "plain.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      },
+      {
+        "bytes" : 42261,
+        "file" : "resize-then-sharpen.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      },
+      {
+        "bytes" : 42261,
+        "file" : "sharpen-then-resize.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      }
+    ],
+    "order.trim-extend" : [
+      {
+        "bytes" : 6761,
+        "file" : "pad-then-trim.png",
+        "format" : "png",
+        "height" : 160,
+        "width" : 160
+      },
+      {
+        "bytes" : 7697,
+        "file" : "trim-then-pad.png",
+        "format" : "png",
+        "height" : 220,
+        "width" : 220
+      }
+    ],
+    "pdf.limits" : [
+
+    ],
+    "pdf.raster" : [
+      {
+        "bytes" : 188921,
+        "file" : "a4.pdf",
+        "format" : "pdf",
+        "height" : 842,
+        "preview" : "a4.pdf.preview.png",
+        "width" : 595
+      },
+      {
+        "bytes" : 188866,
+        "file" : "image-150dpi.pdf",
+        "format" : "pdf",
+        "height" : 240,
+        "preview" : "image-150dpi.pdf.preview.png",
+        "width" : 384
+      },
+      {
+        "bytes" : 188866,
+        "file" : "image.pdf",
+        "format" : "pdf",
+        "height" : 500,
+        "preview" : "image.pdf.preview.png",
+        "width" : 800
+      },
+      {
+        "bytes" : 188933,
+        "file" : "letter-landscape.pdf",
+        "format" : "pdf",
+        "height" : 612,
+        "preview" : "letter-landscape.pdf.preview.png",
+        "width" : 792
+      }
+    ],
+    "pdf.vector" : [
+      {
+        "bytes" : 343456,
+        "file" : "report.pdf",
+        "format" : "pdf",
+        "height" : 842,
+        "preview" : "report.pdf.preview.png",
+        "width" : 595
+      }
+    ],
+    "recipe.avatar" : [
+      {
+        "bytes" : 16755,
+        "file" : "avatar.jpg",
+        "format" : "jpeg",
+        "height" : 256,
+        "width" : 256
+      },
+      {
+        "bytes" : 65058,
+        "file" : "avatar.png",
+        "format" : "png",
+        "height" : 256,
+        "width" : 256
+      },
+      {
+        "bytes" : 7562,
+        "file" : "avatar.webp",
+        "format" : "webp",
+        "height" : 256,
+        "width" : 256
+      }
+    ],
+    "recipe.contact-sheet" : [
+      {
+        "bytes" : 22594,
+        "file" : "sheet.webp",
+        "format" : "webp",
+        "height" : 476,
+        "width" : 708
+      }
+    ],
+    "recipe.report" : [
+      {
+        "bytes" : 360320,
+        "file" : "field-report.pdf",
+        "format" : "pdf",
+        "height" : 842,
+        "preview" : "field-report.pdf.preview.png",
+        "width" : 595
+      }
+    ],
+    "recipe.social-card" : [
+      {
+        "bytes" : 21900,
+        "file" : "card-from-phone.webp",
+        "format" : "webp",
+        "height" : 630,
+        "width" : 1200
+      },
+      {
+        "bytes" : 63747,
+        "file" : "card.jpg",
+        "format" : "jpeg",
+        "height" : 630,
+        "width" : 1200
+      },
+      {
+        "bytes" : 26666,
+        "file" : "card.webp",
+        "format" : "webp",
+        "height" : 630,
+        "width" : 1200
+      }
+    ],
+    "recipe.thumbnails" : [
+      {
+        "bytes" : 20308,
+        "file" : "thumb-1280.webp",
+        "format" : "webp",
+        "height" : 800,
+        "width" : 1280
+      },
+      {
+        "bytes" : 4058,
+        "file" : "thumb-320.webp",
+        "format" : "webp",
+        "height" : 200,
+        "width" : 320
+      },
+      {
+        "bytes" : 9290,
+        "file" : "thumb-640.webp",
+        "format" : "webp",
+        "height" : 400,
+        "width" : 640
+      }
+    ],
+    "recipe.upload" : [
+      {
+        "bytes" : 30438,
+        "file" : "normalised.webp",
+        "format" : "webp",
+        "height" : 1000,
+        "width" : 1600
+      }
+    ],
+    "recipe.watermark" : [
+      {
+        "bytes" : 19064,
+        "file" : "wm-phone.jpg",
+        "format" : "jpeg",
+        "height" : 312,
+        "width" : 500
+      },
+      {
+        "bytes" : 74788,
+        "file" : "wm-proof.jpg",
+        "format" : "jpeg",
+        "height" : 500,
+        "width" : 800
+      },
+      {
+        "bytes" : 36950,
+        "file" : "wm-scene.jpg",
+        "format" : "jpeg",
+        "height" : 500,
+        "width" : 800
+      }
+    ],
+    "resize.basic" : [
+      {
+        "bytes" : 7636,
+        "file" : "box-400.webp",
+        "format" : "webp",
+        "height" : 400,
+        "width" : 400
+      },
+      {
+        "bytes" : 6520,
+        "file" : "width-400.webp",
+        "format" : "webp",
+        "height" : 250,
+        "width" : 400
+      }
+    ],
+    "resize.enlargement" : [
+      {
+        "bytes" : 38764,
+        "file" : "enlarged.png",
+        "format" : "png",
+        "height" : 300,
+        "width" : 300
+      },
+      {
+        "bytes" : 3291,
+        "file" : "guarded.png",
+        "format" : "png",
+        "height" : 100,
+        "width" : 100
+      }
+    ],
+    "resize.fits" : [
+      {
+        "bytes" : 86382,
+        "file" : "contain.png",
+        "format" : "png",
+        "height" : 480,
+        "width" : 480
+      },
+      {
+        "bytes" : 108228,
+        "file" : "cover.png",
+        "format" : "png",
+        "height" : 480,
+        "width" : 480
+      },
+      {
+        "bytes" : 117621,
+        "file" : "fill.png",
+        "format" : "png",
+        "height" : 480,
+        "width" : 480
+      },
+      {
+        "bytes" : 84889,
+        "file" : "inside.png",
+        "format" : "png",
+        "height" : 300,
+        "width" : 480
+      },
+      {
+        "bytes" : 157464,
+        "file" : "outside.png",
+        "format" : "png",
+        "height" : 480,
+        "width" : 768
+      }
+    ],
+    "resize.guards" : [
+
+    ],
+    "resize.kernels" : [
+      {
+        "bytes" : 2189,
+        "file" : "cubic.png",
+        "format" : "png",
+        "height" : 160,
+        "width" : 160
+      },
+      {
+        "bytes" : 2551,
+        "file" : "lanczos3.png",
+        "format" : "png",
+        "height" : 160,
+        "width" : 160
+      },
+      {
+        "bytes" : 2060,
+        "file" : "linear.png",
+        "format" : "png",
+        "height" : 160,
+        "width" : 160
+      },
+      {
+        "bytes" : 2159,
+        "file" : "mitchell.png",
+        "format" : "png",
+        "height" : 160,
+        "width" : 160
+      },
+      {
+        "bytes" : 946,
+        "file" : "nearest.png",
+        "format" : "png",
+        "height" : 160,
+        "width" : 160
+      }
+    ],
+    "resize.positions" : [
+      {
+        "bytes" : 83252,
+        "file" : "attention.png",
+        "format" : "png",
+        "height" : 360,
+        "width" : 360
+      },
+      {
+        "bytes" : 75226,
+        "file" : "center.png",
+        "format" : "png",
+        "height" : 360,
+        "width" : 360
+      },
+      {
+        "bytes" : 83252,
+        "file" : "east.png",
+        "format" : "png",
+        "height" : 360,
+        "width" : 360
+      },
+      {
+        "bytes" : 80249,
+        "file" : "entropy.png",
+        "format" : "png",
+        "height" : 360,
+        "width" : 360
+      },
+      {
+        "bytes" : 54563,
+        "file" : "west.png",
+        "format" : "png",
+        "height" : 360,
+        "width" : 360
+      }
+    ],
+    "runtime.capabilities" : [
+
+    ],
+    "runtime.configure" : [
+
+    ],
+    "text.draw" : [
+      {
+        "bytes" : 15212,
+        "file" : "caption.webp",
+        "format" : "webp",
+        "height" : 400,
+        "width" : 640
+      }
+    ],
+    "text.layouts" : [
+      {
+        "bytes" : 7952,
+        "file" : "clipped.png",
+        "format" : "png",
+        "height" : 38,
+        "width" : 954
+      },
+      {
+        "bytes" : 10918,
+        "file" : "fitted.png",
+        "format" : "png",
+        "height" : 120,
+        "width" : 393
+      },
+      {
+        "bytes" : 7952,
+        "file" : "natural.png",
+        "format" : "png",
+        "height" : 38,
+        "width" : 954
+      },
+      {
+        "bytes" : 10918,
+        "file" : "wrapped.png",
+        "format" : "png",
+        "height" : 120,
+        "width" : 393
+      }
+    ],
+    "text.limits" : [
+
+    ],
+    "text.markup" : [
+      {
+        "bytes" : 12536,
+        "file" : "markup.png",
+        "format" : "png",
+        "height" : 104,
+        "width" : 515
+      },
+      {
+        "bytes" : 2299,
+        "file" : "plain-escaped.png",
+        "format" : "png",
+        "height" : 27,
+        "width" : 142
+      }
+    ],
+    "text.styles" : [
+      {
+        "bytes" : 7447,
+        "file" : "centred.png",
+        "format" : "png",
+        "height" : 86,
+        "width" : 367
+      },
+      {
+        "bytes" : 3927,
+        "file" : "plain.png",
+        "format" : "png",
+        "height" : 55,
+        "width" : 270
+      },
+      {
+        "bytes" : 10944,
+        "file" : "rotated.png",
+        "format" : "png",
+        "height" : 110,
+        "width" : 276
+      },
+      {
+        "bytes" : 11973,
+        "file" : "shadow.png",
+        "format" : "png",
+        "height" : 75,
+        "width" : 290
+      },
+      {
+        "bytes" : 8973,
+        "file" : "stroke.png",
+        "format" : "png",
+        "height" : 63,
+        "width" : 278
+      }
+    ]
+  },
+  "hokusai" : "2.2.2",
+  "libvips" : "8.18.7"
+}

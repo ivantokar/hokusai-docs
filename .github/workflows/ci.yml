@@ -13,8 +13,29 @@ permissions:
   contents: read
 
 jobs:
+  # Cheap path detection so the Swift jobs only run when examples or their inputs change.
+  changes:
+    name: Changes
+    runs-on: ubuntu-latest
+    outputs:
+      examples: ${{ steps.filter.outputs.examples }}
+      docker: ${{ steps.filter.outputs.docker }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: filter
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            files=$(git diff --name-only "origin/${GITHUB_BASE_REF}...HEAD")
+          else
+            files="examples/ .github/workflows/ci.yml"   # main: always verify
+          fi
+          echo "$files" | grep -Eq '^(examples/|scripts/check-manifest|\.github/workflows/ci\.yml)' && echo "examples=true" >> "$GITHUB_OUTPUT" || echo "examples=false" >> "$GITHUB_OUTPUT"
+          echo "$files" | grep -Eq '^(examples/docker/|\.github/workflows/ci\.yml)' && echo "docker=true" >> "$GITHUB_OUTPUT" || echo "docker=false" >> "$GITHUB_OUTPUT"
+
   build:
-    name: Build
+    name: Build and checks
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -26,16 +47,59 @@ jobs:
       - run: npm ci
       - run: npm run i18n:check
       - run: npm run coverage:check
+      - run: npm run examples:check
       - run: npm run build
       - run: npm run check:dist
 
-  # The one required check, so the branch ruleset does not depend on individual job names.
+  # Runs every documented example with the documented release and compares what it produces with the
+  # committed output; compiles the Vapor and Hummingbird code shown on the site.
+  examples:
+    name: Executable examples
+    needs: changes
+    if: needs.changes.outputs.examples == 'true'
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: brew install vips cairo pango pkg-config
+      - run: pkg-config --modversion vips cairo pangocairo
+      - run: cp public/generated/manifest.json "$RUNNER_TEMP/committed-manifest.json"
+      - name: Run all examples
+        working-directory: examples
+        run: swift run DocsExamples run
+      - name: Output matches the committed one
+        run: node scripts/check-manifest.mjs "$RUNNER_TEMP/committed-manifest.json" public/generated/manifest.json
+      - name: Compile the Vapor code
+        working-directory: examples/integrations/vapor-app
+        run: swift build
+      - name: Compile the Hummingbird code
+        working-directory: examples/integrations/hummingbird-app
+        run: swift build
+
+  docker:
+    name: Docker image
+    needs: changes
+    if: needs.changes.outputs.docker == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -t hokusai-docs-check examples/docker
+      - run: docker run --rm hokusai-docs-check | tee out.txt
+      - run: grep -q "libvips 8.16" out.txt && grep -q "resized to 32" out.txt
+
+  # The one required check. Skipped jobs pass; anything else that is not success fails.
   complete:
     name: CI complete
     if: always()
-    needs: [build]
+    needs: [build, examples, docker]
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "build=${{ needs.build.result }}"
-          case "${{ needs.build.result }}" in success|skipped) ;; *) echo "not green"; exit 1 ;; esac
+          echo "build=${{ needs.build.result }} examples=${{ needs.examples.result }} docker=${{ needs.docker.result }}"
+          for result in "${{ needs.build.result }}" "${{ needs.examples.result }}" "${{ needs.docker.result }}"; do
+            case "$result" in success|skipped) ;; *) echo "not green: $result"; exit 1 ;; esac
+          done

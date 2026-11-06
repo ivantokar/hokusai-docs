@@ -12,9 +12,10 @@ description: Generated text, layers and blending.
 
 Text can be plain or Pango markup, laid out naturally, wrapped to a width or fitted to a box. Text rendering needs a libvips built with Pango; fonts come from the host.
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Generated text](/oss/hokusai/text-composition/text)
+- [Composition](/oss/hokusai/text-composition/composite)
 
 ## Read next
 

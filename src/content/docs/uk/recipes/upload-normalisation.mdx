@@ -1,0 +1,31 @@
+---
+pageId: recipes.upload-normalisation
+translatedFrom: "224f4d92a249"
+title: Нормалізація завантаження
+description: Перетворіть недовірене завантаження на обмежений, вертикальний WebP без метаданих.
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Мета.** Прийняти зображення від користувача й зберегти безпечну, узгоджену версію: обмежений вхід, вертикальні пікселі, не більше 1600 px, без приватних метаданих. **Вхідні дані:** [`phone.jpg`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures) (боком, з EXIF). **Потрібно:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.upload"
+  results={[
+    { file: 'normalised.webp', label: 'normalised.webp', alt: 'Сцена вертикально, 1600 на 1000 пікселів, у форматі WebP.' },
+  ]}
+/>
+
+Програма вивела `upload → 1600 × 1000 webp exif: 0 bytes`, а для завантаження, що не є зображенням, — `HokusaiError`.
+
+## Як це працює \{#how}
+1. **`InputOptions(failOn: .truncated, limits: …)`** обмежує вхід *до* роботи з пікселями: тут 20 МБ байтів і 50 мегапікселів. Звужуйте їх до своєї політики ([ліміти](/oss/hokusai/uk/sources-input/input-options#limits)).
+2. **`autoOrient()`** робить пікселі вертикальними, тож збережений розмір (1000 × 1600) більше не має значення ([чому](/oss/hokusai/uk/interactions/orientation-and-resize)).
+3. **`resize(width: 1600, height: 1600, fit: .inside, withoutEnlargement: true)`** обмежує довгу сторону 1600 і ніколи не збільшує: безпечний вибір для невідомих розмірів, на відміну від `.cover` ([захисти](/oss/hokusai/uk/geometry/resize#guards)).
+4. **`webp(quality: 82)`** і **типова політика метаданих** відкидають EXIF, XMP та IPTC; зчитування назад показало 0 байтів EXIF ([метадані](/oss/hokusai/uk/encoding-output/metadata)).
+5. **Помилки типізовані**: хибне завантаження викидає `HokusaiError` із `data()`, а не з конструктора. На сервері відображайте на 400/413/422 ([усунення проблем](/oss/hokusai/uk/troubleshooting-migration/troubleshooting)).
+
+## Варіації \{#variations}
+- **Великі тіла:** використовуйте `Hokusai(spooling:)`, щоб завантаження не тримали в пам'яті ([завантаження](/oss/hokusai/uk/sources-input/uploads)).
+- **Недовірені формати:** увімкніть `RuntimeConfiguration.blockUntrustedOperations`, щоб відмовляти завантажувачам PDF, SVG тощо ([середовище виконання](/oss/hokusai/uk/runtime-performance/runtime)).
+- **Лише колірний профіль:** типова політика вже так робить; використайте `MetadataPolicy(exif: .remove, icc: .preserve)`, щоб бути явним.

@@ -1,8 +1,10 @@
 ---
 pageId: examples
-translatedFrom: 1b16a1101f83
-title: Приклади
+translatedFrom: "173b1c72644d"
+title: Швидкі приклади
 ---
+
+Короткі фрагменти. Повні задачі з вхідними даними, результатами та варіаціями дивіться в [рецептах](/oss/hokusai/uk/recipes/).
 
 ## Створення соціальної картки {#create-a-social-card}
 

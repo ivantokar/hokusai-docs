@@ -1,0 +1,27 @@
+---
+pageId: recipes.contact-sheet
+title: Contact sheet
+description: A grid of tiles composed onto one canvas.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** Lay out six tiles in a 3 × 2 grid on one image, for a preview strip or a comparison board. **Inputs:** [`scene.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Needs:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.contact-sheet"
+  results={[
+    { file: 'sheet.webp', label: 'sheet.webp', alt: 'Six square crops of the landscape in a grid on a paper-coloured canvas: west, centre, east, attention, entropy and north-east.' },
+  ]}
+  wide
+/>
+
+## How it works \{#how}
+- **A blank canvas** is built from one paper-coloured pixel enlarged with `resize(fit: .fill, kernel: .nearest)` to the grid size: `gap + columns × (cell + gap)` wide and the same for rows.
+- **Each tile** is the same source resized to a 220-pixel square with a different `position`, so the grid doubles as a comparison of `.west`, `.center`, `.east`, `.attention`, `.entropy` and `.northEast` crops ([resize position](/oss/hokusai/geometry/resize#position)).
+- **One `composite` call** places all tiles with `CompositeLayer(tile, x:y:)` from plain arithmetic (`gap + column × (cell + gap)`). All layers are blended in one native operation.
+
+## Variations \{#variations}
+- **Captions:** add `drawText` layers under each tile ([text](/oss/hokusai/text-composition/text)).
+- **Different photos per tile:** build each tile from its own file; they are independent pipelines.
+- **As a PDF:** put the same tiles on a `VectorPage` with `.image(_:frame:fit:)` ([PDF report](/oss/hokusai/recipes/pdf-report)).

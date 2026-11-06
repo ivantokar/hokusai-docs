@@ -1,6 +1,6 @@
 ---
 pageId: reference.formats-and-compatibility
-translatedFrom: 68d3a6620ba6
+translatedFrom: "68d3a6620ba6"
 title: Формати та сумісність
 ---
 

@@ -1,6 +1,6 @@
 ---
 pageId: guide.getting-started
-translatedFrom: 6734e0be50f3
+translatedFrom: "6734e0be50f3"
 title: Початок роботи
 ---
 

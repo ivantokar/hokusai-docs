@@ -1,6 +1,6 @@
 ---
 pageId: sources-input.index
-translatedFrom: 38f58f9f0389
+translatedFrom: "95e1bc337726"
 title: Джерела та вхідні дані
 description: Усі способи створити конвеєр Hokusai.
 ---
@@ -16,9 +16,11 @@ description: Усі способи створити конвеєр Hokusai.
 
 `InputOptions` обирає `page` багатосторінкового джерела, режим доступу `access` (`random` або `sequential`), рівень помилки декодування `failOn` та `limits`. `InputLimits` обмежує `maxBytes`, `maxPixels` і `maxChannels` до будь-якої нативної роботи. Формати необроблених пікселів: `gray8`, `grayAlpha8`, `rgb8`, `rgba8` та їхні 16-бітні варіанти.
 
-:::note[Докладні посібники в розробці]
-На цій сторінці перелічено, що надає Hokusai у задокументованому релізі. Посібники з кожної операції, з параметрами, значеннями за замовчуванням, візуальними результатами та взаємодіями, додаються; точний контракт API міститься в коментарях до вихідного коду бібліотеки.
-:::
+## Посібники {#guides}
+
+- [Параметри входу та ліміти](/oss/hokusai/uk/sources-input/input-options)
+- [Необроблені пікселі](/oss/hokusai/uk/sources-input/raw-pixels)
+- [Великі завантаження](/oss/hokusai/uk/sources-input/uploads)
 
 ## Читайте далі {#read-next}
 

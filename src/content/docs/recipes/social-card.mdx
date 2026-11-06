@@ -1,0 +1,31 @@
+---
+pageId: recipes.social-card
+title: Social card
+description: A 1200 × 630 link-preview image with a title, from any photo.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** Turn a photo and a headline into the 1200 × 630 image that chat apps and social networks show for a link. **Inputs:** [`scene.png` and `phone.jpg`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Needs:** Hokusai 2.2.2 with text rendering (`capabilities().textRendering`).
+
+<Example
+  id="recipe.social-card"
+  results={[
+    { file: 'card.webp', label: 'card.webp', alt: 'The landscape cropped to 1200 by 630 with the title Keeping the light, a year at Pharos Point, in white at the lower left.' },
+    { file: 'card.jpg', label: 'card.jpg (fallback)', alt: 'The same card as a JPEG for crawlers that do not read WebP.' },
+    { file: 'card-from-phone.webp', label: 'from a phone photo', alt: 'The card made from the sideways phone photo: upright, with a shorter title.' },
+  ]}
+  wide
+/>
+
+## How it works \{#how}
+1. **`autoOrient()`** makes a phone photo upright before anything measures it, so the same function works for any upload ([why](/oss/hokusai/interactions/orientation-and-resize)).
+2. **`resize(width: 1200, height: 630, fit: .cover, position: .attention)`** fills the card exactly and crops to the interesting part: the lighthouse stays in frame even though it is off-centre ([position](/oss/hokusai/geometry/resize#position)).
+3. **`drawText(…)`** places the title with `.gravity(.southWest, offsetX:, offsetY:)` so it stays 56 px from the left and 48 px from the bottom whatever the card size. `layout: .width(900)` wraps long titles; the shadow keeps white text legible over any sky ([text](/oss/hokusai/text-composition/text)).
+4. **`webp(quality: 82)`** for the web, and **JPEG** as a fallback for crawlers.
+
+## Variations \{#variations}
+- **Longer titles:** `.width(900)` wraps at 900 px; lower `fontSize` or use `.fit(width: 900, height: 200)` to guarantee the text fits a box.
+- **Different aspect ratios** (1:1, 1.91:1): change only the `resize` box.
+- **A photo with a dark sea and a bright sky:** keep the shadow, or `composite` a darkening `.multiply` layer under the text ([blend modes](/oss/hokusai/text-composition/composite#blend)).
+- **Custom fonts:** `TextStyle(fontFile:)` when the host does not have your font installed.

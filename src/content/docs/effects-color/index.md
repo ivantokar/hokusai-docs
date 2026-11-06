@@ -16,9 +16,11 @@ description: Filters, tone and color operations.
 | `dilate(radius:)`, `erode(radius:)`, `edges(_:)` | Morphology and edge detection (`sobel`, `scharr`, `prewitt`, `canny`). |
 | `convert(to:)` | Converts to `sRGB` or `grayscale`. |
 
-:::note[Detailed guides are in progress]
-This page lists what Hokusai provides in the documented release. Operation-by-operation guides with parameters, defaults, visual results and interactions are being added; the precise API contract is in the source comments of the library.
-:::
+## Guides {#guides}
+
+- [Blur & sharpen](/oss/hokusai/effects-color/blur-sharpen)
+- [Tone & color](/oss/hokusai/effects-color/tone-and-color)
+- [Filters](/oss/hokusai/effects-color/filters)
 
 ## Read next
 

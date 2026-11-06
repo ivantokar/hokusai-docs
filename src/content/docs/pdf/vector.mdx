@@ -1,0 +1,57 @@
+---
+pageId: pdf.vector
+title: Vector documents
+description: Build PDFs with real text, shapes, gradients and images using the HokusaiPDF product.
+---
+
+import Example from '../../../components/Example.astro';
+
+`HokusaiPDF` is a separate product for **vector** PDF documents. Unlike the raster `pdf()` encoder, it draws text, shapes and gradients as PDF content: text stays selectable and searchable, shapes stay sharp at any zoom, and images placed on a page are embedded as rasters prepared by ordinary Hokusai pipelines. It needs **Pango 1.44 or newer**; the `Hokusai` product does not.
+
+```swift
+// Package.swift: add the product to the target that makes PDFs
+.product(name: "HokusaiPDF", package: "hokusai")
+```
+
+## The model \{#model}
+A `VectorPage` is an **immutable value**: every method returns a new page with one more item drawn on top of the earlier ones. Nothing is rendered until a `VectorDocument` is written, and invalid values are rejected when the item is added.
+
+| Piece | API |
+| --- | --- |
+| Page | `VectorPage(size:)` with `.a4(_)`, `.letter(_)` (portrait by default) or `.points(width:height:)` (`1…14,400`). Origin is the **top-left**, units are points (1/72 inch). |
+| Background | `.background(_ paint: VectorPaint)`: `.color(Color)` or `.linearGradient(from:to:angle:)`. |
+| Rectangle | `.rectangle(_ frame:fill:stroke:cornerRadius:)`; needs a fill, a stroke or both. |
+| Line | `.line(from:to:stroke:)` with `VectorStroke(color:width:)` (width `0…1000`, above zero). |
+| Image | `.image(_ pipeline:frame:fit:opacity:)`; `fit` is `.contain`, `.cover` or `.fill`. |
+| Text | `.text(_ content:at:width:style:)`; `TextContent` plain or Pango markup. |
+| Style | `VectorTextStyle(family:size:weight:italic:color:alignment:wrap:lineSpacing:)`; weights `.thin` to `.black`; alignment `.leading`, `.center`, `.trailing`, `.justified`; wrap `.word`, `.character`, `.wordThenCharacter`. |
+| Document | `VectorDocument(pages:metadata:)` or `VectorDocument(_ page:metadata:)`; `data()` and `write(to:)`. |
+
+<Example
+  id="pdf.vector"
+  results={[
+    { file: 'report.pdf', label: 'page 1 of 2', alt: 'A navy-to-teal gradient A4 page with the landscape image, a bold title and a subtitle in white text.' },
+  ]}
+/>
+
+The second page (a rounded navy header, a rule and a markup paragraph) is in the same PDF; only the first page is shown as a preview. The document wrote 2 pages in 343,455 bytes. Select the title in any PDF viewer to confirm it is text.
+
+## Memory, files and cancellation \{#files}
+Writing draws pages **one at a time**: the images of a page are evaluated just before it is drawn and released after it, so memory holds the rasters of one page, not of all. `write(to:)` has Cairo write to a temporary file next to the destination, which replaces the destination atomically only when the document is complete; a failure or cancellation leaves an existing file as it was. The drawing and file output run off Swift's cooperative executor, and cancelling the calling task stops the work with `CancellationError`. Parent directories are not created.
+
+## Errors \{#errors}
+<Example id="pdf.limits" />
+
+| Situation | Result |
+| --- | --- |
+| Custom page size outside `1…14,400` points | `invalidOption(name: "page width", …"from 1 to 14400 points")`, when the page is created |
+| A rectangle without area | `invalidOption(name: "rectangle", …)`, when added |
+| A rectangle with neither fill nor stroke | `invalidOption`: "give a fill, a stroke, or both" |
+| Invalid Pango markup | `invalidOption(name: "text", …"the Pango markup is not valid")`, when the text is added |
+| A document without pages | `invalidInput`: "a document needs at least one page" |
+| An image pipeline that fails | that pipeline's error from `data()` / `write(to:)` |
+| Cairo cannot produce the PDF | `encode` |
+
+## Related \{#related}
+- [Raster PDF](/oss/hokusai/pdf/raster)
+- [PDF report recipe](/oss/hokusai/recipes/pdf-report)

@@ -1,0 +1,33 @@
+---
+pageId: sources-input.uploads
+title: Large uploads
+description: Build a pipeline from a body that arrives in chunks without holding it in memory.
+---
+
+import Example from '../../../components/Example.astro';
+
+A server that receives an image as a stream of chunks does not have to hold the whole body to decode it. `Hokusai(spooling:options:memoryLimit:spoolDirectory:)` consumes an `AsyncSequence` of `Data` (the `ByteBuffer` form is in `HokusaiNIO`) and returns a pipeline.
+
+<Example id="input.spool" />
+
+## How it works \{#how}
+- The upload stays in memory while it is within `memoryLimit` (default 1 MiB; `0` spools everything). Past that it is moved to a **private temporary file**, so the encoded upload never takes more than `memoryLimit` plus one chunk of memory, however large it is. libvips reads the image from the file with random access.
+- That bounds the encoded upload only. The memory libvips uses to decode and transform the image is a separate matter, bounded by `InputLimits.maxPixels` and `InputOptions.access`.
+- **`InputLimits.maxBytes` applies while the body is read**: the chunk that crosses it throws `resource` (`encodedBytes`) and the rest of the body is never requested. Above, 19 chunks of at most 16 KiB with `maxBytes: 50_000` stopped with `actual: 65536`, the chunk that crossed the limit.
+- The pipeline **owns the file**. It is removed when the last copy of the pipeline, and any evaluation running on it, is released; a failed or cancelled read removes it at once. A process that is killed first leaves its file: files are named `hokusai-upload-…`, readable only by their owner, in `spoolDirectory` (the system temporary directory by default, which must exist), so a server can sweep that directory at startup.
+- Writes to the spool run on background queues while the calling task is suspended, so a slow disk cannot delay unrelated async work.
+
+## Errors \{#errors}
+| Situation | Result |
+| --- | --- |
+| An empty upload | `invalidInput` |
+| Over `maxBytes` | `resource` (`encodedBytes`) |
+| A bad option (e.g. negative `memoryLimit`) | `invalidOption` |
+| The spool file cannot be created or written (missing directory, permissions, full disk) | `io` |
+| Whatever the sequence throws | rethrown unchanged |
+
+Hokusai Vapor and Hokusai Hummingbird call this for you ([Integrations](/oss/hokusai/integrations/)).
+
+## Related \{#related}
+- [Input options & limits](/oss/hokusai/sources-input/input-options)
+- [Upload normalisation recipe](/oss/hokusai/recipes/upload-normalisation)

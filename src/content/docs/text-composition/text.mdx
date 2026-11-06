@@ -1,0 +1,93 @@
+---
+pageId: text-composition.text
+title: Generated text
+description: Render text as an image or draw it on a photo, with layout, typography, stroke, shadow and markup.
+---
+
+import Example from '../../../components/Example.astro';
+
+Hokusai renders text with libvips and Pango. `Hokusai.text(_:layout:style:)` returns an **ordinary immutable pipeline** (a transparent image of the text) that you can transform, composite or encode on its own; `drawText` is sugar for compositing that pipeline onto an existing one. Text rendering needs a libvips built with Pango (`Hokusai.capabilities().textRendering`), and a build without it reports `HokusaiError.unsupported` from the terminal, not from the call.
+
+## Layout \{#layout}
+`TextLayout` sets the size of the text box:
+
+- `.natural` (default): as large as the text needs; lines break only at newlines.
+- `.width(_:wrap:)`: wrap lines to a pixel width at the style's font size and DPI. `wrap` is `.word` (default), `.character`, `.wordCharacter` (word breaks, plus breaks inside a word too long for a line) or `.none`.
+- `.fit(width:height:)`: the largest resolution at which the text fits the box. The style's `dpi` is not used and `lineHeight` must stay `1`.
+
+<Example
+  id="text.layouts"
+  results={[
+    { file: 'natural.png', label: '.natural', alt: 'The sentence on one long line, 954 by 38 pixels.' },
+    { file: 'wrapped.png', label: '.width(420)', alt: 'The sentence wrapped into three lines, 393 by 120 pixels.' },
+    { file: 'clipped.png', label: '.width(420, wrap: .none)', alt: 'The sentence on one line again; no wrapping happened.' },
+    { file: 'fitted.png', label: '.fit(420 × 120)', alt: 'The sentence fitted into a 420 by 120 box, three lines, 393 by 120 pixels.' },
+  ]}
+/>
+
+The measured sizes are in each caption. Note that `.width(420)` produced a 393-pixel-wide image because the lines broke before reaching the limit, and that `wrap: .none` behaved like `.natural` (954 × 38) in this build, so do not rely on it to clip text; clip with `extract` if you need that.
+
+## Typography: TextStyle \{#style}
+| Property | Type | Default | Bounds |
+| --- | --- | --- | --- |
+| `font` | `String` | `"sans"` | Pango family and style without size, e.g. `"Helvetica Bold"`; **not** a file path. |
+| `fontFile` | `URL?` | `nil` | A local TTF or OTF file made available to `font` for this render. Needs libvips with fontconfig; a file libvips cannot load is only a warning and the named `font` is used. |
+| `fontSize` | `Int` | `24` | `1…2000` points at `dpi`. |
+| `color` | `Color` | black | |
+| `alignment` | `TextAlignment` | `.left` | `.left`, `.center`, `.right`. |
+| `justify` | `Bool` | `false` | Stretches wrapped lines to the full width. |
+| `lineHeight` | `Double` | `1` | `0.5…5`, multiple of the font's natural line height. |
+| `dpi` | `Int` | `72` | `1…2400`; ignored by `.fit`. |
+| `stroke` | `TextStroke?` | `nil` | Outline: `color`, `width` in `(0, 64]`. |
+| `shadow` | `TextShadow?` | `nil` | `offsetX`/`offsetY` within ±10,000, `blur` `0…64` (default `1.2`), `color` (its opacity is the shadow's). |
+| `rotation` | `Double` | `0` | Clockwise degrees; finite. |
+
+<Example
+  id="text.styles"
+  results={[
+    { file: 'plain.png', label: 'plain', alt: 'The word Hokusai in dark blue bold type.' },
+    { file: 'stroke.png', label: 'stroke', alt: 'White letters with a dark blue outline.' },
+    { file: 'shadow.png', label: 'shadow', alt: 'Dark blue letters with a soft drop shadow to the lower right.' },
+    { file: 'rotated.png', label: 'rotation −12', alt: 'The word tilted twelve degrees anticlockwise on a larger canvas.' },
+    { file: 'centred.png', label: 'centre, lineHeight 1.4', alt: 'Two centred lines: Hokusai above Swift image processing, with generous line spacing.' },
+  ]}
+/>
+
+Fonts come from the host: install what your application needs and use the installed family name. Package fonts with the app and load them with `fontFile` when the host cannot be controlled.
+
+## Markup \{#markup}
+`TextContent` is `.plain(String)` or `.markup(String)`; a string literal is plain. Plain text is always escaped, so any user string is safe to render. `.markup` is [Pango markup](https://docs.gtk.org/Pango/pango_markup.html) (not HTML or CSS) for mixed fonts, sizes and colours; invalid markup fails when the text is rendered.
+
+<Example
+  id="text.markup"
+  results={[
+    { file: 'markup.png', label: 'markup', alt: 'Sale in large bold, minus 30 percent in red, then italic and monospace text on a second line.' },
+    { file: 'plain-escaped.png', label: 'plain, escaped', alt: 'The text a less-than b and c rendered literally.' },
+  ]}
+/>
+
+## Drawing on an image \{#draw-text}
+`drawText(_:placement:layout:style:)` composites the rendered text with the same placement, clipping and blending rules as any other layer ([Composition](/oss/hokusai/text-composition/composite)). `placement` is `.at(x:y:)` or `.gravity(_:offsetX:offsetY:)`.
+
+<Example
+  id="text.draw"
+  results={[
+    { file: 'caption.webp', label: 'drawText', alt: 'The landscape with the white caption Pharos Point and a soft shadow in the lower left corner.' },
+  ]}
+/>
+
+## Errors \{#errors}
+<Example id="text.limits" />
+
+| Call | Result |
+| --- | --- |
+| `Hokusai.text("Hello", style: TextStyle(fontSize: 24))` | a 52 × 19 image |
+| empty text | `invalidOption(name: "text", …"must not be empty")` |
+| `font` that is a path (`/fonts/Inter.ttf`) | `invalidOption(name: "font", …"is a family name; pass a font file as fontFile")` |
+| `fontSize: 3000` | `invalidOption`: "must be from 1 through 2000" |
+| `.fit` with `lineHeight` other than 1 | `invalidOption`: "must be 1 with a fit layout" |
+| invalid markup | `invalidInput`: "the text is not valid Pango markup" |
+
+## Related \{#related}
+- [Composition](/oss/hokusai/text-composition/composite)
+- [Text on a social card](/oss/hokusai/recipes/social-card)

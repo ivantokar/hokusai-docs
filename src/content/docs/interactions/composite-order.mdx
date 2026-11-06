@@ -1,0 +1,31 @@
+---
+pageId: interactions.composite-order
+title: Composite order
+description: How the order of composite, resize and blur changes what a logo looks like.
+---
+
+import Example from '../../../components/Example.astro';
+
+A layer is placed in the coordinates of the pipeline **at the moment of `composite`**, so anything that changes the size afterwards changes the layer too.
+
+## Resize and composite \{#resize}
+<Example
+  id="order.composite"
+  results={[
+    { file: 'composite-then-resize.webp', label: 'composite → resize', alt: 'The landscape at 400 pixels wide with a small emblem: the logo was shrunk with the photo.' },
+    { file: 'resize-then-composite.webp', label: 'resize → composite', alt: 'The landscape at 400 pixels wide with a large emblem: the logo kept its 200-pixel size.' },
+    { file: 'blur-all.webp', label: 'composite → resize → blur', alt: 'The whole picture blurred, including the emblem.' },
+    { file: 'blur-photo-only.webp', label: 'blur the photo, then composite', alt: 'A blurred landscape with a sharp emblem on top.' },
+  ]}
+/>
+
+- **composite → resize**: the logo at (40, 40), 200 px wide on a 1600-px photo, becomes 50 px on the 400-px result, placed at (10, 10).
+- **resize → composite**: the same layer at (40, 40) on the 400-px photo covers half the width.
+- **Blur**: effects after `composite` act on the logo too. To keep a logo crisp, apply the effect to the photo first and composite last, as in the fourth image (where the logo was also resized to suit).
+
+## What stays the same \{#same}
+Layers are drawn in array order, later over earlier ([Composition](/oss/hokusai/text-composition/composite#order)). A layer is a pipeline of its own, so its transformations (resize, blur, negate) happen *before* it is composed; the order of operations **inside** the layer is the same story as anywhere else.
+
+## Related \{#related}
+- [Composition](/oss/hokusai/text-composition/composite), [Watermark recipe](/oss/hokusai/recipes/watermark)
+- [Order of operations](/oss/hokusai/interactions/)

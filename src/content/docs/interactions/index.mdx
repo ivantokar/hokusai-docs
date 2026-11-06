@@ -1,0 +1,26 @@
+---
+pageId: interactions.index
+title: Order of operations
+description: Operations that give different pixels depending on their order, compared with real outputs.
+---
+
+A pipeline means exactly the operations you wrote, in the order you wrote them, and Hokusai never reorders them. For most pairs of operations the order does not matter; for some it changes the picture, the size, or whether the result is even valid. Each page below runs **both orders on the same input** and shows what Hokusai produced. Only orders with an observable difference are covered, not every permutation.
+
+| Question | Page | Verdict |
+| --- | --- | --- |
+| Blur then shrink, or shrink then blur? | [Resize, blur & sharpen](/oss/hokusai/interactions/resize-blur-sharpen) | Different pixels: do both at the final scale, shrinking first |
+| Sharpen before or after resizing? | [Resize, blur & sharpen](/oss/hokusai/interactions/resize-blur-sharpen) | After; the same sharpen is about three times weaker if it comes first |
+| `autoOrient` before or after `resize`? | [Orientation and resize](/oss/hokusai/interactions/orientation-and-resize) | Before; otherwise width and height are the wrong way round |
+| `rotate` then `flatten`, or `flatten` then `rotate`? | [Flatten before JPEG](/oss/hokusai/interactions/flatten-before-jpeg) | Flatten last, or JPEG paints the new corners black |
+| `extend` then `trim`, or `trim` then `extend`? | [Trim and extend](/oss/hokusai/interactions/trim-and-extend) | Different sizes: `trim` removes padding added before it |
+| Composite then `resize`, or `resize` then composite? | [Composite order](/oss/hokusai/interactions/composite-order) | Different logo size; blur after compositing blurs the logo |
+| Where does the encoder go? | [Encoder position](/oss/hokusai/interactions/encoder-position) | Anywhere: byte-identical; the last one wins |
+| `extract` before or after `resize`? | [Crop & canvas](/oss/hokusai/geometry/crop-and-canvas#extract) | Same numbers, different pixels |
+
+## The rule of thumb \{#rule}
+1. **Orient first** (`autoOrient()`), so width and height mean what they say.
+2. **Reduce next**: crop to the region you want, then `resize`. Work done before a large reduction is partly thrown away.
+3. **Adjust at the final size**: blur, sharpen, tone, colour.
+4. **Compose and flatten last**, then choose the encoder and metadata policy (their position is free).
+
+Exceptions exist and are on the pages above; the examples run in CI, so the results shown are what the documented release produces.

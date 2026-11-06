@@ -49,8 +49,8 @@ if (command === "stamp") {
     let text = readFileSync(target, "utf8");
     const stamp = fingerprint(source);
     text = /^translatedFrom:/m.test(text)
-      ? text.replace(/^translatedFrom:.*$/m, `translatedFrom: ${stamp}`)
-      : text.replace(/^pageId:.*$/m, (line) => `${line}\ntranslatedFrom: ${stamp}`);
+      ? text.replace(/^translatedFrom:.*$/m, `translatedFrom: "${stamp}"`)
+      : text.replace(/^pageId:.*$/m, (line) => `${line}\ntranslatedFrom: "${stamp}"`);
     writeFileSync(target, text);
     console.log(`stamped ${rel(target)} ← ${stamp}`);
   }

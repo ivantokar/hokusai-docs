@@ -1,0 +1,59 @@
+---
+pageId: sources-input.input-options
+title: Input options & limits
+description: "How Hokusai opens an image: pages, access mode, failure level, byte and pixel limits, and what each failure looks like."
+---
+
+import Example from '../../../components/Example.astro';
+
+`InputOptions` is the single policy for decoding a source from `Data` or a local file. Opening is lazy: constructing a pipeline records the source and these options, and the file is read when a terminal evaluates the pipeline. A `Data` value is retained copy-on-write, so you may mutate or release your own copy immediately.
+
+```swift
+let image = try Hokusai(
+    data: upload,
+    options: .init(failOn: .truncated, limits: .init(maxBytes: 20_000_000, maxPixels: 50_000_000))
+)
+```
+
+| Option | Type | Default | Meaning |
+| --- | --- | --- | --- |
+| `page` | `Int?` | `nil` (first page) | Zero-based page of a multi-page source (TIFF, PDF). Exactly one page is loaded; page ranges, all-page loading and animation output are not supported. |
+| `access` | `AccessMode` | `.random` | `.random` is safe for every operation. `.sequential` streams top-to-bottom with low peak memory for single-pass pipelines, and fails (as `decode`) for operations that need earlier pixels (rotation by non-90° angles, flips, smart crop, some compositing). |
+| `failOn` | `DecodeFailureLevel` | `.warning` | When a decoder problem becomes an error, cumulative from permissive to strict: `.none`, `.truncated`, `.error`, `.warning`. |
+| `limits` | `InputLimits` | see below | Defensive bounds checked before expensive pixel work. |
+| `revalidate` | `Bool` | `false` | Bypass libvips' operation cache when opening a local file, so changes to a file at the same path are seen. No effect for `Data`. |
+
+`InputOptions.sequential` is a shorthand for `.init(access: .sequential)`.
+
+## Limits \{#limits}
+`InputLimits` is sized to stop decompression bombs while accepting ordinary photographs; **servers should tighten it to their own upload policy**. Exceeding a limit throws `HokusaiError.resource`.
+
+| Limit | Default | Checked |
+| --- | --- | --- |
+| `maxBytes` | 512 MiB | Before `Data` is copied into native storage, and against a local file's size. |
+| `maxPixels` | 268,402,689 (16383 × 16383) | `width × height` of the loaded page, with overflow detection. |
+| `maxChannels` | 8 | The number of bands. |
+
+## What each failure looks like \{#failures}
+<Example id="input.options" />
+
+| Case | Result |
+| --- | --- |
+| A 1600 × 1000 image with `maxPixels: 1_000_000` | `resource` (kind `decodedPixels`, limit 1,000,000, actual 1,600,000) |
+| A 310 KB file with `maxBytes: 10_000` | `resource` (kind `encodedBytes`, limit 10,000, actual 309,729) |
+| A half-uploaded PNG, default `failOn` | `decode`: "the image data could not be decoded" |
+| The same, `failOn: .none` | decodes what is there: the full 1000 rows, with the missing part padded |
+| Bytes that are not an image | `decode`, diagnostic "buffer is not in a known format" |
+| A missing file | `io` (operation `read`, reason "file not found"), from the terminal, not the constructor |
+
+The `.none` case is a trap for services: with `failOn: .none` a damaged file is decoded with the missing data padded, so a few hundred bytes that claim 130 million pixels cost a gigabyte and tens of seconds inside the default `maxPixels`. A service that uses `.none` should also lower `maxPixels`. The default `.warning` fails fast.
+
+## Pages \{#pages}
+`page` selects a zero-based page. A source with one page reports `pages.count == 1`; selecting a page other than 0 of a single-page source is `unsupported("page selection": "this image has a single page")`. A page beyond the end of a multi-page source is `invalidOption`. `maxPixels` applies to the one page that is loaded. (The documentation fixtures do not include a multi-page TIFF; the PDF of one page read back above reports `pages.count == 1`.)
+
+## Choosing access \{#access}
+Keep `.random` unless you have measured that peak memory is a problem **and** the pipeline is genuinely single-pass and top-to-bottom (load → resize → save). In Hokusai's benchmarks, sequential access made heavily downscaled JPEG pipelines significantly slower than the default. Neither mode changes *what* is decoded, only how the decode is buffered; with `.random`, a decoder that cannot seek decodes the whole image into memory (or a temporary file above libvips' disc threshold, 100 MB by default).
+
+## Related \{#related}
+- [Uploads](/oss/hokusai/sources-input/uploads), [Raw pixels](/oss/hokusai/sources-input/raw-pixels)
+- [Troubleshooting](/oss/hokusai/troubleshooting-migration/troubleshooting)

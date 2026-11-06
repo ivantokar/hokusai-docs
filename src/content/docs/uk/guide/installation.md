@@ -1,6 +1,6 @@
 ---
 pageId: guide.installation
-translatedFrom: 12dc540abb27
+translatedFrom: "12dc540abb27"
 title: Встановлення та вимоги
 ---
 

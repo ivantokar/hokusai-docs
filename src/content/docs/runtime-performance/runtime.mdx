@@ -1,0 +1,55 @@
+---
+pageId: runtime-performance.runtime
+title: Runtime configuration
+description: "Initialise, configure and observe the native runtime: concurrency, queueing, limits and capabilities."
+---
+
+import Example from '../../../components/Example.astro';
+
+libvips is process-scoped. Hokusai initialises it at most once, lazily, and it stays available until the process exits; repeated and concurrent calls are safe. This page covers what you can set, what you can ask, and what overload looks like.
+
+## Capabilities \{#capabilities}
+`Hokusai.capabilities()` reports the linked libvips and Cairo and what this build can do. Codec availability depends on how libvips was built, not on Hokusai's dependencies.
+
+<Example id="runtime.capabilities" />
+
+| Property | Meaning |
+| --- | --- |
+| `libvipsVersion`, `cairoVersion` | Linked versions (`8.18.7` and `1.18.6` on the documentation machine). |
+| `inputFormats`, `outputFormats` | `ImageFormat` sets this build can decode and encode. Reading and writing are reported independently: AVIF encoding is verified by encoding a tiny image, because a HEIF saver can exist without an AV1 encoder. |
+| `blockedInputFormats` | Decodable formats switched off by `blockUntrustedOperations`. Blocked is a deployment choice; absent needs a different libvips. |
+| `textRendering` | Whether `drawText` / `Hokusai.text` can render (libvips with Pango). |
+| `heifCompressions` | `.av1` (AVIF) and `.hevc` (`.heic`, often missing). |
+| `pngPalette` | Whether indexed PNG works (needs libimagequant or quantizr). |
+
+`canDecode(_:)` and `canEncode(_:)` answer for one format. The same facts are printed by `hokusai info`.
+
+## Configuring \{#configure}
+`Hokusai.configure(_:)` freezes **process-level** settings and may be called **once**, before the runtime is first used. The runtime starts at `initialize()`, `capabilities()` or the first terminal; building a pipeline does not start it.
+
+| `RuntimeConfiguration` | Default | Meaning |
+| --- | --- | --- |
+| `maxConcurrentEvaluations` | `.automatic` (active processors) | How many terminals (`data()`, `write(to:)`) run at once. Governs memory and latency; independent of `vipsConcurrency`. |
+| `maxQueuedEvaluations` | `nil` (unbounded) | How many may wait for a slot before new ones are rejected with `resource` (`queuedEvaluations`). Waiting evaluations retain their source bytes, so bound it under overload. |
+| `vipsConcurrency` | `.automatic` | libvips worker threads per image computation. |
+| `blockUntrustedOperations` | `false` | Refuse the loaders that parse complex or attacker-influenced formats: PDF (poppler), SVG, ImageMagick, OpenSlide. A source in a blocked format fails as `decode`. PDF **output** is unaffected. JPEG, PNG, WebP, GIF, TIFF and HEIF loaders are not blocked. |
+| `maxOutputPixels` | 1,073,741,824 (2³⁰) | The most pixels any image a pipeline produces may have, final or intermediate. `nil` removes the bound. A service should set its own policy. |
+
+<Example id="runtime.configure" />
+
+What the example showed on this machine:
+
+- Before use, `runtimeStatus` reported `isConfigurationFrozen: false` and the limit of 1.
+- Calling `configure` again after the runtime had started threw `runtime`: "runtime configuration is frozen; call configure(_:) before the first Hokusai evaluation, initialize(), or capabilities()".
+- With one slot and a queue of one, five simultaneous blur-and-encode requests gave **2 finished and 3 rejected** (`resource`, `queuedEvaluations`) in that run. Exactly how many finish depends on timing; what is guaranteed is that the extra requests fail immediately instead of piling up.
+- `resize(width: 100_000)` of a 1600 × 1000 image against `maxOutputPixels: 50_000_000` threw `resource` (`outputPixels`) "resize would produce a 100000 × 62500 image, above the limit", before any pixel was computed.
+
+## Observing \{#status}
+`Hokusai.runtimeStatus` is a snapshot: the configuration in effect, `isConfigurationFrozen`, `queuedEvaluations`, `activeEvaluations`, `maxConcurrentEvaluations`, and `vipsConcurrency` (`nil` before libvips is initialised). It describes Hokusai's scheduler, **not** libvips' internal worker threads or the memory used by codecs.
+
+## Lifecycle \{#lifecycle}
+There is no public shutdown: do not add a shutdown hook to a server. `Hokusai.initialize()` is optional, useful at startup to turn a native dependency problem into a startup failure instead of a first-request failure.
+
+## Related \{#related}
+- [Performance](/oss/hokusai/runtime-performance/performance), [Troubleshooting](/oss/hokusai/troubleshooting-migration/troubleshooting)
+- [Input options & limits](/oss/hokusai/sources-input/input-options)

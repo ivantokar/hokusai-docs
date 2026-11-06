@@ -1,0 +1,92 @@
+---
+pageId: encoding-output.formats
+translatedFrom: "d663987c8977"
+title: Кодувальники
+description: "JPEG, PNG, WebP, AVIF, HEIF, TIFF і GIF: кожен параметр, його межі та вартість у байтах."
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Кодувальник** обирає формат виводу та його налаштування. Кожен має коротку форму з поширеними параметрами та форму `options:`, що приймає повну структуру параметрів; обидві зводяться до того самого `encode(using:)`. PDF описано в розділі [PDF](/oss/hokusai/uk/pdf/). Що може записувати ваше встановлення, повідомляє `Hokusai.capabilities().outputFormats` і `hokusai info`.
+
+<Example
+  id="encode.formats"
+  results={[
+    { file: 'converted.jpg', label: 'JPEG q80', alt: 'Пейзаж у форматі JPEG.' },
+    { file: 'converted.png', label: 'PNG', alt: 'Пейзаж у форматі PNG.' },
+    { file: 'converted.webp', label: 'WebP q80', alt: 'Пейзаж у форматі WebP зі стисненням із втратами.' },
+    { file: 'converted-lossless.webp', label: 'WebP без втрат', alt: 'Пейзаж у форматі WebP без втрат.' },
+    { file: 'converted.avif', label: 'AVIF q50', alt: 'Пейзаж у форматі AVIF.' },
+    { file: 'converted.tiff', label: 'TIFF deflate', alt: 'Пейзаж у форматі TIFF (показано як попередній перегляд PNG).' },
+    { file: 'converted.gif', label: 'GIF', alt: 'Пейзаж у форматі GIF із палітрою 256 кольорів.' },
+  ]}
+/>
+
+Те саме зображення 800 × 500 в кожному форматі: JPEG 27,3 КБ, PNG 188,9 КБ, WebP 12,0 КБ (109,3 КБ без втрат), AVIF 5,6 КБ, TIFF 133,0 КБ, GIF 68,0 КБ. Це вимірювання для цього синтетичного зображення на цій libvips; ваші фото відрізнятимуться, тож вимірюйте власні.
+
+## Параметри та межі \{#options}
+| Кодувальник | Коротка форма (значення за замовчуванням) | Повні параметри | Межі |
+| --- | --- | --- | --- |
+| `jpeg` | `quality: 80, progressive: false` | `JPEGOptions`: `quality`, `progressive`, `chromaSubsampling` (`.automatic`, `.yuv420`, `.yuv444`), `optimizeCoding` | `quality` `1…100` |
+| `png` | `compressionLevel: 6, interlaced: false` | `PNGOptions`: `compressionLevel`, `interlaced`, `palette: PNGPalette?` | рівень `0…9`; палітра: `quality` `0…100`, `dither` `0…1`, `effort` `1…10`, `bitDepth` 1, 2, 4 або 8 |
+| `webp` | `quality: 80, effort: 4, lossless: false` | `WebPOptions`: додає `alphaQuality`, `nearLossless`, `smartSubsample`, `preset` (`.default`, `.picture`, `.photo`, `.drawing`, `.icon`, `.text`) | `quality` `1…100`, `effort` `0…6`, `alphaQuality` `0…100` |
+| `avif` | `quality: 50, effort: 4, lossless: false` | `AVIFOptions`: додає `bitDepth` (`.eight`, `.ten`, `.twelve`), `chromaSubsampling` | `quality` `1…100`, `effort` `0…9` |
+| `heif` | `compression: .hevc, quality: 50, lossless: false` | `HEIFOptions`: `compression` (`.hevc`, `.av1`), `quality`, `effort`, `lossless`, `bitDepth`, `chromaSubsampling` | `quality` `1…100`, `effort` `0…9` |
+| `tiff` | `compression: .none, quality: 75` | `TIFFOptions`: `compression` (`.none`, `.jpeg`, `.deflate`, `.packBits`, `.ccittFax4`, `.lzw`, `.webp`, `.zstd`, `.jpeg2000`), `predictor`, `tiling: TIFFTiling?`, `bigTIFF` | `quality` `1…100`; плитка `16…32768`, кратна 16 |
+| `gif` | `GIFOptions()` | `dither`, `effort`, `bitDepth`, `interlaced` (нерухомий, один кадр) | `dither` `0…1`, `effort` `1…10`, `bitDepth` `1…8` |
+
+Значення поза діапазоном викидають `HokusaiError.invalidOption` під час вибору кодувальника. AVIF завжди кодує AV1, а не HEVC, який libvips обрала б типово; `OutputInfo.format` називає фактично записаний формат. `heif` з `.hevc` часто недоступний у збірці libvips (`capabilities().heifCompressions`).
+
+## Якість і розмір \{#quality}
+Якість не можна порівнювати між форматами, а вартість кожного кроку в байтах різна. Крупний план маяка 380 × 380, закодований за трьох значень якості:
+
+<Example
+  id="encode.quality"
+  results={[
+    { file: 'q10.jpg', label: 'JPEG 10 · 3,7 КБ', alt: 'Крупний план у JPEG якості 10: помітні смуги й блоки в небі.' },
+    { file: 'q40.jpg', label: 'JPEG 40 · 5,5 КБ', alt: 'Крупний план у JPEG якості 40: легкі смуги.' },
+    { file: 'q85.jpg', label: 'JPEG 85 · 9,7 КБ', alt: 'Крупний план у JPEG якості 85: чисто.' },
+    { file: 'q10.webp', label: 'WebP 10 · 1,4 КБ', alt: 'Крупний план у WebP якості 10.' },
+    { file: 'q40.webp', label: 'WebP 40 · 2,0 КБ', alt: 'Крупний план у WebP якості 40.' },
+    { file: 'q85.webp', label: 'WebP 85 · 3,7 КБ', alt: 'Крупний план у WebP якості 85.' },
+  ]}
+/>
+
+| Якість | Байти JPEG | Байти WebP |
+| --- | --- | --- |
+| 10 | 3 663 | 1 436 |
+| 40 | 5 536 | 1 990 |
+| 85 | 9 682 | 3 662 |
+
+Для фотографій починайте з JPEG 80–85 або WebP 80 і порівнюйте на власних зображеннях.
+
+## PNG \{#png}
+PNG — формат без втрат; `compressionLevel` обмінює час на розмір, а `palette` (індексований колір) — кольори на розмір.
+
+<Example
+  id="encode.png"
+  results={[
+    { file: 'level-1.png', label: 'рівень 1 · 12,6 КБ', alt: 'Емблема у PNG з рівнем стиснення 1.' },
+    { file: 'level-9.png', label: 'рівень 9 · 6,2 КБ', alt: 'Емблема у PNG з рівнем стиснення 9.' },
+    { file: 'palette.png', label: '4-бітна палітра · 3,8 КБ', alt: 'Емблема в індексованому PNG на 16 кольорів.' },
+  ]}
+/>
+
+Вивід із палітрою потребує libimagequant або quantizr у збірці libvips (`capabilities().pngPalette`); без них libvips мовчки записала б повний колір, тож Hokusai про це повідомляє. Він необов'язковий, бо змінює представлення кольору й триває довше.
+
+## Формати без альфи \{#alpha}
+JPEG не може зберігати альфу. Прозоре зображення, закодоване в JPEG без `flatten`, має прозорі кути, що стають **чорними** (спостережено з libvips 8.18):
+
+<Example
+  id="encode.alpha-jpeg"
+  results={[
+    { file: 'unflattened.jpg', label: 'без flatten', alt: 'Емблема в JPEG із чорними кутами там, де вона була прозорою.' },
+    { file: 'flattened.jpg', label: 'flatten(.white)', alt: 'Емблема в JPEG з білими кутами.' },
+  ]}
+/>
+
+Згладжуйте на колір, який обираєте самі ([Канали та альфа](/oss/hokusai/uk/channels-transparency/alpha-and-channels)).
+
+## Пов'язане \{#related}
+- [Завершальні операції виводу](/oss/hokusai/uk/encoding-output/terminals), [Збереження метаданих](/oss/hokusai/uk/encoding-output/metadata)
+- [Формати та сумісність](/oss/hokusai/uk/reference/formats-and-compatibility)

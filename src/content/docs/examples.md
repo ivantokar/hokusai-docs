@@ -1,7 +1,9 @@
 ---
 pageId: examples
-title: Examples
+title: Quick examples
 ---
+
+Short snippets. For complete tasks with inputs, results and variations see the [recipes](/oss/hokusai/recipes/).
 
 ## Create a social card
 

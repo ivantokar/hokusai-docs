@@ -1,0 +1,49 @@
+---
+pageId: troubleshooting-migration.troubleshooting
+translatedFrom: "fc6de492a5f2"
+title: Усунення проблем
+description: Кожен випадок HokusaiError, звідки він береться, як виглядав у реальних запусках і що робити.
+---
+
+Розгалужуйте за **випадком** `HokusaiError`, а не за текстом повідомлення. Скасування — не випадок: асинхронні завершальні операції викидають `CancellationError` зі Swift. Повідомлення нижче — те, що вивели приклади документації з Hokusai 2.2.2.
+
+## Випадки \{#cases}
+| Випадок | Коли виникає | Як виглядав | Що робити |
+| --- | --- | --- | --- |
+| `invalidInput(reason:)` | Побудова або завершальна операція | «raw data is 10 bytes; a 4×2 rgba8 image with a row stride of 16 needs 32»; «a document needs at least one page»; порожнє завантаження | Джерело чи його форма неправильні; виправте вхід. |
+| `invalidOption(name:reason:)` | Здебільшого побудова; дещо — завершальна операція | `blur(sigma: 0)`: «must be a finite value above zero»; `gamma(20)`: «must be a finite value from 0.1 to 10»; «extend cannot reduce an image; use resize or extract» | Аргумент поза діапазоном. `name` каже, який саме. Помилка викликача або неперевірені вхідні дані запиту. |
+| `unsupported(feature:reason:)` | Побудова або завершальна операція | «page selection: this image has a single page»; SVG як вивід; `.mks2013` на libvips < 8.17 | Ця збірка цього не вміє. Перевірте `capabilities()`; установіть іншу libvips або оберіть інший параметр. |
+| `decode(FailureContext)` | Завершальна операція | «the image data could not be decoded» (обрізане); «buffer is not in a known format» | Джерело пошкоджене чи не є зображенням. Помилка клієнта; дивіться `failOn` у [параметрах входу](/oss/hokusai/uk/sources-input/input-options). |
+| `transform(FailureContext)` | Завершальна операція | `extract` за межами: «extract_area: bad extract area»; `.cover` з `withoutEnlargement` на малому джерелі | Крок не вдалося застосувати до цього зображення. Перевірте геометрію; дивіться [Обрізання та полотно](/oss/hokusai/uk/geometry/crop-and-canvas#limits). |
+| `encode(FailureContext)` | Завершальна операція | Нативний кодувальник зазнав невдачі | Перевірте параметри кодувальника й `capabilities().outputFormats`. |
+| `io(url:operation:reason:)` | Завершальна операція | «file not found» (`read`); запис у відсутню теку (`write`) | Перевірте шляхи й права; `operation` — `.read` або `.write`. |
+| `resource(ResourceFailure)` | Побудова, завершальна операція або допуск | `decodedPixels` ліміт 1 000 000, фактично 1 600 000; `encodedBytes`; `outputPixels`; `channels`; `queuedEvaluations` | Налаштований ліміт відхилив роботу. Підніміть його, якщо робота легітимна; інакше відхиліть запит. |
+| `runtime(FailureContext)` | Будь-коли | «runtime configuration is frozen; call configure(_:) before the first evaluation…» | libvips не вдалося ініціалізувати або конфігурація запізнилася. |
+
+`FailureContext` містить `operation` (позначка на кшталт `resize`, **не** стабільний ідентифікатор), `reason` і нативний `diagnostic` за можливості. libvips веде один журнал помилок на весь процес, тож за паралельних збоїв діагностика може містити повідомлення інших обчислень або бути відсутньою. `ResourceFailure` містить `kind` (`ResourceKind`: `encodedBytes`, `decodedPixels`, `outputPixels`, `channels`, `queuedEvaluations`), `limit` і `actual`.
+
+## Симптоми \{#symptoms}
+| Ви бачите | Імовірна причина |
+| --- | --- |
+| Конструктор успішний, але завершальна операція каже «file not found» | Побудова лінива; файл відкриває завершальна операція ([виконання](/oss/hokusai/uk/core-concepts/evaluation#phases)) |
+| Портретне фото виходить із переплутаними шириною й висотою | `autoOrient()` відсутній або надто пізній ([порядок](/oss/hokusai/uk/interactions/orientation-and-resize)) |
+| Вивід JPEG має чорні кути | Прозора ділянка дійшла до кодувальника JPEG; `flatten` останнім ([чому](/oss/hokusai/uk/interactions/flatten-before-jpeg)) |
+| `.cover` кидає `transform` на малих зображеннях | `withoutEnlargement` з рамкою більшою за джерело ([захисти](/oss/hokusai/uk/geometry/resize#guards)) |
+| `write(to:)` каже, що вивід «is a file this pipeline reads» | Ви перезаписуєте власне джерело; запишіть в інше місце, потім замініть ([файли](/oss/hokusai/uk/encoding-output/terminals#files)) |
+| `png().write(to: "a.jpg")` дав дані PNG | Явний кодувальник перемагає розширення |
+| `drawText` чи `Hokusai.text` кидає `unsupported` | libvips без Pango (`capabilities().textRendering`) |
+| Текст має не той шрифт | Родина не встановлена на хості; використайте `TextStyle(fontFile:)`; хибний файл — лише попередження libvips |
+| `unsupported` для AVIF/HEIF | Немає кодека в цій збірці libvips ([можливості](/oss/hokusai/uk/runtime-performance/runtime#capabilities)) |
+| Багато запитів одночасно завершуються `resource` (`queuedEvaluations`) | Ліміт черги працює; зменште навантаження або підніміть ліміти ([середовище виконання](/oss/hokusai/uk/runtime-performance/runtime#configure)) |
+| Збірка падає: libvips надто стара | Потрібна libvips 8.16+; старіші версії відхиляються під час компіляції ([встановлення](/oss/hokusai/uk/guide/installation)) |
+| Попередження на кшталт «error in tile 0 x 704» у stderr | libvips повідомляє про пошкоджену ділянку під час декодування з `failOn: .none` ([параметри входу](/oss/hokusai/uk/sources-input/input-options#failures)) |
+
+## Скасування та часткові виводи \{#cancellation}
+Скасована завершальна операція викидає `CancellationError`; скасований `write(to:)` не чіпає наявний файл. Після невдалого чи скасованого `writeChunks` споживач отримав часткову передачу й мусить її відкинути.
+
+## Діагностика середовища \{#environment}
+`hokusai info` друкує версії Hokusai, libvips і Cairo та можливості й налаштування середовища, яке ви справді встановили; `hokusai --version` друкує версію релізу. `--verbose` в інших командах додає нативну діагностику.
+
+## Пов'язане \{#related}
+- [Конфігурація середовища виконання](/oss/hokusai/uk/runtime-performance/runtime), [Параметри входу](/oss/hokusai/uk/sources-input/input-options)
+- [Міграція](/oss/hokusai/uk/guide/migration)

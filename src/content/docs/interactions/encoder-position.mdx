@@ -1,0 +1,22 @@
+---
+pageId: interactions.encoder-position
+title: Encoder position
+description: The encoder and metadata policy are terminal settings; where they appear does not matter.
+---
+
+import Example from '../../../components/Example.astro';
+
+`jpeg()`, `png()`, `webp()`, `avif()`, `heif()`, `tiff()`, `gif()`, `pdf()` and `metadataPolicy(_:)` are **terminal configuration**, not image operations. They do not change pixels, so their place in the chain does not matter, and the last one wins.
+
+<Example id="order.encoder" />
+
+The program printed:
+
+- `encoder first == encoder last: true`: `jpeg(quality: 70).resize(width: 300)` and `resize(width: 300).jpeg(quality: 70)` produced byte-identical output.
+- `png() then webp() → webp`: selecting a second encoder replaces the first.
+
+By convention put the encoder last, where it reads as the end of the recipe. Put it early only when a helper returns a pipeline with its encoder chosen. A layer's encoder and metadata settings are ignored when it is composed.
+
+## Related \{#related}
+- [Output terminals](/oss/hokusai/encoding-output/terminals), [Metadata retention](/oss/hokusai/encoding-output/metadata)
+- [Order of operations](/oss/hokusai/interactions/)

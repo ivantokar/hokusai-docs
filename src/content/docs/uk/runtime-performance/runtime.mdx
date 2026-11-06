@@ -1,0 +1,56 @@
+---
+pageId: runtime-performance.runtime
+translatedFrom: "a11b8210950b"
+title: Конфігурація середовища виконання
+description: "Ініціалізація, налаштування та спостереження за нативним середовищем: паралельність, черга, ліміти та можливості."
+---
+
+import Example from '../../../../components/Example.astro';
+
+libvips має область дії процесу. Hokusai ініціалізує її щонайбільше раз, ліниво, і вона лишається доступною до завершення процесу; повторні й паралельні виклики безпечні. Ця сторінка про те, що можна налаштувати, про що можна спитати й як виглядає перевантаження.
+
+## Можливості \{#capabilities}
+`Hokusai.capabilities()` повідомляє підключені libvips і Cairo та що вміє ця збірка. Доступність кодеків залежить від того, як зібрано libvips, а не від залежностей Hokusai.
+
+<Example id="runtime.capabilities" />
+
+| Властивість | Значення |
+| --- | --- |
+| `libvipsVersion`, `cairoVersion` | Підключені версії (`8.18.7` і `1.18.6` на машині документації). |
+| `inputFormats`, `outputFormats` | Набори `ImageFormat`, які ця збірка може декодувати й кодувати. Читання й запис повідомляються окремо: кодування AVIF перевіряється кодуванням крихітного зображення, бо збереження HEIF може існувати без кодувальника AV1. |
+| `blockedInputFormats` | Формати, що декодуються, але вимкнені через `blockUntrustedOperations`. Заблоковано — це рішення розгортання; відсутній — потрібна інша libvips. |
+| `textRendering` | Чи можуть `drawText` / `Hokusai.text` відтворювати текст (libvips із Pango). |
+| `heifCompressions` | `.av1` (AVIF) і `.hevc` (`.heic`, часто відсутній). |
+| `pngPalette` | Чи працює індексований PNG (потребує libimagequant або quantizr). |
+
+`canDecode(_:)` і `canEncode(_:)` відповідають для одного формату. Ті самі факти друкує `hokusai info`.
+
+## Налаштування \{#configure}
+`Hokusai.configure(_:)` фіксує налаштування **рівня процесу** й може бути викликана **один раз**, до першого використання середовища. Середовище запускається на `initialize()`, `capabilities()` або першій завершальній операції; побудова конвеєра його не запускає.
+
+| `RuntimeConfiguration` | За замовчуванням | Значення |
+| --- | --- | --- |
+| `maxConcurrentEvaluations` | `.automatic` (активні процесори) | Скільки завершальних операцій (`data()`, `write(to:)`) виконується одночасно. Керує пам'яттю й затримкою; не залежить від `vipsConcurrency`. |
+| `maxQueuedEvaluations` | `nil` (без обмеження) | Скільки може чекати слота, перш ніж нові відхиляються з `resource` (`queuedEvaluations`). Обчислення в черзі тримають свої байти джерела, тож обмежуйте за перевантаження. |
+| `vipsConcurrency` | `.automatic` | Робочі потоки libvips на одне обчислення зображення. |
+| `blockUntrustedOperations` | `false` | Відмовляти завантажувачам, що розбирають складні чи вразливі до зловмисника формати: PDF (poppler), SVG, ImageMagick, OpenSlide. Джерело в заблокованому форматі завершується як `decode`. PDF-**вивід** не зачіпається. Завантажувачі JPEG, PNG, WebP, GIF, TIFF і HEIF не блокуються. |
+| `maxOutputPixels` | 1 073 741 824 (2³⁰) | Найбільше пікселів, яке може мати будь-яке зображення, створене конвеєром, кінцеве чи проміжне. `nil` знімає обмеження. Сервіс має задати власну політику. |
+
+<Example id="runtime.configure" />
+
+Що приклад показав на цій машині:
+
+- До використання `runtimeStatus` повідомив `isConfigurationFrozen: false` і ліміт 1.
+- Повторний виклик `configure` після запуску середовища викинув `runtime`: «runtime configuration is frozen; call configure(_:) before the first Hokusai evaluation, initialize(), or capabilities()».
+- З одним слотом і чергою на одне місце п'ять одночасних запитів «розмити й закодувати» дали **2 завершені й 3 відхилені** (`resource`, `queuedEvaluations`) у цьому запуску. Скільки саме завершиться, залежить від часу; гарантовано, що зайві запити завершуються помилкою одразу, а не накопичуються.
+- `resize(width: 100_000)` зображення 1600 × 1000 за `maxOutputPixels: 50_000_000` викинув `resource` (`outputPixels`) «resize would produce a 100000 × 62500 image, above the limit», до обчислення будь-якого пікселя.
+
+## Спостереження \{#status}
+`Hokusai.runtimeStatus` — це знімок: чинна конфігурація, `isConfigurationFrozen`, `queuedEvaluations`, `activeEvaluations`, `maxConcurrentEvaluations` і `vipsConcurrency` (`nil`, доки libvips не ініціалізовано). Він описує планувальник Hokusai, **а не** внутрішні робочі потоки libvips чи пам'ять кодеків.
+
+## Життєвий цикл \{#lifecycle}
+Публічного завершення роботи немає: не додавайте хук завершення до сервера. `Hokusai.initialize()` необов'язковий, корисний під час запуску, щоб проблему з нативною залежністю перетворити на збій запуску, а не збій першого запиту.
+
+## Пов'язане \{#related}
+- [Продуктивність](/oss/hokusai/uk/runtime-performance/performance), [Усунення проблем](/oss/hokusai/uk/troubleshooting-migration/troubleshooting)
+- [Параметри входу та ліміти](/oss/hokusai/uk/sources-input/input-options)
