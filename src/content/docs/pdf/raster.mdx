@@ -1,0 +1,51 @@
+---
+pageId: pdf.raster
+title: Raster PDF
+description: Export a pipeline as a one-page PDF with page size, margins, anchor, background, resolution limit and document properties.
+---
+
+import Example from '../../../components/Example.astro';
+
+`pdf(pageSize:margins:anchor:background:maxEffectiveDPI:metadata:)` is a **raster-document** encoder. The evaluated pixels are embedded as an image on one Cairo page. Text drawn into the pipeline has already become pixels, so it is **not selectable**, and an input PDF that is rasterised and written again loses its vector content, links and structure. For text that stays text, use [vector documents](/oss/hokusai/pdf/vector).
+
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `pageSize` | `PDFPageSize` | `.image()` | `.image(dpi:)` (default 72), `.a4(_ orientation)`, `.letter(_ orientation)`, `.points(width:height:)`. |
+| `margins` | `PDFMargins` | `.none` | Points: `PDFMargins(top:leading:bottom:trailing:)` or `.all(_)`. |
+| `anchor` | `Gravity` | `.center` | Where the aspect-fitted raster sits within the margins. |
+| `background` | `Color?` | `nil` | Fills the page behind the raster. `nil` leaves the page unpainted and transparent pixels stay transparent; use `.white` for print. |
+| `maxEffectiveDPI` | `Double?` | `nil` | If the raster's effective resolution on the page exceeds it, it is downsampled (Lanczos) before embedding. Off by default: Hokusai never resamples because a page has a physical size. |
+| `metadata` | `PDFDocumentMetadata?` | `nil` | `title`, `author`, `subject`, `keywords`, `creator`, `creationDate`, `modificationDate`. Nothing is copied from the image's EXIF, XMP or IPTC. |
+
+<Example
+  id="pdf.raster"
+  results={[
+    { file: 'image.pdf', label: '.image()', alt: 'A page the size of the image: 800 by 500 points, filled by the landscape.' },
+    { file: 'a4.pdf', label: '.a4(), margins 36', alt: 'An A4 portrait page with the landscape centred inside 36-point white margins.' },
+    { file: 'letter-landscape.pdf', label: '.letter(.landscape), .north', alt: 'A US Letter landscape page in paper colour with the landscape anchored to the top.' },
+  ]}
+/>
+
+The program printed the page facts from `OutputInfo.pdf`:
+
+| Call | Page (points) | File size |
+| --- | --- | --- |
+| `pdf()` on 800 px | 800 × 500 (72 dpi) | 188,866 bytes |
+| `pdf(pageSize: .image(dpi: 150))` | 384 × 240 | 188,866 bytes |
+| `pdf(pageSize: .a4(), margins: .all(36), background: .white)` | 595 × 842 | 188,921 bytes |
+| `pdf(pageSize: .letter(.landscape), …)` | 792 × 612 | 188,933 bytes |
+
+The page size changes the page, not the embedded raster: the file size stays almost the same. A fixed paper size carries no resolution; the raster's effective DPI follows from its pixel size and the area it is placed in. Resize the image to the resolution you need *before* `pdf()` (for 150 dpi on A4 that is about 1240 px wide), or set `maxEffectiveDPI`.
+
+## Output and errors \{#errors}
+`write(to:)` writes the file directly as Cairo produces it; `data()` collects the same writer's bytes. `OutputInfo.pdf` reports `pageCount`, `pageWidth` and `pageHeight`.
+
+| Call | Result |
+| --- | --- |
+| `.image(dpi: 0)` | `invalidOption(name: "pageSize.dpi", …"must be a finite value greater than zero")` |
+| An invalid margin, DPI limit or page size | `invalidOption`, thrown when `pdf` is called |
+| PDF output support | PDF output uses Cairo and is independent of PDF input support; `capabilities().outputFormats` lists what this build can write |
+
+## Related \{#related}
+- [Vector documents](/oss/hokusai/pdf/vector), [Encoders](/oss/hokusai/encoding-output/formats)
+- [PDF report recipe](/oss/hokusai/recipes/pdf-report)

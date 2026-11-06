@@ -1,0 +1,47 @@
+---
+pageId: integrations.hummingbird
+translatedFrom: "0a607aaa7789"
+title: Hokusai Hummingbird
+description: Читання завантаження в конвеєр, його перетворення та потокова передача результату із сервера Hummingbird 2.
+---
+
+import Example from '../../../../components/Example.astro';
+
+Hokusai Hummingbird (2.1.0) — тонкий шар: потокова передача, скасування та ліміти належать самому Hokusai (`writeByteBuffers` у `HokusaiNIO`, побудований на основному `writeChunks`); жоден тип Hummingbird не потрапляє в нативний шар. **Вимоги:** Swift 6.0+, Hummingbird 2.x, Hokusai 2, libvips 8.16+ і Cairo з підтримкою PDF ([встановлення](/oss/hokusai/uk/guide/installation)).
+
+## Встановлення \{#install}
+```swift
+dependencies: [
+    .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.0.0"),
+    .package(url: "https://github.com/ivantokar/hokusai-hummingbird.git", from: "2.0.0")
+]
+```
+
+Додайте `HokusaiHummingbird` до цілі, що визначає ваші маршрути.
+
+## Налаштування під час запуску \{#configure}
+Налаштування Hokusai фіксуються під час першого використання, тож налаштовуйте до першого запиту; `initialize()` перетворює проблему з нативною частиною на збій запуску.
+
+```swift
+try Hokusai.configure(.init(maxConcurrentEvaluations: .fixed(4), maxQueuedEvaluations: 64))
+try Hokusai.initialize()
+```
+
+## Маршрути \{#routes}
+<Example id="integrations.hummingbird" />
+
+Код вище компілюється в CI проти `hokusai-hummingbird` 2.1.0 (`examples/integrations/hummingbird-app`). Спробуйте:
+
+```bash
+curl -X POST http://localhost:8080/resize --data-binary "@photo.jpg" -o output.webp
+```
+
+## На що можна покладатися \{#behavior}
+- **Ліміти завантаження.** `hokusaiImage` читає тіло в міру надходження й ніколи не понад його ліміт: оголошений `Content-Length` понад `maximumSize` (типово 20 МіБ) відхиляється до читання будь-якого байта, а тіло без нього відхиляється, щойно перевищить ліміт, обидва випадки дають `413`. Передайте `options: InputOptions(limits: …)` для власних лімітів декодування Hokusai. Невелике завантаження лишається в пам'яті; більше за `memoryLimit` (типово 1 МіБ) переходить у приватний тимчасовий файл (`Hokusai(spooling:)`), тож закодоване завантаження займає щонайбільше `memoryLimit` плюс одну частину пам'яті, яким би великим не був `maximumSize`. Декодування обмежує окремо `InputLimits.maxPixels`.
+- **Потокові відповіді.** `response()` пише через `Hokusai.writeByteBuffers`: кожен буфер передається `ResponseBodyWriter` Hummingbird у міру кодування, тож повільний клієнт сповільнює кодування; тримається щонайбільше чотири буфери по 64 КіБ закодованого виводу. Тіло передається частинами, без `Content-Length`. `Content-Type` береться з кодувальника, який несе конвеєр (конвеєр без нього — це `500`). `status:`, `headers:` і `chunkSize:` — параметри. TIFF спершу кодується в пам'яті, а потім передається потоком.
+- **Збої до першого байта — це `4xx`.** Заголовок джерела читається до фіксації відповіді, тож відсутнє чи нечитабельне зображення — це чиста помилка, а не зламане `200`. Збій після першого байта може лише достроково завершити потік, так працює HTTP; відключення клієнта скасовує обчислення.
+- **Помилки.** `HokusaiErrorMiddleware` перетворює `HokusaiError`, викинуту маршрутом, на помилку HTTP; `hokusaiImage` і `response` уже роблять це для того, що виконують. Відображення: `invalidInput` / `invalidOption` — 400, `decode` — 422, `resource` — 413 для байтів, 422 для пікселів чи каналів, 503, коли черга обчислень повна, `unsupported` — 501, а `io` / `transform` / `encode` / `runtime` — 500. `error.httpStatus` і `error.httpError` публічні, якщо потрібна інша політика.
+
+## Пов'язане \{#related}
+- [Hokusai Vapor](/oss/hokusai/uk/vapor/overview), [Docker](/oss/hokusai/uk/integrations/docker)
+- [Конфігурація середовища виконання](/oss/hokusai/uk/runtime-performance/runtime), [Великі завантаження](/oss/hokusai/uk/sources-input/uploads)

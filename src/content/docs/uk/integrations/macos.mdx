@@ -1,0 +1,64 @@
+---
+pageId: integrations.macos
+translatedFrom: "0d32e81eb785"
+title: macOS
+description: Встановлення нативних бібліотек, збірка через SwiftPM, запуск виконуваних прикладів і розуміння попереджень лінкера.
+---
+
+У macOS Hokusai підключає libvips і Cairo із системи, на практиці — з Homebrew. Усе, що **запускає** ваш бінарний файл, потребує цих встановлених бібліотек.
+
+## Встановлення \{#install}
+```bash
+brew install vips cairo pkg-config
+brew install pango        # лише якщо використовуєте HokusaiPDF
+```
+
+Hokusai потребує macOS 13 або новішої, Swift 6.0 або новішого, libvips 8.16+ і Cairo 1.16+. Перевірте, що ви отримали:
+
+```bash
+pkg-config --modversion vips cairo      # напр. 8.18.7 і 1.18.6
+swift run hokusai info                  # або зібраний архів hokusai із релізу на GitHub
+```
+
+`hokusai info` друкує формати та можливості **вашого** встановлення (HEIF, AVIF, відтворення тексту, вхід PDF), тобто те, що може використовувати ваш код ([Середовище виконання](/oss/hokusai/uk/runtime-performance/runtime#capabilities)).
+
+## Додавання Hokusai \{#add}
+```swift
+// Package.swift
+dependencies: [
+    .package(url: "https://github.com/ivantokar/hokusai.git", from: "2.0.0")
+],
+targets: [
+    .executableTarget(name: "MyTool", dependencies: [
+        .product(name: "Hokusai", package: "hokusai"),
+        // .product(name: "HokusaiPDF", package: "hokusai"),   // векторні PDF-документи
+        // .product(name: "HokusaiNIO", package: "hokusai"),   // ByteBuffer зі SwiftNIO
+    ])
+]
+```
+
+## Виконувані приклади \{#examples}
+Кожне зображення й кожен блок коду в цій документації створює пакет SwiftPM у репозиторії, тож він водночас слугує проєктом macOS, з якого можна почати:
+
+```bash
+git clone https://github.com/ivantokar/hokusai-docs.git
+cd hokusai-docs/examples
+swift run DocsExamples run resize        # виконати приклади, ідентифікатор яких починається з «resize»
+swift run DocsExamples run               # виконати всі; результати йдуть у ../public/generated
+```
+
+## Попередження лінкера \{#warnings}
+Збірка з бібліотеками Homebrew друкує попередження такого вигляду:
+
+```text
+ld: warning: building for macOS-13.0, but linking with dylib '/opt/homebrew/opt/vips/lib/libvips.42.dylib' which was built for newer version 27.0
+```
+
+Вони нешкідливі під час збірки й повідомляють щось справжнє: бібліотеки Homebrew орієнтовані на новішу macOS, ніж мінімум пакета (13), тож бінарний файл, зібраний так, працює на версіях macOS, які підтримують ваші бібліотеки Homebrew. Якщо ви поширюєте бінарний файл іншим Mac, на них потрібні сумісні libvips і Cairo (установлені або вбудовані вами): Hokusai не вбудовує нативні бібліотеки.
+
+## У застосунку \{#app}
+Конвеєри — це незмінні значення, а завершальні операції `async`, тож вони безпосередньо пасують до застосунку зі Swift concurrency: будуйте конвеєр на будь-якому акторі, виконуйте в `Task` і передавайте `Output.data` в `NSImage` чи `Image`. Скасовуйте завдання, коли користувач змінює вхід; завершальна операція викидає `CancellationError`, і нічого напівзаписаного не лишається. Налаштовуйте `RuntimeConfiguration` один раз під час запуску, до першого виконання.
+
+## Пов'язане \{#related}
+- [Встановлення](/oss/hokusai/uk/guide/installation), [Docker](/oss/hokusai/uk/integrations/docker)
+- [CLI](/oss/hokusai/uk/reference/cli)

@@ -1,0 +1,31 @@
+---
+pageId: recipes.watermark
+translatedFrom: "6bce272eaefd"
+title: Водяний знак
+description: Підготуйте логотип один раз і застосуйте до багатьох зображень, плюс ледь помітна плитка для проб.
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Мета.** Поставити напівпрозорий логотип у куті кожного опублікованого фото й запропонувати ледь помітну плитку по всьому зображенню для проб. **Вхідні дані:** [`scene.png`, `phone.jpg`, `emblem.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Потрібно:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.watermark"
+  results={[
+    { file: 'wm-scene.jpg', label: 'wm-scene.jpg', alt: 'Пейзаж завширшки 800 пікселів з емблемою внизу праворуч, непрозорість 70 відсотків.' },
+    { file: 'wm-phone.jpg', label: 'wm-phone.jpg', alt: 'Фото з телефона, що лежало боком, тепер вертикальне й завширшки 500, з емблемою внизу праворуч.' },
+    { file: 'wm-proof.jpg', label: 'wm-proof.jpg', alt: 'Пейзаж, укритий ледь помітним візерунком із повторюваної емблеми.' },
+  ]}
+/>
+
+## Як це працює \{#how}
+- **Знак готують один раз** (`mark`, зменшений до 120 px) і використовують повторно: шар — це просто конвеєр, тож його обчислюють для кожного зображення без повторного кодування ([композиція](/oss/hokusai/uk/text-composition/composite)).
+- **`autoOrient()` і `resize` стоять перед `composite`**, тож знак має однаковий розмір на кожному виводі, а розміщення міряється на остаточному зображенні ([порядок](/oss/hokusai/uk/interactions/composite-order)).
+- **`.gravity(.southEast, offsetX: 20, offsetY: 20)`** тримає знак за 20 px від кута незалежно від розміру фото; `opacity: 0.7` дає фото просвічувати.
+- Вивід JPEG не має альфи, але фото непрозорі, тож `flatten` тут не потрібен. Якщо основа може бути прозорою, згладжуйте останнім ([чому](/oss/hokusai/uk/interactions/flatten-before-jpeg)).
+
+## Варіації \{#variations}
+- **Плитка для проб:** `.tile(gravity: .center)` з `opacity: 0.18` повторює малий знак по всьому зображенню (третій результат).
+- **Масштабуйте знак під фото:** `mark.resize(width: photoWidth / 8)`.
+- **Текст як водяний знак:** замініть шар на `Hokusai.text(…)` ([текст](/oss/hokusai/uk/text-composition/text)).
+- **Затемнений кут для читабельності:** другий шар із `.multiply` під знаком.

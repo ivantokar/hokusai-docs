@@ -1,0 +1,33 @@
+---
+pageId: integrations.vapor-service
+translatedFrom: "c3d2a8018562"
+title: "Vapor: повний сервіс"
+description: Маршрути для необроблених, multipart і великих завантажень з лімітами, відображенням помилок, потоковою передачею та конфігурацією під час запуску.
+---
+
+import Example from '../../../../components/Example.astro';
+
+Ця сторінка збирає частини [Hokusai Vapor](/oss/hokusai/uk/vapor/overview) в один невеликий сервіс: три маршрути завантаження, відображення помилок і конфігурація під час запуску. Код компілюється в CI проти `hokusai-vapor` 2.1.0 (`examples/integrations/vapor-app`), тож відповідає випущеному API.
+
+<Example id="integrations.vapor" />
+
+## Що робить кожна частина \{#parts}
+- **`HokusaiErrorMiddleware`** відображає `HokusaiError`, викинуту маршрутом, на статус HTTP за її випадком: `invalidInput` / `invalidOption` — 400, `decode` — 422, `resource` — 413 для байтів, 422 для пікселів чи каналів, 503 для повної черги обчислень, `unsupported` — 501, а `io` / `transform` / `encode` / `runtime` — 500. `req.hokusaiImage` і `response()` уже застосовують відображення до того, що виконують; middleware покриває маршрути, які самі викликають `data()` або `write(to:)`.
+- **`/resize`** читає необроблене тіло з `maximumSize` 5 МіБ. Тіло читається в міру надходження: оголошений `Content-Length` понад ліміт відхиляється до читання будь-якого байта, а тіло без нього відхиляється, щойно перевищить ліміт, обидва випадки дають `413`.
+- **`/upload`** читає поле `image` форми multipart, застосовує `autoOrient()`, щоб фото з телефона було вертикальним, робить обрізання `attention` 256 × 256 і відповідає PNG із заголовком `Cache-Control`.
+- **`/large`** використовує `body: .stream`, щоб Vapor не збирав тіло, і `maximumSize` 200 МіБ. Тіло переходить у тимчасовий файл понад `memoryLimit` (типово 1 МіБ), тож закодоване завантаження займає щонайбільше `memoryLimit` плюс одну частину пам'яті; декодування обмежує окремо `maxPixels`. `fit: .inside` з `withoutEnlargement` — безпечна зміна розміру для невідомих розмірів ([чому не `.cover`](/oss/hokusai/uk/geometry/resize#guards)).
+- **`configure`** фіксує `RuntimeConfiguration` до першого зображення: чотири одночасні обчислення та черга з 64, після чого нові запити завершуються `503`, а не накопичуються.
+
+## Поведінка відповіді \{#responses}
+`response()` записує тіло в міру кодування зі зворотним тиском: повільний клієнт сповільнює кодування замість того, щоб збільшувати пам'ять, а відключення клієнта скасовує завдання запиту, що зупиняє обчислення. `Content-Type` береться з кодувальника. До фіксації відповіді читається заголовок джерела, тож відсутнє чи нечитабельне зображення — це `4xx`, а не зламане `200`.
+
+## Контрольний список для продакшну \{#checklist}
+- Задайте `maximumSize`, `InputLimits.maxPixels` і `RuntimeConfiguration.maxOutputPixels` за власною політикою.
+- Задайте `blockUntrustedOperations`, якщо завантаження надходять від недовірених користувачів.
+- Задайте `maxConcurrentEvaluations` і `maxQueuedEvaluations` за ліміти контейнера ([Docker](/oss/hokusai/uk/integrations/docker)).
+- Не додавайте хук завершення; у Hokusai немає публічного завершення роботи.
+- Перевірте обрізаним файлом і величезним `resize(width:)`, щоб побачити своє відображення помилок ([усунення проблем](/oss/hokusai/uk/troubleshooting-migration/troubleshooting)).
+
+## Пов'язане \{#related}
+- [Завантаження та відповіді](/oss/hokusai/uk/vapor/uploads-and-responses), [Hokusai Hummingbird](/oss/hokusai/uk/integrations/hummingbird)
+- [Docker](/oss/hokusai/uk/integrations/docker)

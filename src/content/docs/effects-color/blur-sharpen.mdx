@@ -1,0 +1,66 @@
+---
+pageId: effects-color.blur-sharpen
+title: Blur & sharpen
+description: Soften and sharpen images, and why sharpening belongs after resizing.
+---
+
+import Example from '../../../components/Example.astro';
+
+`blur` softens an image with a Gaussian filter, for backgrounds, privacy and smoothing. `sharpen` applies an unsharp mask to luminance to restore crispness lost when shrinking.
+
+## blur \{#blur}
+`blur(sigma:precision:minAmplitude:)`; plain `blur()` is a mild blur with `sigma: 1`.
+
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `sigma` | `Double` | `1` | Blur radius in pixels; finite and above zero. |
+| `precision` | `BlurPrecision` | `.integer` | `.integer`, `.float`, `.approximate`: trades accuracy for speed. |
+| `minAmplitude` | `Double` | `0.2` | Finite, above zero and at most `10`; smaller gives a wider, more accurate mask. |
+
+<Example
+  id="effects.blur"
+  results={[
+    { file: 'sigma-1.webp', label: 'sigma 1', alt: 'The landscape with a barely visible blur.' },
+    { file: 'sigma-4.webp', label: 'sigma 4', alt: 'The landscape clearly blurred; the lighthouse stripes merge.' },
+    { file: 'sigma-10.webp', label: 'sigma 10', alt: 'The landscape heavily blurred; only shapes and colours remain.' },
+    { file: 'emblem-blur.png', label: 'with alpha', alt: 'The blurred emblem on transparency, with soft edges and no dark halo.' },
+  ]}
+/>
+
+Pixels are weighted by alpha, so transparent areas do not bleed colour into the blur: the emblem's edges soften without a dark fringe. Larger `sigma` costs more time and memory per pixel.
+
+## sharpen \{#sharpen}
+`sharpen(sigma:)` is the short form (`sigma` defaults to `1`). `sharpen(_ options: SharpenOptions)` exposes the unsharp-mask controls. Alpha is untouched.
+
+| `SharpenOptions` | Default | Meaning |
+| --- | --- | --- |
+| `sigma` | `1` | Radius of the Gaussian used to find detail, in pixels; above zero. |
+| `flat` | `0` | Strength applied to flat areas. |
+| `jagged` | `3` | Strength applied to steep edges. |
+| `threshold` | `2` | Difference that separates flat areas from jagged edges. |
+| `maxBrightening` | `10` | The most a pixel may brighten. |
+| `maxDarkening` | `20` | The most a pixel may darken. |
+
+`flat`, `jagged`, `threshold`, `maxBrightening` and `maxDarkening` are finite values from `0` to `1,000,000`; the defaults are libvips' own.
+
+<Example
+  id="effects.sharpen"
+  results={[
+    { file: 'none.png', label: 'none', alt: 'A close-up of the lighthouse after shrinking, slightly soft.' },
+    { file: 'default.png', label: 'sharpen()', alt: 'The same close-up with crisper stripe edges.' },
+    { file: 'sigma-2.png', label: 'sigma 2', alt: 'The close-up sharpened with a wider radius: edges look more pronounced.' },
+    { file: 'custom.png', label: 'flat 1, jagged 6', alt: 'The close-up sharpened strongly, including flat areas.' },
+  ]}
+/>
+
+## Order and combinations \{#combinations}
+- **Sharpen after resizing, not before.** Shrinking softens an image, and sharpening a full-size image just before a large reduction is partly thrown away by the resize. See [Order of operations](/oss/hokusai/interactions/resize-blur-sharpen).
+- Blur before a large reduction is wasted work as well: reduce first, then blur at the final scale.
+- `blur` and `sharpen` do not change the image size; `sharpen` leaves alpha untouched, and `blur` weights pixels by alpha.
+
+## Errors \{#errors}
+`blur(sigma: 0)` throws `HokusaiError.invalidOption` ("must be a finite value above zero"), as do a non-finite `sigma`, a `minAmplitude` outside `(0, 10]`, and out-of-range `SharpenOptions`. All are thrown when the pipeline is built.
+
+## Related \{#related}
+- [Tone & color](/oss/hokusai/effects-color/tone-and-color), [Filters](/oss/hokusai/effects-color/filters)
+- [Resize](/oss/hokusai/geometry/resize)

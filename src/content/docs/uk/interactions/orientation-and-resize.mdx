@@ -1,0 +1,29 @@
+---
+pageId: interactions.orientation-and-resize
+translatedFrom: "bfa51b67f416"
+title: Орієнтація та зміна розміру
+description: Чому autoOrient стоїть перед усім, що залежить від ширини й висоти.
+---
+
+import Example from '../../../../components/Example.astro';
+
+Фото з телефона зберігає пікселі боком і записує в EXIF-тегу, як їх повернути. `resize(width: 800)` вимірює **збережену** ширину, якщо `autoOrient()` ще не застосував тег.
+
+<Example
+  id="order.orientation"
+  results={[
+    { file: 'orient-first.jpg', label: 'autoOrient → resize', alt: 'Сцена вертикально, 800 на 500 пікселів.' },
+    { file: 'resize-first.jpg', label: 'resize → autoOrient', alt: 'Сцена вертикально, але 1280 на 800 пікселів: її змінили до 800 пікселів завширшки ще до повороту.' },
+  ]}
+/>
+
+| Порядок | Розмір |
+| --- | --- |
+| `autoOrient()`, потім `resize(width: 800)` | **800 × 500**: довга сторона 800, як і задумано |
+| `resize(width: 800)`, потім `autoOrient()` | **1280 × 800**: збережену ширину (коротку сторону) встановили 800, а потім зображення повернули |
+
+Обидва вертикальні; лише перший має розмір, який ви просили. Те саме стосується `extract`, `smartCrop`, `resize(fit: .cover)` з обома розмірами та всього, що читає ширину чи висоту. Ставте `autoOrient()` першим (зокрема перед `resize`, щоб зменшення JPEG під час завантаження й далі діяло, коли конвеєр починається з `autoOrient`).
+
+## Пов'язане \{#related}
+- [Обертання, віддзеркалення та афінні перетворення](/oss/hokusai/uk/geometry/rotate-flip-affine#auto-orient), [Збереження метаданих](/oss/hokusai/uk/encoding-output/metadata)
+- [Порядок операцій](/oss/hokusai/uk/interactions/)

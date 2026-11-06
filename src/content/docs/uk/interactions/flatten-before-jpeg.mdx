@@ -1,0 +1,27 @@
+---
+pageId: interactions.flatten-before-jpeg
+translatedFrom: "adf0b9396f13"
+title: Згладжування перед JPEG
+description: Чому прозорість треба розв'язувати після останньої операції, що її створює.
+---
+
+import Example from '../../../../components/Example.astro';
+
+`rotate` не на прямий кут відкриває нові кути, прозорі, якщо ви не задали `background`. JPEG не зберігає прозорість, тож у що ці кути перетворяться, залежить від того, чи згладили ви **після** обертання.
+
+<Example
+  id="order.flatten"
+  results={[
+    { file: 'rotate-then-flatten.jpg', label: 'rotate → flatten', alt: 'Емблема, повернута на 30 градусів і згладжена на папір: кути кольору паперу.' },
+    { file: 'flatten-then-rotate.jpg', label: 'flatten → rotate', alt: 'Емблема, спершу згладжена, а потім повернута: нові кути чорні.' },
+  ]}
+/>
+
+- **rotate → flatten**: згладжування бачить прозорі кути й зафарбовує їх кольором паперу.
+- **flatten → rotate**: у емблеми вже не лишилося прозорості для згладжування, а `rotate` створив нові прозорі кути, які ніщо не розв'язує, і кодувальник JPEG записав їх **чорними** (спостережено з libvips 8.18).
+
+Правило те саме, що в розділі [Кодувальники](/oss/hokusai/uk/encoding-output/formats#alpha): згладжуйте **останнім**, безпосередньо перед форматом без альфи. Або передайте `rotate` кінцевий колір тла (`rotate(by:background:)`), що заповнить кути під час обертання.
+
+## Пов'язане \{#related}
+- [Канали та альфа](/oss/hokusai/uk/channels-transparency/alpha-and-channels), [Обертання](/oss/hokusai/uk/geometry/rotate-flip-affine#rotate)
+- [Порядок операцій](/oss/hokusai/uk/interactions/)

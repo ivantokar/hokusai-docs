@@ -59,6 +59,15 @@ for (const uk of [...pages.keys()].filter(isUk)) {
   if (!pages.has(`${BASE}/${uk.slice(BASE.length + 4)}`)) fail(`${uk}: no English page`);
 }
 
+// URLs published before the restructuring must keep resolving (directly or by redirect).
+const legacy = JSON.parse(readFileSync("inventory/legacy-urls.json", "utf8")).urls;
+for (const url of legacy) {
+  for (const prefix of [BASE, `${BASE}/uk`]) {
+    const path = `${prefix}${url}`.replace(/\/$/, "") + "/";
+    if (!pages.has(path)) fail(`legacy URL no longer resolves: ${path}`);
+  }
+}
+
 const sitemap = readdirSync(DIST).filter((f) => /^sitemap-\d+\.xml$/.test(f)).map((f) => readFileSync(join(DIST, f), "utf8")).join("\n");
 for (const path of pages.keys()) {
   if (!sitemap.includes(`<loc>${SITE}${path}</loc>`)) fail(`${path}: missing from the sitemap`);

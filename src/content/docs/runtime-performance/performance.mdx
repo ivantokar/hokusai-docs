@@ -1,0 +1,30 @@
+---
+pageId: runtime-performance.performance
+title: Performance
+description: What costs time and memory in a Hokusai pipeline, and the levers that actually matter.
+---
+
+import Example from '../../../components/Example.astro';
+
+Hokusai is a thin layer over libvips, which streams images through small regions and uses the CPU's cores. Most performance work is therefore about **not doing needless work** and **bounding concurrency**. This page lists the levers that have a documented effect; measure your own images before tuning.
+
+## Do less work \{#less-work}
+- **Reduce early.** Operations before a large `resize` run at full size. Put `autoOrient`, `extract` and the `resize` first, then adjust at the output size ([order](/oss/hokusai/interactions/)).
+- **Shrink-on-load.** A still JPEG or WebP pipeline that starts with `resize` (optionally after `autoOrient`) is scaled by the decoder: identical output dimensions, much less work. On the 5760 × 3840 reference fixture, resizing to 200 px wide took about 65 ms instead of 89 ms for WebP (debug build, best of six). Anything between the source and the `resize` disables it.
+- **One decode, several outputs.** Build the shared prefix once; each terminal evaluates its own branch. A source file is read again for each terminal, since Hokusai keeps no cache of its own.
+- **Skip what is not needed.** `autoOrient()` does nothing for an upright image; trivial rotations and empty composites are skipped.
+
+## Pick encoders deliberately \{#encoders}
+Encoding is often the largest cost. `effort` (WebP `0…6`, AVIF and HEIF `0…9`) trades CPU for size; lossless and large AVIF/HEIF settings are the slowest ([measured sizes](/oss/hokusai/encoding-output/formats)). For on-the-fly serving, JPEG or WebP at moderate effort is usually the right default; spend AVIF effort offline.
+
+## Bound concurrency and memory \{#concurrency}
+- `maxConcurrentEvaluations` is the main lever for memory and latency under load; `maxQueuedEvaluations` turns overload into fast failures ([Runtime](/oss/hokusai/runtime-performance/runtime#configure)). One evaluation can itself use many libvips threads (`vipsConcurrency`).
+- **Bound the input**: `InputLimits` (`maxBytes`, `maxPixels`) and, for pixels the pipeline creates, `maxOutputPixels`. An unbounded `resize(width:)` from a request is a denial of service.
+- **Streaming**: `writeChunks` / `Hokusai(spooling:)` bound the *encoded* bytes held, not the decode memory ([terminals](/oss/hokusai/encoding-output/terminals#results), [uploads](/oss/hokusai/sources-input/uploads)).
+- **Access mode**: leave `.random`. In Hokusai's benchmarks `.sequential` made heavily downscaled JPEG pipelines significantly slower ([input options](/oss/hokusai/sources-input/input-options#access)).
+
+## Measure with the CLI \{#benchmark}
+`hokusai benchmark run` sweeps `--evaluations × --vips-concurrency` and starts a **fresh worker process for every cell**, so each measurement has one frozen runtime configuration. Concurrent requests use separate copies of the input to keep libvips' operation cache out of the result. It writes a versioned JSON result (commit, Swift, OS, CPU, libvips, Cairo, runtime settings, cache policy, input SHA-256, raw samples, p50/p90/p95/p99, throughput, encoded bytes, active/queued high-water, peak RSS). `hokusai benchmark compare` reports per-cell deltas and flags only changes that exceed both a relative and an absolute threshold; it is advisory. Workloads include `thumbnail-jpeg`, `cover-webp`, `blur-webp`, `resize-png` and `pdf-a4`; profiles are `quick` and `stable`. See [CLI](/oss/hokusai/reference/cli#benchmark-a-pipeline).
+
+## Related \{#related}
+- [Runtime configuration](/oss/hokusai/runtime-performance/runtime), [Order of operations](/oss/hokusai/interactions/)

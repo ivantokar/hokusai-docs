@@ -1,0 +1,30 @@
+---
+pageId: recipes.avatar
+translatedFrom: "5c4aaac116c4"
+title: Круглий аватар
+description: Квадратне обрізання з круглою маскою та плоский запасний варіант для місць без альфи.
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Мета.** З будь-якого фото зробити круглий аватар 256 × 256. **Вхідні дані:** [`scene.png`, `emblem.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures) (його альфа-канал — це коло). **Потрібно:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.avatar"
+  results={[
+    { file: 'avatar.png', label: 'avatar.png', alt: 'Кругле обрізання пейзажу з маяком у центрі, із прозорими кутами.' },
+    { file: 'avatar.webp', label: 'avatar.webp', alt: 'Той самий круглий аватар як WebP із прозорістю.' },
+    { file: 'avatar.jpg', label: 'avatar.jpg (плоский)', alt: 'Круглий аватар на квадраті кольору паперу, як JPEG.' },
+  ]}
+/>
+
+## Як це працює \{#how}
+1. **`resize(width: 256, height: 256, fit: .cover, position: .attention)`** робить квадрат і лишає в ньому цікаву частину.
+2. **Кругла маска** — це альфа-канал наявного круглого зображення, зменшеного до 256 px: `extractChannel(.alpha)` перетворює його на сіре зображення, біле всередині диска й чорне ззовні.
+3. **`withAlpha(from: mask)`** використовує цю яскравість як альфу аватара: біле зберігає пікселі, чорне ховає. Маска має виходити **того самого розміру**, що й аватар, тому обидва по 256 px ([канали](/oss/hokusai/uk/channels-transparency/alpha-and-channels#with-alpha)).
+4. **PNG або WebP зберігають прозорість**; для місць, що не показують альфу, `flatten(background:)` на колір сторінки й кодуйте JPEG ([чому згладжувати останнім](/oss/hokusai/uk/interactions/flatten-before-jpeg)).
+
+## Варіації \{#variations}
+- **Інша форма:** як маска підійде будь-яке зображення з альфа-каналом чи сіре зображення потрібного розміру (заокруглений квадрат, шестикутник).
+- **М'який край:** `blur(sigma: 2)` для маски перед `withAlpha` розтушовує край.
+- **Retina:** будуйте на 512 і дозвольте сторінці масштабувати вниз.

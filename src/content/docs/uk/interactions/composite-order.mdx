@@ -1,0 +1,32 @@
+---
+pageId: interactions.composite-order
+translatedFrom: "5fb88991e1cf"
+title: Порядок накладання
+description: Як порядок composite, resize і розмиття змінює вигляд логотипа.
+---
+
+import Example from '../../../../components/Example.astro';
+
+Шар розміщується в координатах конвеєра **на момент `composite`**, тож усе, що змінює розмір пізніше, змінює й шар.
+
+## Зміна розміру та накладання \{#resize}
+<Example
+  id="order.composite"
+  results={[
+    { file: 'composite-then-resize.webp', label: 'composite → resize', alt: 'Пейзаж завширшки 400 пікселів із малою емблемою: логотип зменшився разом із фото.' },
+    { file: 'resize-then-composite.webp', label: 'resize → composite', alt: 'Пейзаж завширшки 400 пікселів із великою емблемою: логотип зберіг розмір 200 пікселів.' },
+    { file: 'blur-all.webp', label: 'composite → resize → розмиття', alt: 'Уся картинка розмита, зокрема емблема.' },
+    { file: 'blur-photo-only.webp', label: 'розмити фото, потім composite', alt: 'Розмитий пейзаж із чіткою емблемою поверх.' },
+  ]}
+/>
+
+- **composite → resize**: логотип у (40, 40) шириною 200 px на фото 1600 px стає 50 px на результаті 400 px, розміщений у (10, 10).
+- **resize → composite**: той самий шар у (40, 40) на фото 400 px займає половину ширини.
+- **Розмиття**: ефекти після `composite` діють і на логотип. Щоб зберегти логотип чітким, застосуйте ефект до фото першим, а накладайте останнім, як на четвертому зображенні (де логотип також зменшено, щоб пасував).
+
+## Що лишається однаковим \{#same}
+Шари малюються в порядку масиву, пізніші поверх ранніх ([Композиція](/oss/hokusai/uk/text-composition/composite#order)). Шар — це власний конвеєр, тож його перетворення (resize, розмиття, negate) виконуються *до* накладання; порядок операцій **всередині** шару — та сама історія, що й усюди.
+
+## Пов'язане \{#related}
+- [Композиція](/oss/hokusai/uk/text-composition/composite), [Рецепт водяного знака](/oss/hokusai/uk/recipes/watermark)
+- [Порядок операцій](/oss/hokusai/uk/interactions/)

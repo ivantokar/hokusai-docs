@@ -1,0 +1,40 @@
+---
+pageId: integrations.docker
+translatedFrom: "c97647f55f4e"
+title: Docker
+description: Збірка та запуск сервісу Hokusai в контейнері з достатньо новою libvips.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import dockerfile from '../../../../../examples/docker/Dockerfile?raw';
+
+Hokusai 2 потребує **libvips 8.16 або новішої**. Ubuntu 24.04 LTS постачається з 8.15, а Debian 12 — із ще старішою, тож там `apt install libvips-dev` недостатньо: збірка завершується помилкою, бо старіші версії відхиляються під час компіляції. Debian 13 і Ubuntu 25.10 та новіші постачають 8.16 або новішу, але офіційних образів Swift для них не публікують, тож Dockerfile нижче збирає libvips із релізного архіву на етапі збірки й копіює її в мінімальний образ виконання. Це той самий підхід, яким власний CI Hokusai фіксує нативну базу.
+
+## Dockerfile \{#dockerfile}
+<Code code={dockerfile} lang="dockerfile" title="examples/docker/Dockerfile" />
+
+Його зібрано й запущено для цієї сторінки (образ приблизно 323 МБ):
+
+```text
+$ docker build -t hokusai-docs-check examples/docker
+$ docker run --rm hokusai-docs-check
+libvips 8.16.1, Cairo 1.18.0
+can write: jpeg, pdf, png, tiff, webp
+resized to 32 × 32, 516 bytes (webp)
+```
+
+Застосунок у `examples/docker/app` — кілька рядків: він друкує `Hokusai.capabilities()`, змінює розмір згенерованого зображення й кодує WebP.
+
+## Вибір у Dockerfile \{#choices}
+- **Багатоетапний.** Образ `swift` має інструментарій і компілятори; середовище виконання — звичайний `ubuntu:noble` лише з тими спільними бібліотеками, що потрібні libvips. Бібліотеки виконання Swift (`/usr/lib/swift/linux/*.so`) копіюються з етапу збірки, так контейнер працює без інструментарію; альтернатива — `--static-swift-stdlib`.
+- **`VIPS_VERSION`.** Зафіксуйте його як аргумент збірки й підвищуйте свідомо. `hokusai info` показує, що має контейнер.
+- **Бібліотеки — це те, що ви встановите.** Збірка вище не мала в образі бібліотек палітри, AVIF, кодувальника HEIF чи GIF, і `capabilities()` програми про це сказала: `can write: jpeg, pdf, png, tiff, webp`. Збірка libvips підтримує лише те, що її залежності надають під час збірки, тож додайте відповідні пакети `-dev` (і їхні пакети виконання на фінальному етапі) для кожного потрібного формату, а потім знову перевірте `capabilities()`. Не вважайте кодек наявним: запитайте середовище ([можливості](/oss/hokusai/uk/runtime-performance/runtime#capabilities)).
+- **Шрифти.** Відтворення тексту потребує шрифтів в образі виконання (вище `fonts-dejavu-core`) і libvips із Pango; `TextStyle(fontFile:)` завантажує файл, який ви поставляєте.
+- **Користувач без прав root** запускає процес.
+
+## Запуск сервера \{#server}
+Для сервісу Vapor чи Hummingbird замініть продукт `Resizer` власним, відкрийте порт і задайте `RuntimeConfiguration` під час запуску. У контейнері задавайте `maxConcurrentEvaluations` і `maxQueuedEvaluations` за обмеженнями ЦП і пам'яті, які ви йому дали: пам'ять — це приблизно кількість одночасних обчислень, помножена на декодований розмір зображень, які вони тримають ([продуктивність](/oss/hokusai/uk/runtime-performance/performance)). Задайте `blockUntrustedOperations` для сервісів, що декодують завантаження недовірених користувачів.
+
+## Пов'язане \{#related}
+- [Hokusai Vapor](/oss/hokusai/uk/vapor/overview), [Hokusai Hummingbird](/oss/hokusai/uk/integrations/hummingbird)
+- [Встановлення](/oss/hokusai/uk/guide/installation)

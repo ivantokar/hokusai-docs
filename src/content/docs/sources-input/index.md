@@ -1,0 +1,27 @@
+---
+pageId: sources-input.index
+title: Sources & input
+description: Every way to create a Hokusai pipeline.
+---
+
+| Create a pipeline from | API | Module |
+| --- | --- | --- |
+| Encoded bytes | `Hokusai(data:options:)` | Hokusai |
+| A file | `Hokusai(url:options:)` | Hokusai |
+| Raw pixels you already hold | `Hokusai(raw:width:height:format:rowStride:premultiplied:limits:)`, `Hokusai(raw: RawImage)` | Hokusai |
+| An upload that arrives in chunks | `Hokusai(spooling:options:memoryLimit:spoolDirectory:)` | Hokusai |
+| NIO buffers | `Hokusai(buffer:options:byteTransferStrategy:)`, `Hokusai(spooling:)` with `ByteBuffer` | HokusaiNIO |
+| Generated text | `Hokusai.text(_:layout:style:)` | Hokusai |
+
+`InputOptions` selects the `page` of a multi-page source, the `access` mode (`random` or `sequential`), the `failOn` decode-failure level and the `limits`. `InputLimits` bounds `maxBytes`, `maxPixels` and `maxChannels` before any native work. Raw pixel formats are `gray8`, `grayAlpha8`, `rgb8`, `rgba8` and their 16-bit forms.
+
+## Guides {#guides}
+
+- [Input options & limits](/oss/hokusai/sources-input/input-options)
+- [Raw pixels](/oss/hokusai/sources-input/raw-pixels)
+- [Large uploads](/oss/hokusai/sources-input/uploads)
+
+## Read next
+
+- [Pipelines & concurrency](/oss/hokusai/guide/pipelines)
+- [Inspection](/oss/hokusai/inspection/)

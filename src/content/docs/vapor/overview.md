@@ -3,18 +3,18 @@ pageId: vapor.overview
 title: Hokusai Vapor
 ---
 
-Hokusai Vapor connects Hokusai 1.0 pipelines to Vapor 4. Decode an image upload, compose a recipe, and return an asynchronous image or PDF response.
+Hokusai Vapor connects Hokusai 2 pipelines to Vapor 4. Decode an image upload, compose a recipe, and return a streamed image or PDF response.
 
 ## Install
 
 ```swift
 dependencies: [
     .package(url: "https://github.com/vapor/vapor.git", from: "4.89.0"),
-    .package(url: "https://github.com/ivantokar/hokusai-vapor.git", from: "1.0.0")
+    .package(url: "https://github.com/ivantokar/hokusai-vapor.git", from: "2.0.0")
 ]
 ```
 
-Add `HokusaiVapor` to the target that defines your routes. Hokusai's native requirements remain the same: install libvips, Cairo, and `pkg-config` on the host.
+Add `HokusaiVapor` to the target that defines your routes. Hokusai's native requirements remain the same: libvips 8.16+, Cairo with PDF support, and `pkg-config` on the host.
 
 ## Configure once
 
@@ -28,15 +28,16 @@ func configure(_ app: Application) throws {
 }
 ```
 
-`configure()` initializes Hokusai's native image runtime. Do not add a Vapor lifecycle shutdown hook; ordinary process teardown is handled safely by Hokusai.
+`configure()` accepts an optional `RuntimeConfiguration` that freezes process-level settings before the first image, for example `.init(maxConcurrentEvaluations: .fixed(4), maxQueuedEvaluations: 64)`. Without one, the defaults apply and the native runtime starts on first use. `app.hokusai.capabilities()` and `app.hokusai.runtimeStatus` report the runtime. Do not add a Vapor lifecycle shutdown hook.
 
 ## First route
 
 ```swift
 app.post("resize") { req async throws -> Response in
-    let image = try req.hokusaiImage()
-    let resized = try image.resize(width: 800, height: 600, fit: .cover)
-    return try await resized.response(format: "jpeg", quality: 85)
+    try await req.hokusaiImage()
+        .resize(width: 800, height: 600, fit: .cover)
+        .jpeg(quality: 85)
+        .response()
 }
 ```
 

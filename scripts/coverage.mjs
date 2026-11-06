@@ -1,0 +1,148 @@
+#!/usr/bin/env node
+// Public-API coverage: `check` verifies the mapping, `report` regenerates inventory/COVERAGE.md.
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
+
+const api = JSON.parse(readFileSync("inventory/public-api.json", "utf8"));
+const coverage = JSON.parse(readFileSync("inventory/coverage.json", "utf8"));
+const versions = JSON.parse(readFileSync("src/versions.json", "utf8"));
+const REPORT = "inventory/COVERAGE.md";
+
+const DOCS = "src/content/docs";
+function pageIds(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) return pageIds(path);
+    if (!/\.mdx?$/.test(entry.name)) return [];
+    const match = readFileSync(path, "utf8").match(/^pageId:\s*(.+)$/m);
+    return match ? [{ id: match[1].trim(), path }] : [];
+  });
+}
+const pages = new Map();
+for (const { id, path } of pageIds(DOCS)) {
+  const entry = pages.get(id) ?? { en: false, uk: false };
+  entry[path.includes("/uk/") ? "uk" : "en"] = true;
+  pages.set(id, entry);
+}
+
+const entries = coverage.families.flatMap((family) => family.members.map((member) => ({ member, family })));
+function owner(symbol) {
+  let best;
+  for (const { member, family } of entries) {
+    if (member.startsWith("=")) {
+      if (symbol.id === member.slice(1) && (!best || 1000 > best.score)) best = { score: 1000, family, member };
+      continue;
+    }
+    const wildcard = member.endsWith(":") && !member.includes(".") && !/^[A-Za-z]+:[A-Za-z]/.test(member);
+    const prefixMatch = wildcard
+      ? symbol.id.startsWith(member)
+      : symbol.id.startsWith(member) && /^$|^[(.#]/.test(symbol.id.slice(member.length));
+    if (!prefixMatch) continue;
+    const score = wildcard ? 0 : member.length;
+    if (!best || score > best.score) best = { score, family, member };
+  }
+  return best;
+}
+
+const errors = [];
+const byFamily = new Map(coverage.families.map((f) => [f.id, { family: f, symbols: [] }]));
+const used = new Set();
+for (const symbol of api.symbols) {
+  const found = owner(symbol);
+  if (!found) { errors.push(`unmapped public symbol: ${symbol.id}`); continue; }
+  used.add(found.member);
+  byFamily.get(found.family.id).symbols.push(symbol);
+}
+for (const { member, family } of entries) {
+  if (!used.has(member)) errors.push(`${family.id}: member "${member}" matches no public symbol (stale or misspelled)`);
+}
+for (const family of coverage.families) {
+  for (const id of family.pages) {
+    const page = pages.get(id);
+    if (!page) errors.push(`${family.id}: page "${id}" does not exist`);
+    else if (!page.en || !page.uk) errors.push(`${family.id}: page "${id}" is missing its ${page.en ? "Ukrainian" : "English"} edition`);
+  }
+  if (!["none", "overview", "detailed"].includes(family.docs)) errors.push(`${family.id}: bad docs status`);
+  if (!["none", "planned", "verified"].includes(family.example)) errors.push(`${family.id}: bad example status`);
+  if (!["none", "planned", "generated"].includes(family.visual)) errors.push(`${family.id}: bad visual status`);
+}
+for (const id of coverage.recipes?.pages ?? []) {
+  const page = pages.get(id);
+  if (!page) errors.push(`recipes: page "${id}" does not exist`);
+  else if (!page.en || !page.uk) errors.push(`recipes: page "${id}" is missing its ${page.en ? "Ukrainian" : "English"} edition`);
+}
+for (const source of api.sources) {
+  const expected = coverage.target[source.repo];
+  if (expected !== source.tag.replace(/^v/, "")) errors.push(`public-api.json lists ${source.repo}@${source.tag}, coverage target is ${expected}`);
+}
+const shipped = { hokusai: versions.hokusai, "hokusai-vapor": versions.vapor, "hokusai-hummingbird": versions.hummingbird };
+for (const [repo, version] of Object.entries(shipped)) {
+  if (coverage.target[repo] !== version) errors.push(`src/versions.json says ${repo} ${version}, coverage target is ${coverage.target[repo]}`);
+}
+
+// Every pipeline method must appear in the operation index (both languages), so a new method
+// cannot ship without being discoverable.
+const operationNames = new Set(
+  api.symbols
+    .filter((s) => s.id.startsWith("Hokusai:Hokusai.") && s.kind === "func" && !s.static)
+    .map((s) => s.name.slice("Hokusai.".length).split("(")[0]),
+);
+for (const name of ["initialize", "configure", "capabilities"]) operationNames.add(name);
+for (const lang of ["", "uk/"]) {
+  const file = `src/content/docs/${lang}reference/operations.md`;
+  const text = existsSync(file) ? readFileSync(file, "utf8") : "";
+  for (const name of operationNames) {
+    if (!text.includes(`\`${name}(`)) errors.push(`${file}: operation \`${name}\` is missing from the operation index`);
+  }
+}
+for (const lang of ["", "uk/"]) {
+  const file = `src/content/docs/${lang}integrations/index.md`;
+  const text = existsSync(file) ? readFileSync(file, "utf8") : "";
+  for (const version of [versions.vapor, versions.hummingbird, versions.hokusai]) {
+    if (!text.includes(version)) errors.push(`${file}: does not mention documented version ${version}`);
+  }
+}
+
+function report() {
+  const lines = [];
+  lines.push("# Public API coverage", "");
+  lines.push("Generated by `npm run coverage:report` from `public-api.json` and `coverage.json`. Do not edit by hand.", "");
+  lines.push("Documented library versions: " + Object.entries(coverage.target).map(([repo, v]) => `${repo} ${v}`).join(", ") + ".", "");
+  lines.push("Status scale: " + Object.entries(coverage.scale).map(([k, v]) => `**${k}** — ${v}`).join("; ") + ".", "");
+  lines.push("## Families", "", "| Family | Symbols | Owner | Docs | Example | Visual | Pages |", "| --- | ---: | --- | --- | --- | --- | --- |");
+  for (const { family, symbols } of byFamily.values()) {
+    lines.push(`| ${family.title} | ${symbols.length} | ${family.owner} | ${family.docs} | ${family.example} | ${family.visual} | ${family.pages.map((p) => `\`${p}\``).join(", ")} |`);
+  }
+  if (coverage.recipes) {
+    lines.push("", `Recipes (${coverage.recipes.owner}): ${coverage.recipes.pages.length} pages, example ${coverage.recipes.example}, visual ${coverage.recipes.visual}: ${coverage.recipes.pages.map((p) => `\`${p}\``).join(", ")}.`);
+  }
+  lines.push("", `Total public symbols: ${api.symbols.length}. Every one is mapped to a family; the gaps are the rows whose docs are not \`detailed\` or whose examples and visuals are not \`verified\`/\`generated\`.`, "");
+  lines.push("## Command line", "", `Source: ${coverage.cli.source}. Owner ${coverage.cli.owner}, page \`${coverage.cli.page}\`.`, "", "| Command | Status | Note |", "| --- | --- | --- |");
+  for (const c of coverage.cli.commands) lines.push(`| \`hokusai ${c.name}\` | ${c.status} | ${c.note ?? ""} |`);
+  lines.push("", "## Native capability restrictions", "", "Not Hokusai gaps: they depend on the installed native libraries.", "", "| Capability | Note | Family |", "| --- | --- | --- |");
+  for (const r of coverage.nativeRestrictions) lines.push(`| ${r.capability} | ${r.note} | ${r.family} |`);
+  lines.push("", "## Future library work", "", "Not documented as stable behavior.", "", "| Item | Reference | Note |", "| --- | --- | --- |");
+  for (const f of coverage.future) lines.push(`| ${f.item} | ${f.issue ?? ""} | ${f.note} |`);
+  lines.push("", "## Symbols by family", "");
+  for (const { family, symbols } of byFamily.values()) {
+    lines.push(`### ${family.title}`, "", "| Symbol | Kind | Module |", "| --- | --- | --- |");
+    for (const s of symbols) lines.push(`| \`${s.name}\` | ${s.kind} | ${s.module} |`);
+    lines.push("");
+  }
+  return lines.join("\n");
+}
+
+const [command] = process.argv.slice(2);
+if (command === "report") {
+  writeFileSync(REPORT, report());
+  console.log(`wrote ${REPORT} (${api.symbols.length} symbols, ${errors.length} mapping errors)`);
+}
+if (command === "check" || command === "report") {
+  if (command === "check" && (!existsSync(REPORT) || readFileSync(REPORT, "utf8") !== report())) {
+    errors.push(`${REPORT} is out of date — run \`npm run coverage:report\``);
+  }
+  errors.forEach((e) => console.error(`error: ${e}`));
+  console.log(`coverage: ${api.symbols.length} symbols, ${coverage.families.length} families; ${errors.length} errors`);
+  process.exit(errors.length ? 1 : 0);
+}
+if (!command) { console.error("usage: coverage.mjs check|report"); process.exit(2); }

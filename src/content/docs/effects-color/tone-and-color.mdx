@@ -1,0 +1,64 @@
+---
+pageId: effects-color.tone-and-color
+title: Tone & color
+description: Grayscale, tint, contrast, gamma, saturation, inversion, threshold and colour-space conversion.
+---
+
+import Example from '../../../components/Example.astro';
+
+These operations change colour and tone without moving pixels. All keep the alpha channel (except where noted) and run exactly where you write them in the pipeline.
+
+<Example
+  id="effects.tone"
+  results={[
+    { file: 'original.webp', label: 'original', alt: 'The landscape before any adjustment.' },
+    { file: 'grayscale.webp', label: 'grayscale()', alt: 'The landscape in shades of grey.' },
+    { file: 'tint.webp', label: 'tint(orange)', alt: 'The landscape recoloured in shades of orange.' },
+    { file: 'dull.webp', label: 'low contrast input', alt: 'A washed-out version of the landscape used as the input for the next two.' },
+    { file: 'normalize.webp', label: 'normalize()', alt: 'The washed-out landscape with contrast stretched back to the full range.' },
+    { file: 'clahe.webp', label: 'clahe()', alt: 'The washed-out landscape with local contrast enhanced, more subtly than normalize.' },
+    { file: 'gamma.webp', label: 'gamma(2.2)', alt: 'The landscape with brightened midtones.' },
+    { file: 'modulate.webp', label: 'modulate', alt: 'The landscape slightly brighter, less saturated and with its hues rotated.' },
+    { file: 'negate.webp', label: 'negate()', alt: 'The landscape with inverted colours.' },
+    { file: 'threshold.webp', label: 'threshold(110)', alt: 'The landscape reduced to black and white.' },
+  ]}
+/>
+
+## Reference \{#reference}
+| Operation | Parameters (defaults, bounds) | What it does |
+| --- | --- | --- |
+| `grayscale()` | none | Removes colour but **keeps the RGB(A) layout**; luminance from libvips' sRGB conversion. |
+| `tint(_ color:)` | `Color` | Makes the image grayscale, then maps luminance onto the colour: white becomes the tint, black stays black. The colour's own opacity is ignored. |
+| `normalize(lower:upper:)` | `1`, `99` | Clips the darkest `lower` percent and brightest `100 − upper` percent, then stretches the rest to the full range with one linear map for every band, so hue is kept. A flat image is returned unchanged. 8- or 16-bit only. |
+| `clahe(width:height:maxSlope:)` | `8`, `8`, `3`; `maxSlope` in `0…100` | Local contrast enhancement on lightness (LAB); colour is kept. `width`/`height` are the tile size, `maxSlope` limits contrast gain per tile (`0` disables the limit). 8- and 16-bit; float images throw `unsupported`. |
+| `gamma(_ value:)` | `2.2`; `0.1…10` | `out = in ^ (1 / value)` on the colour bands: above 1 brightens midtones. |
+| `modulate(brightness:saturation:hue:)` | `1`, `1`, `0`; `0…100`, `0…100`, finite degrees | Works in LCH: brightness scales lightness, saturation scales chroma, hue rotates. |
+| `negate(alpha:)` | `false` | Inverts colours; alpha is inverted only when `alpha` is true. |
+| `threshold(_ level:grayscale:)` | `128`, `true`; `0…255` | Pixels at or above `level` become white, the rest black. With `grayscale` the result is a single-channel mask; without it every band is thresholded separately. |
+| `convert(to:)` | `.sRGB` or `.grayscale` | Converts to an output colour space. |
+
+`normalize` and `clahe` solve the same problem differently: `normalize` applies one global stretch, `clahe` adapts to each tile. On smooth gradients a small `clahe` tile can show a grid of steps, so use larger tiles and a low `maxSlope` for photographs of skies (the example above uses 48 px tiles and `maxSlope: 2`).
+
+## grayscale() versus convert(to: .grayscale) \{#grayscale}
+<Example id="effects.convert" results={[
+  { file: 'grayscale-rgb.png', label: 'grayscale()', alt: 'The landscape in grey, stored with three colour channels.' },
+  { file: 'grayscale-1ch.png', label: 'convert(to: .grayscale)', alt: 'The same grey image stored with a single channel.' },
+]} />
+
+Both look the same; they differ in layout. `grayscale()` keeps three channels, so later colour operations (`tint`, `recombine`) and RGB-only encoders behave as with any colour image. `convert(to: .grayscale)` produces **one** channel (plus alpha if present), which is smaller on disk (17 KB against 23 KB here) and is what masks and 8-bit grey outputs want.
+
+## Errors \{#errors}
+<Example id="effects.limits" />
+
+| Call | Result |
+| --- | --- |
+| `gamma(20)` | `invalidOption`: "must be a finite value from 0.1 to 10" |
+| `threshold(300)` | `invalidOption`: "must be in 0...255" |
+| `modulate` with `brightness` or `saturation` outside `0…100`, or a non-finite `hue` | `invalidOption` |
+| `clahe` with `maxSlope` outside `0…100` | `invalidOption` |
+| `clahe` on a float image | `HokusaiError.unsupported` |
+| `normalize` on an image that is not 8- or 16-bit | not supported (the operation requires an 8- or 16-bit image) |
+
+## Related \{#related}
+- [Filters](/oss/hokusai/effects-color/filters) (`linear` and `recombine` for per-channel control)
+- [Transparency](/oss/hokusai/channels-transparency/)

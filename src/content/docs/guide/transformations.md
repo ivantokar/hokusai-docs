@@ -18,20 +18,20 @@ let cover = try image.resize(
 let region = try image.extract(x: 100, y: 80, width: 640, height: 480)
 ```
 
-Resize supports fit, crop position, kernel, background, and enlargement/reduction controls. Use `autoOrient()` near the start of a recipe to respect EXIF orientation.
+Resize supports `fit` (`inside`, `outside`, `fill`, `cover`, `contain`), crop `position`, `kernel`, `background`, and enlargement/reduction controls. Use `autoOrient()` near the start of a recipe to respect EXIF orientation.
 
 ## Geometry and appearance
 
 ```swift
 let prepared = try image
     .autoOrient()
-    .rotate(.d90)
+    .rotate(by: 90)
     .blur(sigma: 2.5)
     .sharpen()
     .flatten(background: .white)
 ```
 
-Core operations include resizing, extraction, rotation, blur, sharpen, trim, tint, alpha removal, flattening, and metadata inspection.
+Geometry operations include `resize`, `extract`, `extend`, `rotate`, `flip`, `flop`, `affine`, `trim` and `smartCrop`. Appearance operations include `blur`, `sharpen`, `grayscale`, `tint`, `normalize`, `clahe`, `gamma`, `modulate` and more; see [Geometry](/oss/hokusai/geometry/), [Effects & color](/oss/hokusai/effects-color/) and [Channels & transparency](/oss/hokusai/channels-transparency/).
 
 ## Encode the result
 
@@ -40,4 +40,4 @@ let webp = try await prepared.webp(quality: 82).data()
 let avif = try await prepared.avif(quality: 50).data()
 ```
 
-Choose the output encoder late in the recipe. See [Formats & Compatibility](/oss/hokusai/reference/formats-and-compatibility) for supported output formats and the v1 migration notes.
+Choose the output encoder late in the recipe. See [Formats & Compatibility](/oss/hokusai/reference/formats-and-compatibility) for supported output formats.

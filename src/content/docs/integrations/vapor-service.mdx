@@ -1,0 +1,32 @@
+---
+pageId: integrations.vapor-service
+title: "Vapor: a complete service"
+description: Routes for raw, multipart and large uploads with limits, error mapping, streaming and startup configuration.
+---
+
+import Example from '../../../components/Example.astro';
+
+This page assembles the pieces of [Hokusai Vapor](/oss/hokusai/vapor/overview) into one small service: three upload routes, error mapping and startup configuration. The code is compiled in CI against `hokusai-vapor` 2.1.0 (`examples/integrations/vapor-app`), so it matches the released API.
+
+<Example id="integrations.vapor" />
+
+## What each part does \{#parts}
+- **`HokusaiErrorMiddleware`** maps a `HokusaiError` thrown by a route to an HTTP status by its case: `invalidInput` / `invalidOption` 400, `decode` 422, `resource` 413 for bytes, 422 for pixels or channels, 503 for a full evaluation queue, `unsupported` 501, and `io` / `transform` / `encode` / `runtime` 500. `req.hokusaiImage` and `response()` already apply the mapping to what they run; the middleware covers routes that call `data()` or `write(to:)` themselves.
+- **`/resize`** reads the raw body with a `maximumSize` of 5 MiB. The body is read as it arrives: a declared `Content-Length` over the limit is rejected before any byte is read, and a body without one is rejected as soon as it grows past it, both with `413`.
+- **`/upload`** reads the `image` field of a multipart form, applies `autoOrient()` so a phone photo is upright, makes a 256 × 256 `attention` crop, and answers PNG with a `Cache-Control` header.
+- **`/large`** uses `body: .stream` so Vapor does not collect the body, and a 200 MiB `maximumSize`. The body is spooled to a temporary file past `memoryLimit` (1 MiB by default), so the encoded upload takes at most `memoryLimit` plus one chunk of memory; decoding is bounded separately by `maxPixels`. `fit: .inside` with `withoutEnlargement` is the safe resize for unknown sizes ([why not `.cover`](/oss/hokusai/geometry/resize#guards)).
+- **`configure`** freezes `RuntimeConfiguration` before the first image: four concurrent evaluations and a queue of 64, after which new requests fail with `503` instead of piling up.
+
+## Response behavior \{#responses}
+`response()` writes the body as it is encoded, with backpressure: a slow client slows encoding instead of growing memory, and a client disconnect cancels the request task, which stops the evaluation. `Content-Type` comes from the encoder. Before the response is committed the source header is read, so a missing or unreadable image is a `4xx`, not a broken `200`.
+
+## Production checklist \{#checklist}
+- Set `maximumSize`, `InputLimits.maxPixels` and `RuntimeConfiguration.maxOutputPixels` to your own policy.
+- Set `blockUntrustedOperations` if uploads come from untrusted users.
+- Set `maxConcurrentEvaluations` and `maxQueuedEvaluations` from your container limits ([Docker](/oss/hokusai/integrations/docker)).
+- Do not add a shutdown hook; Hokusai has no public shutdown.
+- Test with a truncated file and a huge `resize(width:)` to see your error mapping ([troubleshooting](/oss/hokusai/troubleshooting-migration/troubleshooting)).
+
+## Related \{#related}
+- [Uploads & responses](/oss/hokusai/vapor/uploads-and-responses), [Hokusai Hummingbird](/oss/hokusai/integrations/hummingbird)
+- [Docker](/oss/hokusai/integrations/docker)

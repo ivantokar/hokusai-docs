@@ -9,7 +9,12 @@
     "i18n:check": "node scripts/i18n.mjs check",
     "i18n:stamp": "node scripts/i18n.mjs stamp",
     "check:dist": "node scripts/check-dist.mjs",
-    "check": "npm run i18n:check && npm run build && npm run check:dist"
+    "check": "npm run i18n:check && npm run coverage:check && npm run examples:check && npm run build && npm run check:dist",
+    "coverage:check": "node scripts/coverage.mjs check",
+    "coverage:report": "node scripts/coverage.mjs report",
+    "examples": "cd examples && swift run DocsExamples run && cd .. && npm run examples:snippets",
+    "examples:snippets": "node scripts/extract-snippets.mjs",
+    "examples:check": "node scripts/extract-snippets.mjs --check"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.7",

@@ -1,0 +1,28 @@
+---
+pageId: recipes.contact-sheet
+translatedFrom: "6dc7da146319"
+title: Контактний аркуш
+description: Сітка плиток, зібраних на одному полотні.
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Мета.** Розкласти шість плиток сіткою 3 × 2 на одному зображенні, для стрічки попереднього перегляду чи дошки порівняння. **Вхідні дані:** [`scene.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Потрібно:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.contact-sheet"
+  results={[
+    { file: 'sheet.webp', label: 'sheet.webp', alt: 'Шість квадратних обрізань пейзажу сіткою на полотні кольору паперу: захід, центр, схід, увага, ентропія та північний схід.' },
+  ]}
+  wide
+/>
+
+## Як це працює \{#how}
+- **Порожнє полотно** будується з одного пікселя кольору паперу, збільшеного через `resize(fit: .fill, kernel: .nearest)` до розміру сітки: `gap + columns × (cell + gap)` завширшки й так само для рядків.
+- **Кожна плитка** — це те саме джерело, змінене до квадрата 220 пікселів з іншою `position`, тож сітка заодно порівнює обрізання `.west`, `.center`, `.east`, `.attention`, `.entropy` і `.northEast` ([позиція resize](/oss/hokusai/uk/geometry/resize#position)).
+- **Один виклик `composite`** розміщує всі плитки через `CompositeLayer(tile, x:y:)` за простою арифметикою (`gap + column × (cell + gap)`). Усі шари змішуються однією нативною операцією.
+
+## Варіації \{#variations}
+- **Підписи:** додайте шари `drawText` під кожною плиткою ([текст](/oss/hokusai/uk/text-composition/text)).
+- **Різні фото в плитках:** будуйте кожну плитку зі свого файлу; це незалежні конвеєри.
+- **Як PDF:** розмістіть ті самі плитки на `VectorPage` через `.image(_:frame:fit:)` ([PDF-звіт](/oss/hokusai/uk/recipes/pdf-report)).

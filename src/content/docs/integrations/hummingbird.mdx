@@ -1,0 +1,46 @@
+---
+pageId: integrations.hummingbird
+title: Hokusai Hummingbird
+description: Read an upload into a pipeline, transform it and stream the result from a Hummingbird 2 server.
+---
+
+import Example from '../../../components/Example.astro';
+
+Hokusai Hummingbird (2.1.0) is a thin layer: streaming, cancellation and limits are Hokusai's own (`writeByteBuffers` in `HokusaiNIO`, built on the core `writeChunks`); no Hummingbird type reaches the native layer. **Requirements:** Swift 6.0+, Hummingbird 2.x, Hokusai 2, libvips 8.16+ and Cairo with PDF support ([installation](/oss/hokusai/guide/installation)).
+
+## Install \{#install}
+```swift
+dependencies: [
+    .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "2.0.0"),
+    .package(url: "https://github.com/ivantokar/hokusai-hummingbird.git", from: "2.0.0")
+]
+```
+
+Add `HokusaiHummingbird` to the target that defines your routes.
+
+## Configure at startup \{#configure}
+Hokusai's settings freeze at first use, so configure before the first request; `initialize()` turns a native problem into a startup failure.
+
+```swift
+try Hokusai.configure(.init(maxConcurrentEvaluations: .fixed(4), maxQueuedEvaluations: 64))
+try Hokusai.initialize()
+```
+
+## Routes \{#routes}
+<Example id="integrations.hummingbird" />
+
+The code above is compiled in CI against `hokusai-hummingbird` 2.1.0 (`examples/integrations/hummingbird-app`). Try it:
+
+```bash
+curl -X POST http://localhost:8080/resize --data-binary "@photo.jpg" -o output.webp
+```
+
+## Behavior to rely on \{#behavior}
+- **Upload limits.** `hokusaiImage` reads the body as it arrives and never past its limit: a declared `Content-Length` over `maximumSize` (20 MiB by default) is rejected before a byte is read, and a body without one is rejected as soon as it grows past it, both with `413`. Pass `options: InputOptions(limits: …)` for Hokusai's own decode limits. A small upload stays in memory; one larger than `memoryLimit` (1 MiB by default) moves to a private temporary file (`Hokusai(spooling:)`), so the encoded upload takes at most `memoryLimit` plus one chunk of memory however large `maximumSize` is. Decoding is bounded separately by `InputLimits.maxPixels`.
+- **Streamed responses.** `response()` writes through `Hokusai.writeByteBuffers`: each buffer goes to Hummingbird's `ResponseBodyWriter` as it is encoded, so a slow client slows encoding down; at most four 64 KiB buffers of encoded output are held. The body is chunked, with no `Content-Length`. `Content-Type` comes from the encoder the pipeline carries (a pipeline without one is a `500`). `status:`, `headers:` and `chunkSize:` are parameters. TIFF is encoded in memory first, then streamed.
+- **Failures before the first byte are `4xx`.** The source header is read before the response is committed, so a missing or unreadable image is a clean error and not a broken `200`. A failure after the first byte can only end the stream early, which is how HTTP works; a client disconnect cancels the evaluation.
+- **Errors.** `HokusaiErrorMiddleware` turns a `HokusaiError` thrown by a route into an HTTP error; `hokusaiImage` and `response` already do this for what they run. Mapping: `invalidInput` / `invalidOption` 400, `decode` 422, `resource` 413 for bytes, 422 for pixels or channels, 503 when the evaluation queue is full, `unsupported` 501, and `io` / `transform` / `encode` / `runtime` 500. `error.httpStatus` and `error.httpError` are public if you want a different policy.
+
+## Related \{#related}
+- [Hokusai Vapor](/oss/hokusai/vapor/overview), [Docker](/oss/hokusai/integrations/docker)
+- [Runtime configuration](/oss/hokusai/runtime-performance/runtime), [Large uploads](/oss/hokusai/sources-input/uploads)

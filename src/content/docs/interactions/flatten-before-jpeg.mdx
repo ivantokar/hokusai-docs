@@ -1,0 +1,26 @@
+---
+pageId: interactions.flatten-before-jpeg
+title: Flatten before JPEG
+description: Why transparency must be resolved after the last operation that creates it.
+---
+
+import Example from '../../../components/Example.astro';
+
+`rotate` by a non-right angle exposes new corners, transparent unless you give a `background`. JPEG cannot store transparency, so what those corners become depends on whether you flattened **after** the rotation.
+
+<Example
+  id="order.flatten"
+  results={[
+    { file: 'rotate-then-flatten.jpg', label: 'rotate → flatten', alt: 'The emblem rotated 30 degrees and then flattened onto paper: the corners are paper-coloured.' },
+    { file: 'flatten-then-rotate.jpg', label: 'flatten → rotate', alt: 'The emblem flattened first and then rotated: the new corners are black.' },
+  ]}
+/>
+
+- **rotate → flatten**: the flatten sees the transparent corners and paints them with the paper colour.
+- **flatten → rotate**: the emblem had no transparency left to flatten, then `rotate` created new transparent corners that nothing resolves, and the JPEG encoder wrote them **black** (observed with libvips 8.18).
+
+The rule is the one in [Encoders](/oss/hokusai/encoding-output/formats#alpha): flatten **last**, immediately before a format without alpha. Alternatively give `rotate` the final background colour (`rotate(by:background:)`), which fills the corners during the rotation.
+
+## Related \{#related}
+- [Channels & alpha](/oss/hokusai/channels-transparency/alpha-and-channels), [Rotate](/oss/hokusai/geometry/rotate-flip-affine#rotate)
+- [Order of operations](/oss/hokusai/interactions/)

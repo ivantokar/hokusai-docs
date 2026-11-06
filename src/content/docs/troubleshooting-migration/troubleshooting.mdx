@@ -1,0 +1,48 @@
+---
+pageId: troubleshooting-migration.troubleshooting
+title: Troubleshooting
+description: Every HokusaiError case, where it comes from, what it looked like in real runs, and what to do.
+---
+
+Branch on the **case** of `HokusaiError`, never on message text. Cancellation is not a case: async terminals throw Swift's `CancellationError`. The messages quoted below are what the documentation examples printed with Hokusai 2.2.2.
+
+## Cases \{#cases}
+| Case | Raised | Looked like | What to do |
+| --- | --- | --- | --- |
+| `invalidInput(reason:)` | Build or terminal | "raw data is 10 bytes; a 4×2 rgba8 image with a row stride of 16 needs 32"; "a document needs at least one page"; an empty upload | The source or its shape is wrong; fix the input. |
+| `invalidOption(name:reason:)` | Mostly build; some terminal | `blur(sigma: 0)`: "must be a finite value above zero"; `gamma(20)`: "must be a finite value from 0.1 to 10"; "extend cannot reduce an image; use resize or extract" | An argument is out of range. The `name` says which. A bug in the caller, or unvalidated request input. |
+| `unsupported(feature:reason:)` | Build or terminal | "page selection: this image has a single page"; SVG as an output; `.mks2013` on libvips < 8.17 | This build cannot do it. Check `capabilities()`; install a different libvips or choose another option. |
+| `decode(FailureContext)` | Terminal | "the image data could not be decoded" (truncated); "buffer is not in a known format" | The source is damaged or not an image. A client error; see `failOn` in [input options](/oss/hokusai/sources-input/input-options). |
+| `transform(FailureContext)` | Terminal | `extract` past the edge: "extract_area: bad extract area"; `.cover` with `withoutEnlargement` on a small source | A step could not apply to this image. Check geometry; see [Crop & canvas](/oss/hokusai/geometry/crop-and-canvas#limits). |
+| `encode(FailureContext)` | Terminal | A native encoder failed | Check the encoder options and `capabilities().outputFormats`. |
+| `io(url:operation:reason:)` | Terminal | "file not found" (`read`); a write to a missing folder (`write`) | Check paths and permissions; the `operation` is `.read` or `.write`. |
+| `resource(ResourceFailure)` | Build, terminal or admission | `decodedPixels` limit 1,000,000 actual 1,600,000; `encodedBytes`; `outputPixels`; `channels`; `queuedEvaluations` | A configured limit refused the work. Raise it if the work is legitimate; otherwise reject the request. |
+| `runtime(FailureContext)` | Any | "runtime configuration is frozen; call configure(_:) before the first evaluation…" | libvips could not initialise, or configuration came too late. |
+
+`FailureContext` carries `operation` (a label such as `resize`, **not** a stable identifier), `reason` and a best-effort native `diagnostic`. libvips keeps one error log for the whole process, so under concurrent failures the diagnostic may include other evaluations' messages or be absent. `ResourceFailure` carries a `kind` (`ResourceKind`: `encodedBytes`, `decodedPixels`, `outputPixels`, `channels`, `queuedEvaluations`), the `limit` and the `actual` value.
+
+## Symptoms \{#symptoms}
+| You see | Likely cause |
+| --- | --- |
+| The constructor succeeded but the terminal says "file not found" | Construction is lazy; the file is opened by the terminal ([evaluation](/oss/hokusai/core-concepts/evaluation#phases)) |
+| A portrait photo comes out with width and height swapped | `autoOrient()` is missing or too late ([order](/oss/hokusai/interactions/orientation-and-resize)) |
+| JPEG output has black corners | A transparent area reached the JPEG encoder; `flatten` last ([why](/oss/hokusai/interactions/flatten-before-jpeg)) |
+| `.cover` resize throws `transform` on small images | `withoutEnlargement` with a box larger than the source ([guards](/oss/hokusai/geometry/resize#guards)) |
+| `write(to:)` says the output "is a file this pipeline reads" | You are overwriting your own source; write elsewhere, then replace ([files](/oss/hokusai/encoding-output/terminals#files)) |
+| `png().write(to: "a.jpg")` produced PNG data | An explicit encoder wins over the extension |
+| `drawText` or `Hokusai.text` throws `unsupported` | libvips without Pango (`capabilities().textRendering`) |
+| Text uses the wrong font | The family is not installed on the host; use `TextStyle(fontFile:)`; a bad file is only a libvips warning |
+| `unsupported` for AVIF/HEIF | Missing codec in this libvips build ([capabilities](/oss/hokusai/runtime-performance/runtime#capabilities)) |
+| Many requests fail at once with `resource` (`queuedEvaluations`) | The queue limit is working; reduce load or raise limits ([runtime](/oss/hokusai/runtime-performance/runtime#configure)) |
+| Build fails: libvips too old | libvips 8.16+ is required; older versions are rejected at compile time ([installation](/oss/hokusai/guide/installation)) |
+| A warning like "error in tile 0 x 704" on stderr | libvips reporting a damaged region while decoding with `failOn: .none` ([input options](/oss/hokusai/sources-input/input-options#failures)) |
+
+## Cancellation and partial output \{#cancellation}
+A cancelled terminal throws `CancellationError`; a cancelled `write(to:)` leaves any existing file untouched. After a failed or cancelled `writeChunks`, the consumer has received a partial stream and must discard it.
+
+## Diagnosing the environment \{#environment}
+`hokusai info` prints the Hokusai, libvips and Cairo versions and the capabilities and settings of the runtime you actually installed; `hokusai --version` prints the release. `--verbose` on other commands adds the native diagnostic.
+
+## Related \{#related}
+- [Runtime configuration](/oss/hokusai/runtime-performance/runtime), [Input options](/oss/hokusai/sources-input/input-options)
+- [Migration](/oss/hokusai/guide/migration)

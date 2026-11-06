@@ -1,0 +1,19 @@
+{
+  "$comment": "Every URL published before the structure change (ivantokar/hokusai#167). Each must still resolve, in English and Ukrainian; if a page is ever moved, add a redirect and keep the entry here.",
+  "urls": [
+    "/",
+    "/changelog/",
+    "/examples/",
+    "/guide/composition-and-pdf/",
+    "/guide/getting-started/",
+    "/guide/installation/",
+    "/guide/migration/",
+    "/guide/pipelines/",
+    "/guide/transformations/",
+    "/reference/api/",
+    "/reference/cli/",
+    "/reference/formats-and-compatibility/",
+    "/vapor/overview/",
+    "/vapor/uploads-and-responses/"
+  ]
+}

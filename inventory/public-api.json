@@ -1,0 +1,5747 @@
+{
+  "generatedBy": "scripts/extract-api.mjs",
+  "sources": [
+    {
+      "repo": "hokusai",
+      "tag": "v2.2.2",
+      "modules": [
+        "Hokusai",
+        "HokusaiNIO",
+        "HokusaiPDF"
+      ]
+    },
+    {
+      "repo": "hokusai-vapor",
+      "tag": "v2.1.0",
+      "modules": [
+        "HokusaiVapor"
+      ]
+    },
+    {
+      "repo": "hokusai-hummingbird",
+      "tag": "v2.1.0",
+      "modules": [
+        "HokusaiHummingbird"
+      ]
+    }
+  ],
+  "symbols": [
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "AccessMode",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 105,
+      "signature": "public enum AccessMode: Sendable",
+      "cases": [
+        "random",
+        "sequential"
+      ],
+      "id": "Hokusai:AccessMode"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "AffineArea",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 181,
+      "signature": "public struct AffineArea: Hashable, Sendable",
+      "id": "Hokusai:AffineArea"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineArea.height",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 185,
+      "signature": "public var height: Int",
+      "id": "Hokusai:AffineArea.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "AffineArea.init(x:y:width:height:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 187,
+      "signature": "public init(x: Int, y: Int, width: Int, height: Int)",
+      "id": "Hokusai:AffineArea.init(x:y:width:height:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineArea.width",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 184,
+      "signature": "public var width: Int",
+      "id": "Hokusai:AffineArea.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineArea.x",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 182,
+      "signature": "public var x: Int",
+      "id": "Hokusai:AffineArea.x"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineArea.y",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 183,
+      "signature": "public var y: Int",
+      "id": "Hokusai:AffineArea.y"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "AffineMatrix",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 151,
+      "signature": "public struct AffineMatrix: Hashable, Sendable",
+      "id": "Hokusai:AffineMatrix"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineMatrix.a",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 152,
+      "signature": "public var a: Double",
+      "id": "Hokusai:AffineMatrix.a"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineMatrix.b",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 153,
+      "signature": "public var b: Double",
+      "id": "Hokusai:AffineMatrix.b"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineMatrix.c",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 154,
+      "signature": "public var c: Double",
+      "id": "Hokusai:AffineMatrix.c"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineMatrix.d",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 155,
+      "signature": "public var d: Double",
+      "id": "Hokusai:AffineMatrix.d"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "AffineMatrix.identity",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 164,
+      "signature": "public static let identity",
+      "id": "Hokusai:AffineMatrix.identity"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "AffineMatrix.init(a:b:c:d:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 157,
+      "signature": "public init(a: Double, b: Double, c: Double, d: Double)",
+      "id": "Hokusai:AffineMatrix.init(a:b:c:d:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "AffineOffset",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 168,
+      "signature": "public struct AffineOffset: Hashable, Sendable",
+      "id": "Hokusai:AffineOffset"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "AffineOffset.init(x:y:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 172,
+      "signature": "public init(x: Double, y: Double)",
+      "id": "Hokusai:AffineOffset.init(x:y:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineOffset.x",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 169,
+      "signature": "public var x: Double",
+      "id": "Hokusai:AffineOffset.x"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AffineOffset.y",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 170,
+      "signature": "public var y: Double",
+      "id": "Hokusai:AffineOffset.y"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "AffineOffset.zero",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 177,
+      "signature": "public static let zero",
+      "id": "Hokusai:AffineOffset.zero"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "AnimationMetadata",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 254,
+      "signature": "public struct AnimationMetadata: Sendable, Equatable",
+      "id": "Hokusai:AnimationMetadata"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AnimationMetadata.frameDelays",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 259,
+      "signature": "public var frameDelays: [Duration]",
+      "id": "Hokusai:AnimationMetadata.frameDelays"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "AnimationMetadata.init(loopCount:frameDelays:)",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 261,
+      "signature": "public init(loopCount: Int, frameDelays: [Duration])",
+      "id": "Hokusai:AnimationMetadata.init(loopCount:frameDelays:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AnimationMetadata.loopCount",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 256,
+      "signature": "public var loopCount: Int",
+      "id": "Hokusai:AnimationMetadata.loopCount"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "AVIFOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 114,
+      "signature": "public struct AVIFOptions: Sendable, Hashable",
+      "id": "Hokusai:AVIFOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AVIFOptions.bitDepth",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 119,
+      "signature": "public var bitDepth: HEIFBitDepth",
+      "id": "Hokusai:AVIFOptions.bitDepth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AVIFOptions.chromaSubsampling",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 120,
+      "signature": "public var chromaSubsampling: ChromaSubsampling",
+      "id": "Hokusai:AVIFOptions.chromaSubsampling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AVIFOptions.effort",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 117,
+      "signature": "public var effort: Int",
+      "id": "Hokusai:AVIFOptions.effort"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "AVIFOptions.init(quality:effort:lossless:bitDepth:chromaSubsampling:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 122,
+      "signature": "public init( quality: Int",
+      "id": "Hokusai:AVIFOptions.init(quality:effort:lossless:bitDepth:chromaSubsampling:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AVIFOptions.lossless",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 118,
+      "signature": "public var lossless: Bool",
+      "id": "Hokusai:AVIFOptions.lossless"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "AVIFOptions.quality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 115,
+      "signature": "public var quality: Int",
+      "id": "Hokusai:AVIFOptions.quality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "BlendMode",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 29,
+      "signature": "public enum BlendMode: Sendable, CaseIterable",
+      "cases": [
+        "clear",
+        "source",
+        "over",
+        "`in`",
+        "out",
+        "atop",
+        "destination",
+        "destinationOver",
+        "destinationIn",
+        "destinationOut",
+        "destinationAtop",
+        "xor",
+        "add",
+        "saturate",
+        "multiply",
+        "screen",
+        "overlay",
+        "darken",
+        "lighten",
+        "colorDodge",
+        "colorBurn",
+        "hardLight",
+        "softLight",
+        "difference",
+        "exclusion"
+      ],
+      "id": "Hokusai:BlendMode"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "BlurPrecision",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 92,
+      "signature": "public enum BlurPrecision: String, Sendable, CaseIterable",
+      "cases": [
+        "integer",
+        "float",
+        "approximate"
+      ],
+      "id": "Hokusai:BlurPrecision"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "Channel",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 115,
+      "signature": "public enum Channel: Sendable, Hashable, CaseIterable",
+      "cases": [
+        "red",
+        "green",
+        "blue",
+        "alpha",
+        "luminance"
+      ],
+      "id": "Hokusai:Channel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ChromaSubsampling",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 8,
+      "signature": "public enum ChromaSubsampling: Sendable, Hashable",
+      "cases": [
+        "automatic",
+        "yuv420",
+        "yuv444"
+      ],
+      "id": "Hokusai:ChromaSubsampling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "Color",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 4,
+      "signature": "public struct Color: Hashable, Sendable",
+      "id": "Hokusai:Color"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "Color.blue",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 7,
+      "signature": "public let blue: Double",
+      "id": "Hokusai:Color.blue"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "Color.green",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 6,
+      "signature": "public let green: Double",
+      "id": "Hokusai:Color.green"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Color.init(red:green:blue:opacity:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 11,
+      "signature": "public init(red: Double, green: Double, blue: Double, opacity: Double",
+      "id": "Hokusai:Color.init(red:green:blue:opacity:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "Color.opacity",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 8,
+      "signature": "public let opacity: Double",
+      "id": "Hokusai:Color.opacity"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "Color.red",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 5,
+      "signature": "public let red: Double",
+      "id": "Hokusai:Color.red"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Color.sRGB8(red:green:blue:alpha:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 20,
+      "signature": "public static func sRGB8(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8",
+      "id": "Hokusai:Color.sRGB8(red:green:blue:alpha:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "Color.transparent",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 24,
+      "signature": "public static let transparent",
+      "id": "Hokusai:Color.transparent"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "Color.white",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 25,
+      "signature": "public static let white",
+      "id": "Hokusai:Color.white"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ColorMatrix",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 59,
+      "signature": "public struct ColorMatrix: Sendable, Hashable",
+      "id": "Hokusai:ColorMatrix"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "ColorMatrix.init(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 86,
+      "signature": "public init(_ values: [Double]) throws",
+      "id": "Hokusai:ColorMatrix.init(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ColorMatrix.luminance",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 71,
+      "signature": "public static let luminance",
+      "id": "Hokusai:ColorMatrix.luminance"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ColorMatrix.sepia",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 64,
+      "signature": "public static let sepia",
+      "id": "Hokusai:ColorMatrix.sepia"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ColorMatrix.swapRedBlue",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 78,
+      "signature": "public static let swapRedBlue",
+      "id": "Hokusai:ColorMatrix.swapRedBlue"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ColorMatrix.values",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 61,
+      "signature": "public let values: [Double]",
+      "id": "Hokusai:ColorMatrix.values"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ColorSpace",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 196,
+      "signature": "public enum ColorSpace: Sendable, Hashable",
+      "cases": [
+        "sRGB",
+        "grayscale"
+      ],
+      "id": "Hokusai:ColorSpace"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "CompositeLayer",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 50,
+      "signature": "public struct CompositeLayer: Sendable",
+      "id": "Hokusai:CompositeLayer"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "CompositeLayer.blend",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 53,
+      "signature": "public let blend: BlendMode",
+      "id": "Hokusai:CompositeLayer.blend"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "CompositeLayer.init(_:placement:blend:opacity:)",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 58,
+      "signature": "public init(_ image: Hokusai, placement: Placement, blend: BlendMode",
+      "id": "Hokusai:CompositeLayer.init(_:placement:blend:opacity:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "CompositeLayer.init(_:x:y:blend:opacity:)",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 66,
+      "signature": "public init(_ image: Hokusai, x: Int",
+      "id": "Hokusai:CompositeLayer.init(_:x:y:blend:opacity:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "CompositeLayer.opacity",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 55,
+      "signature": "public let opacity: Double",
+      "id": "Hokusai:CompositeLayer.opacity"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "CompositeLayer.placement",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 52,
+      "signature": "public let placement: Placement",
+      "id": "Hokusai:CompositeLayer.placement"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "CompositingSpace",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 37,
+      "signature": "public enum CompositingSpace: Sendable",
+      "cases": [
+        "srgb",
+        "linear"
+      ],
+      "id": "Hokusai:CompositingSpace"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ConcurrencyLimit",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 98,
+      "signature": "public struct ConcurrencyLimit: Sendable, Hashable, CustomStringConvertible",
+      "id": "Hokusai:ConcurrencyLimit"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ConcurrencyLimit.automatic",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 103,
+      "signature": "public static let automatic",
+      "id": "Hokusai:ConcurrencyLimit.automatic"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ConcurrencyLimit.description",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 110,
+      "signature": "public var description: String",
+      "id": "Hokusai:ConcurrencyLimit.description"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "ConcurrencyLimit.fixed(_:)",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 106,
+      "signature": "public static func fixed(_ value: Int) -> ConcurrencyLimit",
+      "id": "Hokusai:ConcurrencyLimit.fixed(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ConcurrencyLimit.fixedValue",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 100,
+      "signature": "public let fixedValue: Int?",
+      "id": "Hokusai:ConcurrencyLimit.fixedValue"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ConvolutionKernel",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 15,
+      "signature": "public struct ConvolutionKernel: Sendable, Hashable",
+      "id": "Hokusai:ConvolutionKernel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ConvolutionKernel.height",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 20,
+      "signature": "public let height: Int",
+      "id": "Hokusai:ConvolutionKernel.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "ConvolutionKernel.init(width:height:values:scale:offset:)",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 30,
+      "signature": "public init(width: Int, height: Int, values: [Double], scale: Double",
+      "id": "Hokusai:ConvolutionKernel.init(width:height:values:scale:offset:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ConvolutionKernel.maxSide",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 17,
+      "signature": "public static let maxSide",
+      "id": "Hokusai:ConvolutionKernel.maxSide"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ConvolutionKernel.offset",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 25,
+      "signature": "public let offset: Double",
+      "id": "Hokusai:ConvolutionKernel.offset"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ConvolutionKernel.scale",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 23,
+      "signature": "public let scale: Double",
+      "id": "Hokusai:ConvolutionKernel.scale"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ConvolutionKernel.values",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 21,
+      "signature": "public let values: [Double]",
+      "id": "Hokusai:ConvolutionKernel.values"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ConvolutionKernel.width",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 19,
+      "signature": "public let width: Int",
+      "id": "Hokusai:ConvolutionKernel.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "DecodeFailureLevel",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 119,
+      "signature": "public enum DecodeFailureLevel: Sendable, Equatable",
+      "cases": [
+        "none",
+        "truncated",
+        "error",
+        "warning"
+      ],
+      "id": "Hokusai:DecodeFailureLevel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "EdgeDetector",
+      "file": "hokusai/Sources/Hokusai/Models/AdvancedFilters.swift",
+      "line": 102,
+      "signature": "public enum EdgeDetector: Sendable, Hashable",
+      "cases": [
+        "sobel",
+        "scharr",
+        "prewitt",
+        "canny(sigma: Double"
+      ],
+      "id": "Hokusai:EdgeDetector"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "Encoder",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 212,
+      "signature": "public struct Encoder: Sendable, Hashable",
+      "id": "Hokusai:Encoder"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.avif(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 229,
+      "signature": "public static func avif(_ options: AVIFOptions",
+      "id": "Hokusai:Encoder.avif(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.gif(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 232,
+      "signature": "public static func gif(_ options: GIFOptions",
+      "id": "Hokusai:Encoder.gif(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.heif(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 230,
+      "signature": "public static func heif(_ options: HEIFOptions",
+      "id": "Hokusai:Encoder.heif(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "Encoder.imageFormat",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 236,
+      "signature": "public var imageFormat: ImageFormat",
+      "id": "Hokusai:Encoder.imageFormat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.jpeg(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 226,
+      "signature": "public static func jpeg(_ options: JPEGOptions",
+      "id": "Hokusai:Encoder.jpeg(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.pdf(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 233,
+      "signature": "public static func pdf(_ options: PDFOptions",
+      "id": "Hokusai:Encoder.pdf(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.png(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 227,
+      "signature": "public static func png(_ options: PNGOptions",
+      "id": "Hokusai:Encoder.png(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.tiff(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 231,
+      "signature": "public static func tiff(_ options: TIFFOptions",
+      "id": "Hokusai:Encoder.tiff(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Encoder.webp(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 228,
+      "signature": "public static func webp(_ options: WebPOptions",
+      "id": "Hokusai:Encoder.webp(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ExtendMode",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 75,
+      "signature": "public enum ExtendMode: Sendable, Hashable",
+      "cases": [
+        "background(Color)",
+        "copy",
+        "`repeat`",
+        "mirror"
+      ],
+      "id": "Hokusai:ExtendMode"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "FailureContext",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 40,
+      "signature": "public struct FailureContext: Sendable, Equatable",
+      "id": "Hokusai:FailureContext"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "FailureContext.diagnostic",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 51,
+      "signature": "public let diagnostic: String?",
+      "id": "Hokusai:FailureContext.diagnostic"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "FailureContext.init(operation:reason:diagnostic:)",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 53,
+      "signature": "public init(operation: String, reason: String, diagnostic: String?",
+      "id": "Hokusai:FailureContext.init(operation:reason:diagnostic:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "FailureContext.operation",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 43,
+      "signature": "public let operation: String",
+      "id": "Hokusai:FailureContext.operation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "FailureContext.reason",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 46,
+      "signature": "public let reason: String",
+      "id": "Hokusai:FailureContext.reason"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "FileOperation",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 104,
+      "signature": "public enum FileOperation: String, Sendable",
+      "cases": [
+        "read",
+        "write"
+      ],
+      "id": "Hokusai:FileOperation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "GIFOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 213,
+      "signature": "public struct GIFOptions: Sendable, Hashable",
+      "id": "Hokusai:GIFOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "GIFOptions.bitDepth",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 219,
+      "signature": "public var bitDepth: Int",
+      "id": "Hokusai:GIFOptions.bitDepth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "GIFOptions.dither",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 215,
+      "signature": "public var dither: Double",
+      "id": "Hokusai:GIFOptions.dither"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "GIFOptions.effort",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 217,
+      "signature": "public var effort: Int",
+      "id": "Hokusai:GIFOptions.effort"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "GIFOptions.init(dither:effort:bitDepth:interlaced:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 222,
+      "signature": "public init(dither: Double",
+      "id": "Hokusai:GIFOptions.init(dither:effort:bitDepth:interlaced:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "GIFOptions.interlaced",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 220,
+      "signature": "public var interlaced: Bool",
+      "id": "Hokusai:GIFOptions.interlaced"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "Gravity",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 53,
+      "signature": "public enum Gravity: Sendable",
+      "cases": [
+        "center",
+        "north",
+        "south",
+        "east",
+        "west",
+        "northWest",
+        "northEast",
+        "southWest",
+        "southEast"
+      ],
+      "id": "Hokusai:Gravity"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "HEIFBitDepth",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 18,
+      "signature": "public enum HEIFBitDepth: Int, Sendable, Hashable",
+      "cases": [
+        "eight",
+        "ten",
+        "twelve"
+      ],
+      "id": "Hokusai:HEIFBitDepth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "HEIFCompression",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 135,
+      "signature": "public enum HEIFCompression: Sendable, Hashable, CaseIterable",
+      "cases": [
+        "hevc",
+        "av1"
+      ],
+      "id": "Hokusai:HEIFCompression"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "HEIFOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 143,
+      "signature": "public struct HEIFOptions: Sendable, Hashable",
+      "id": "Hokusai:HEIFOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HEIFOptions.bitDepth",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 149,
+      "signature": "public var bitDepth: HEIFBitDepth",
+      "id": "Hokusai:HEIFOptions.bitDepth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HEIFOptions.chromaSubsampling",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 150,
+      "signature": "public var chromaSubsampling: ChromaSubsampling",
+      "id": "Hokusai:HEIFOptions.chromaSubsampling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HEIFOptions.compression",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 144,
+      "signature": "public var compression: HEIFCompression",
+      "id": "Hokusai:HEIFOptions.compression"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HEIFOptions.effort",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 147,
+      "signature": "public var effort: Int",
+      "id": "Hokusai:HEIFOptions.effort"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "HEIFOptions.init(compression:quality:effort:lossless:bitDepth:chromaSubsampling:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 152,
+      "signature": "public init( compression: HEIFCompression",
+      "id": "Hokusai:HEIFOptions.init(compression:quality:effort:lossless:bitDepth:chromaSubsampling:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HEIFOptions.lossless",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 148,
+      "signature": "public var lossless: Bool",
+      "id": "Hokusai:HEIFOptions.lossless"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HEIFOptions.quality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 145,
+      "signature": "public var quality: Int",
+      "id": "Hokusai:HEIFOptions.quality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "Hokusai",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 27,
+      "signature": "public struct Hokusai: Sendable",
+      "id": "Hokusai:Hokusai"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.affine(_:inputOffset:outputOffset:outputArea:edges:interpolation:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 268,
+      "signature": "public func affine( _ matrix: AffineMatrix, inputOffset: AffineOffset",
+      "id": "Hokusai:Hokusai.affine(_:inputOffset:outputOffset:outputArea:edges:interpolation:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.autoOrient()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 146,
+      "signature": "public func autoOrient() -> Self",
+      "id": "Hokusai:Hokusai.autoOrient()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.avif(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 695,
+      "signature": "public func avif(options: AVIFOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.avif(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.avif(quality:effort:lossless:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 690,
+      "signature": "public func avif(quality: Int",
+      "id": "Hokusai:Hokusai.avif(quality:effort:lossless:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.blur(sigma:precision:minAmplitude:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 340,
+      "signature": "public func blur(sigma: Double",
+      "id": "Hokusai:Hokusai.blur(sigma:precision:minAmplitude:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Hokusai.capabilities()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 1039,
+      "signature": "public static func capabilities() throws -> RuntimeCapabilities",
+      "id": "Hokusai:Hokusai.capabilities()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.clahe(width:height:maxSlope:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 403,
+      "signature": "public func clahe(width: Int",
+      "id": "Hokusai:Hokusai.clahe(width:height:maxSlope:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.composite(_:space:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 603,
+      "signature": "public func composite(_ layers: [CompositeLayer], space: CompositingSpace",
+      "id": "Hokusai:Hokusai.composite(_:space:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Hokusai.configure(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 1028,
+      "signature": "public static func configure(_ configuration: RuntimeConfiguration) throws",
+      "id": "Hokusai:Hokusai.configure(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.convert(to:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 564,
+      "signature": "public func convert(to colorSpace: ColorSpace) throws -> Self",
+      "id": "Hokusai:Hokusai.convert(to:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.convolve(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 444,
+      "signature": "public func convolve(_ kernel: ConvolutionKernel) -> Self",
+      "id": "Hokusai:Hokusai.convolve(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.data()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 785,
+      "signature": "public func data() async throws -> Output",
+      "id": "Hokusai:Hokusai.data()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.dilate(radius:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 479,
+      "signature": "public func dilate(radius: Int",
+      "id": "Hokusai:Hokusai.dilate(radius:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.drawText(_:placement:layout:style:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 637,
+      "signature": "public func drawText( _ content: TextContent, placement: Placement",
+      "id": "Hokusai:Hokusai.drawText(_:placement:layout:style:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.edges(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 498,
+      "signature": "public func edges(_ detector: EdgeDetector",
+      "id": "Hokusai:Hokusai.edges(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.encode(using:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 652,
+      "signature": "public func encode(using format: Encoder) throws -> Self",
+      "id": "Hokusai:Hokusai.encode(using:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.ensureAlpha(opacity:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 573,
+      "signature": "public func ensureAlpha(opacity: Double",
+      "id": "Hokusai:Hokusai.ensureAlpha(opacity:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.erode(radius:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 489,
+      "signature": "public func erode(radius: Int",
+      "id": "Hokusai:Hokusai.erode(radius:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.extend(to:anchor:background:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 231,
+      "signature": "public func extend(to size: ImageSize, anchor: Gravity",
+      "id": "Hokusai:Hokusai.extend(to:anchor:background:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.extend(to:anchor:mode:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 236,
+      "signature": "public func extend(to size: ImageSize, anchor: Gravity",
+      "id": "Hokusai:Hokusai.extend(to:anchor:mode:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.extend(top:left:bottom:right:mode:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 252,
+      "signature": "public func extend(top: Int",
+      "id": "Hokusai:Hokusai.extend(top:left:bottom:right:mode:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.extract(x:y:width:height:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 215,
+      "signature": "public func extract(x: Int, y: Int, width: Int, height: Int) throws -> Self",
+      "id": "Hokusai:Hokusai.extract(x:y:width:height:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.extractChannel(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 511,
+      "signature": "public func extractChannel(_ channel: Channel) -> Self",
+      "id": "Hokusai:Hokusai.extractChannel(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.flatten(background:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 582,
+      "signature": "public func flatten(background: Color",
+      "id": "Hokusai:Hokusai.flatten(background:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.flip()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 206,
+      "signature": "public func flip() -> Self",
+      "id": "Hokusai:Hokusai.flip()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.flop()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 209,
+      "signature": "public func flop() -> Self",
+      "id": "Hokusai:Hokusai.flop()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.gamma(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 414,
+      "signature": "public func gamma(_ value: Double",
+      "id": "Hokusai:Hokusai.gamma(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.gif(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 718,
+      "signature": "public func gif(options: GIFOptions",
+      "id": "Hokusai:Hokusai.gif(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.grayscale()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 366,
+      "signature": "public func grayscale() -> Self",
+      "id": "Hokusai:Hokusai.grayscale()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.heif(compression:quality:lossless:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 702,
+      "signature": "public func heif(compression: HEIFCompression",
+      "id": "Hokusai:Hokusai.heif(compression:quality:lossless:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.heif(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 707,
+      "signature": "public func heif(options: HEIFOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.heif(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(data:options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 55,
+      "signature": "public init(data: Data, options: InputOptions",
+      "id": "Hokusai:Hokusai.init(data:options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(raw:limits:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 137,
+      "signature": "public init(raw image: RawImage, limits: InputLimits",
+      "id": "Hokusai:Hokusai.init(raw:limits:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(raw:width:height:format:rowStride:premultiplied:limits:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 118,
+      "signature": "public init( raw data: Data, width: Int, height: Int, format: RawPixelFormat, rowStride: Int?",
+      "id": "Hokusai:Hokusai.init(raw:width:height:format:rowStride:premultiplied:limits:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(spooling:options:memoryLimit:spoolDirectory:)",
+      "file": "hokusai/Sources/Hokusai/Models/SpooledInput.swift",
+      "line": 66,
+      "signature": "public init<Chunks: AsyncSequence>( spooling chunks: Chunks, options: InputOptions",
+      "id": "Hokusai:Hokusai.init(spooling:options:memoryLimit:spoolDirectory:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(url:options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 74,
+      "signature": "public init(url: URL, options: InputOptions",
+      "id": "Hokusai:Hokusai.init(url:options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Hokusai.initialize()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 1014,
+      "signature": "public static func initialize() throws",
+      "id": "Hokusai:Hokusai.initialize()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.jpeg(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 667,
+      "signature": "public func jpeg(options: JPEGOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.jpeg(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.jpeg(quality:progressive:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 662,
+      "signature": "public func jpeg(quality: Int",
+      "id": "Hokusai:Hokusai.jpeg(quality:progressive:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.linear(multiply:add:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 453,
+      "signature": "public func linear(multiply: Double",
+      "id": "Hokusai:Hokusai.linear(multiply:add:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.median(size:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 427,
+      "signature": "public func median(size: Int",
+      "id": "Hokusai:Hokusai.median(size:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.metadata()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 767,
+      "signature": "public func metadata() async throws -> ImageMetadata",
+      "id": "Hokusai:Hokusai.metadata()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.metadataPolicy(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 743,
+      "signature": "public func metadataPolicy(_ policy: MetadataPolicy) -> Self",
+      "id": "Hokusai:Hokusai.metadataPolicy(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.modulate(brightness:saturation:hue:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 547,
+      "signature": "public func modulate(brightness: Double",
+      "id": "Hokusai:Hokusai.modulate(brightness:saturation:hue:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.negate(alpha:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 422,
+      "signature": "public func negate(alpha: Bool",
+      "id": "Hokusai:Hokusai.negate(alpha:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.normalize(lower:upper:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 386,
+      "signature": "public func normalize(lower: Double",
+      "id": "Hokusai:Hokusai.normalize(lower:upper:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "Hokusai.outputFormat",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 779,
+      "signature": "public var outputFormat: ImageFormat?",
+      "id": "Hokusai:Hokusai.outputFormat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.pdf(pageSize:margins:anchor:background:maxEffectiveDPI:metadata:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 724,
+      "signature": "public func pdf( pageSize: PDFPageSize",
+      "id": "Hokusai:Hokusai.pdf(pageSize:margins:anchor:background:maxEffectiveDPI:metadata:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.png(compressionLevel:interlaced:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 671,
+      "signature": "public func png(compressionLevel: Int",
+      "id": "Hokusai:Hokusai.png(compressionLevel:interlaced:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.png(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 676,
+      "signature": "public func png(options: PNGOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.png(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.raw(_:premultiplied:background:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 823,
+      "signature": "public func raw( _ format: RawPixelFormat",
+      "id": "Hokusai:Hokusai.raw(_:premultiplied:background:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.recombine(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 469,
+      "signature": "public func recombine(_ matrix: ColorMatrix) -> Self",
+      "id": "Hokusai:Hokusai.recombine(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.removeAlpha()",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 590,
+      "signature": "public func removeAlpha() -> Self",
+      "id": "Hokusai:Hokusai.removeAlpha()"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.resize(width:height:fit:position:kernel:withoutEnlargement:withoutReduction:background:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 162,
+      "signature": "public func resize( width: Int?",
+      "id": "Hokusai:Hokusai.resize(width:height:fit:position:kernel:withoutEnlargement:withoutReduction:background:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.rotate(by:background:interpolation:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 197,
+      "signature": "public func rotate(by degrees: Double, background: Color",
+      "id": "Hokusai:Hokusai.rotate(by:background:interpolation:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "static": true,
+      "name": "Hokusai.runtimeStatus",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 1046,
+      "signature": "public static var runtimeStatus: RuntimeStatus",
+      "id": "Hokusai:Hokusai.runtimeStatus"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.sharpen(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 356,
+      "signature": "public func sharpen(_ options: SharpenOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.sharpen(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.sharpen(sigma:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 351,
+      "signature": "public func sharpen(sigma: Double",
+      "id": "Hokusai:Hokusai.sharpen(sigma:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.smartCrop(width:height:strategy:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 328,
+      "signature": "public func smartCrop(width: Int, height: Int, strategy: SmartCropStrategy",
+      "id": "Hokusai:Hokusai.smartCrop(width:height:strategy:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "Hokusai.text(_:layout:style:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 627,
+      "signature": "public static func text(_ content: TextContent, layout: TextLayout",
+      "id": "Hokusai:Hokusai.text(_:layout:style:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.threshold(_:grayscale:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 536,
+      "signature": "public func threshold(_ level: Double",
+      "id": "Hokusai:Hokusai.threshold(_:grayscale:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.tiff(compression:quality:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 710,
+      "signature": "public func tiff(compression: TIFFCompression",
+      "id": "Hokusai:Hokusai.tiff(compression:quality:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.tiff(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 715,
+      "signature": "public func tiff(options: TIFFOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.tiff(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.tint(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 374,
+      "signature": "public func tint(_ color: Color) throws -> Self",
+      "id": "Hokusai:Hokusai.tint(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.trim(_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 317,
+      "signature": "public func trim(_ options: TrimOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.trim(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.trim(threshold:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 308,
+      "signature": "public func trim(threshold: Double",
+      "id": "Hokusai:Hokusai.trim(threshold:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.webp(options:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 687,
+      "signature": "public func webp(options: WebPOptions) throws -> Self",
+      "id": "Hokusai:Hokusai.webp(options:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.webp(quality:effort:lossless:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 682,
+      "signature": "public func webp(quality: Int",
+      "id": "Hokusai:Hokusai.webp(quality:effort:lossless:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.withAlpha(from:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 521,
+      "signature": "public func withAlpha(from mask: Hokusai) -> Self",
+      "id": "Hokusai:Hokusai.withAlpha(from:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.write(to:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 843,
+      "signature": "public func write(to url: URL) async throws -> OutputInfo",
+      "id": "Hokusai:Hokusai.write(to:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.writeChunks(chunkSize:_:)",
+      "file": "hokusai/Sources/Hokusai/Hokusai.swift",
+      "line": 881,
+      "signature": "public func writeChunks( chunkSize: Int",
+      "id": "Hokusai:Hokusai.writeChunks(chunkSize:_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "HokusaiError",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 9,
+      "signature": "public enum HokusaiError: Error, Sendable",
+      "cases": [
+        "invalidInput(reason: String)",
+        "invalidOption(name: String, reason: String)",
+        "unsupported(feature: String, reason: String?)",
+        "decode(FailureContext)",
+        "transform(FailureContext)",
+        "encode(FailureContext)",
+        "io(url: URL, operation: FileOperation, reason: String)",
+        "resource(ResourceFailure)",
+        "runtime(FailureContext)"
+      ],
+      "id": "Hokusai:HokusaiError"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "HokusaiError.errorDescription",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 110,
+      "signature": "public var errorDescription: String?",
+      "id": "Hokusai:HokusaiError.errorDescription"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ImageDensity",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 268,
+      "signature": "public struct ImageDensity: Sendable, Equatable",
+      "id": "Hokusai:ImageDensity"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ImageDensity.horizontal",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 270,
+      "signature": "public let horizontal: Double",
+      "id": "Hokusai:ImageDensity.horizontal"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "ImageDensity.init(horizontal:vertical:)",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 275,
+      "signature": "public init(horizontal: Double, vertical: Double)",
+      "id": "Hokusai:ImageDensity.init(horizontal:vertical:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ImageDensity.vertical",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 272,
+      "signature": "public let vertical: Double",
+      "id": "Hokusai:ImageDensity.vertical"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ImageFormat",
+      "file": "hokusai/Sources/Hokusai/Models/ImageFormat.swift",
+      "line": 8,
+      "signature": "public enum ImageFormat: String, CaseIterable, Sendable",
+      "cases": [
+        "jpeg",
+        "png",
+        "webp",
+        "gif",
+        "tiff",
+        "avif",
+        "heif",
+        "pdf",
+        "svg"
+      ],
+      "id": "Hokusai:ImageFormat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageFormat.fileExtension",
+      "file": "hokusai/Sources/Hokusai/Models/ImageFormat.swift",
+      "line": 20,
+      "signature": "public var fileExtension: String",
+      "id": "Hokusai:ImageFormat.fileExtension"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "ImageFormat.from(fileExtension:)",
+      "file": "hokusai/Sources/Hokusai/Models/ImageFormat.swift",
+      "line": 53,
+      "signature": "public static func from(fileExtension: String) -> ImageFormat?",
+      "id": "Hokusai:ImageFormat.from(fileExtension:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageFormat.mimeType",
+      "file": "hokusai/Sources/Hokusai/Models/ImageFormat.swift",
+      "line": 35,
+      "signature": "public var mimeType: String",
+      "id": "Hokusai:ImageFormat.mimeType"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ImageMetadata",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 15,
+      "signature": "public struct ImageMetadata: Sendable, Equatable",
+      "id": "Hokusai:ImageMetadata"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.animation",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 51,
+      "signature": "public var animation: AnimationMetadata?",
+      "id": "Hokusai:ImageMetadata.animation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.chromaSubsampling",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 62,
+      "signature": "public var chromaSubsampling: String?",
+      "id": "Hokusai:ImageMetadata.chromaSubsampling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.density",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 42,
+      "signature": "public var density: ImageDensity?",
+      "id": "Hokusai:ImageMetadata.density"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.densityUnit",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 45,
+      "signature": "public var densityUnit: ResolutionUnit?",
+      "id": "Hokusai:ImageMetadata.densityUnit"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.description",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 282,
+      "signature": "public var description: String",
+      "id": "Hokusai:ImageMetadata.description"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.exif",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 65,
+      "signature": "public var exif: Data?",
+      "id": "Hokusai:ImageMetadata.exif"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.format",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 20,
+      "signature": "public var format: ImageFormat?",
+      "id": "Hokusai:ImageMetadata.format"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.height",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 26,
+      "signature": "public var height: Int",
+      "id": "Hokusai:ImageMetadata.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.iccProfile",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 68,
+      "signature": "public var iccProfile: Data?",
+      "id": "Hokusai:ImageMetadata.iccProfile"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "ImageMetadata.init(format:width:height:orientation:pixel:density:densityUnit:pages:animation:sourceByteSize:isProgressive:chromaSubsampling:exif:iccProfile:xmp:iptc:)",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 77,
+      "signature": "public init( format: ImageFormat?",
+      "id": "Hokusai:ImageMetadata.init(format:width:height:orientation:pixel:density:densityUnit:pages:animation:sourceByteSize:isProgressive:chromaSubsampling:exif:iccProfile:xmp:iptc:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.iptc",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 75,
+      "signature": "public var iptc: Data?",
+      "id": "Hokusai:ImageMetadata.iptc"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.isAnimated",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 123,
+      "signature": "public var isAnimated: Bool",
+      "id": "Hokusai:ImageMetadata.isAnimated"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.isProgressive",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 59,
+      "signature": "public var isProgressive: Bool?",
+      "id": "Hokusai:ImageMetadata.isProgressive"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.orientation",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 33,
+      "signature": "public var orientation: ImageOrientation?",
+      "id": "Hokusai:ImageMetadata.orientation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.orientedSize",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 115,
+      "signature": "public var orientedSize: ImageSize",
+      "id": "Hokusai:ImageMetadata.orientedSize"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.pages",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 48,
+      "signature": "public var pages: PageMetadata",
+      "id": "Hokusai:ImageMetadata.pages"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.pixel",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 36,
+      "signature": "public var pixel: PixelMetadata",
+      "id": "Hokusai:ImageMetadata.pixel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.sourceByteSize",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 55,
+      "signature": "public var sourceByteSize: Int?",
+      "id": "Hokusai:ImageMetadata.sourceByteSize"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.width",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 23,
+      "signature": "public var width: Int",
+      "id": "Hokusai:ImageMetadata.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.xmp",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 71,
+      "signature": "public var xmp: Data?",
+      "id": "Hokusai:ImageMetadata.xmp"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageMetadata.xmpString",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 127,
+      "signature": "public var xmpString: String?",
+      "id": "Hokusai:ImageMetadata.xmpString"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ImageOrientation",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 134,
+      "signature": "public enum ImageOrientation: Int, Sendable, Equatable, CaseIterable",
+      "cases": [
+        "up",
+        "upMirrored",
+        "down",
+        "downMirrored",
+        "leftMirrored",
+        "right",
+        "rightMirrored",
+        "left"
+      ],
+      "id": "Hokusai:ImageOrientation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ImageOrientation.swapsDimensions",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 146,
+      "signature": "public var swapsDimensions: Bool",
+      "id": "Hokusai:ImageOrientation.swapsDimensions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ImageSize",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 38,
+      "signature": "public struct ImageSize: Hashable, Sendable",
+      "id": "Hokusai:ImageSize"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ImageSize.height",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 42,
+      "signature": "public let height: Int",
+      "id": "Hokusai:ImageSize.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "ImageSize.init(width:height:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 45,
+      "signature": "public init(width: Int, height: Int)",
+      "id": "Hokusai:ImageSize.init(width:height:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ImageSize.width",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 40,
+      "signature": "public let width: Int",
+      "id": "Hokusai:ImageSize.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "InputLimits",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 138,
+      "signature": "public struct InputLimits: Sendable, Hashable",
+      "id": "Hokusai:InputLimits"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "InputLimits.defaultMaxBytes",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 140,
+      "signature": "public static let defaultMaxBytes",
+      "id": "Hokusai:InputLimits.defaultMaxBytes"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "InputLimits.defaultMaxChannels",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 146,
+      "signature": "public static let defaultMaxChannels",
+      "id": "Hokusai:InputLimits.defaultMaxChannels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "InputLimits.defaultMaxPixels",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 143,
+      "signature": "public static let defaultMaxPixels",
+      "id": "Hokusai:InputLimits.defaultMaxPixels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "InputLimits.init(maxBytes:maxPixels:maxChannels:)",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 158,
+      "signature": "public init( maxBytes: Int",
+      "id": "Hokusai:InputLimits.init(maxBytes:maxPixels:maxChannels:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputLimits.maxBytes",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 150,
+      "signature": "public var maxBytes: Int",
+      "id": "Hokusai:InputLimits.maxBytes"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputLimits.maxChannels",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 156,
+      "signature": "public var maxChannels: Int",
+      "id": "Hokusai:InputLimits.maxChannels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputLimits.maxPixels",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 153,
+      "signature": "public var maxPixels: Int",
+      "id": "Hokusai:InputLimits.maxPixels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "InputOptions",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 20,
+      "signature": "public struct InputOptions: Sendable, Hashable",
+      "id": "Hokusai:InputOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputOptions.access",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 22,
+      "signature": "public var access: InputOptions.AccessMode",
+      "id": "Hokusai:InputOptions.access"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputOptions.failOn",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 25,
+      "signature": "public var failOn: DecodeFailureLevel",
+      "id": "Hokusai:InputOptions.failOn"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "InputOptions.init(access:failOn:page:limits:revalidate:)",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 44,
+      "signature": "public init( access: AccessMode",
+      "id": "Hokusai:InputOptions.init(access:failOn:page:limits:revalidate:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputOptions.limits",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 37,
+      "signature": "public var limits: InputLimits",
+      "id": "Hokusai:InputOptions.limits"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputOptions.page",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 34,
+      "signature": "public var page: Int?",
+      "id": "Hokusai:InputOptions.page"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "InputOptions.revalidate",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 42,
+      "signature": "public var revalidate: Bool",
+      "id": "Hokusai:InputOptions.revalidate"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "InputOptions.sequential",
+      "file": "hokusai/Sources/Hokusai/Models/InputOptions.swift",
+      "line": 59,
+      "signature": "public static let sequential",
+      "id": "Hokusai:InputOptions.sequential"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "Interpolation",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 87,
+      "signature": "public enum Interpolation: String, Sendable, CaseIterable",
+      "cases": [
+        "nearest",
+        "bilinear",
+        "bicubic",
+        "lbb",
+        "nohalo",
+        "vsqbs"
+      ],
+      "id": "Hokusai:Interpolation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "JPEGOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 25,
+      "signature": "public struct JPEGOptions: Sendable, Hashable",
+      "id": "Hokusai:JPEGOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "JPEGOptions.chromaSubsampling",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 29,
+      "signature": "public var chromaSubsampling: ChromaSubsampling",
+      "id": "Hokusai:JPEGOptions.chromaSubsampling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "JPEGOptions.init(quality:progressive:chromaSubsampling:optimizeCoding:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 33,
+      "signature": "public init( quality: Int",
+      "id": "Hokusai:JPEGOptions.init(quality:progressive:chromaSubsampling:optimizeCoding:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "JPEGOptions.optimizeCoding",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 31,
+      "signature": "public var optimizeCoding: Bool",
+      "id": "Hokusai:JPEGOptions.optimizeCoding"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "JPEGOptions.progressive",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 28,
+      "signature": "public var progressive: Bool",
+      "id": "Hokusai:JPEGOptions.progressive"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "JPEGOptions.quality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 26,
+      "signature": "public var quality: Int",
+      "id": "Hokusai:JPEGOptions.quality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "MetadataPolicy",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 24,
+      "signature": "public struct MetadataPolicy: Sendable, Hashable",
+      "id": "Hokusai:MetadataPolicy"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "MetadataPolicy.",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 88,
+      "signature": "public static let `default`",
+      "id": "Hokusai:MetadataPolicy."
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "MetadataPolicy.Action",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 26,
+      "signature": "public enum Action: Sendable, Hashable",
+      "cases": [
+        "preserve",
+        "remove"
+      ],
+      "id": "Hokusai:MetadataPolicy.Action"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.density",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 66,
+      "signature": "public var density: Action",
+      "id": "Hokusai:MetadataPolicy.density"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.exif",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 35,
+      "signature": "public var exif: Action",
+      "id": "Hokusai:MetadataPolicy.exif"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.icc",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 39,
+      "signature": "public var icc: Action",
+      "id": "Hokusai:MetadataPolicy.icc"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "MetadataPolicy.init(exif:icc:xmp:iptc:other:orientation:density:)",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 68,
+      "signature": "public init( exif: Action",
+      "id": "Hokusai:MetadataPolicy.init(exif:icc:xmp:iptc:other:orientation:density:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.iptc",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 45,
+      "signature": "public var iptc: Action",
+      "id": "Hokusai:MetadataPolicy.iptc"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.orientation",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 58,
+      "signature": "public var orientation: Action",
+      "id": "Hokusai:MetadataPolicy.orientation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.other",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 48,
+      "signature": "public var other: Action",
+      "id": "Hokusai:MetadataPolicy.other"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "MetadataPolicy.preserveAll",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 91,
+      "signature": "public static let preserveAll",
+      "id": "Hokusai:MetadataPolicy.preserveAll"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "MetadataPolicy.removeAll",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 98,
+      "signature": "public static let removeAll",
+      "id": "Hokusai:MetadataPolicy.removeAll"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "MetadataPolicy.xmp",
+      "file": "hokusai/Sources/Hokusai/Models/MetadataPolicy.swift",
+      "line": 42,
+      "signature": "public var xmp: Action",
+      "id": "Hokusai:MetadataPolicy.xmp"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "Output",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 251,
+      "signature": "public struct Output: Sendable, Hashable",
+      "id": "Hokusai:Output"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "Output.data",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 252,
+      "signature": "public let data: Data",
+      "id": "Hokusai:Output.data"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "Output.info",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 253,
+      "signature": "public let info: OutputInfo",
+      "id": "Hokusai:Output.info"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "OutputInfo",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 261,
+      "signature": "public struct OutputInfo: Sendable, Hashable",
+      "id": "Hokusai:OutputInfo"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "OutputInfo.byteCount",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 266,
+      "signature": "public let byteCount: Int",
+      "id": "Hokusai:OutputInfo.byteCount"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "OutputInfo.format",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 262,
+      "signature": "public let format: ImageFormat",
+      "id": "Hokusai:OutputInfo.format"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "OutputInfo.height",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 264,
+      "signature": "public let height: Int",
+      "id": "Hokusai:OutputInfo.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "OutputInfo.pdf",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 269,
+      "signature": "public let pdf: PDFOutputDetails?",
+      "id": "Hokusai:OutputInfo.pdf"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "OutputInfo.width",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 263,
+      "signature": "public let width: Int",
+      "id": "Hokusai:OutputInfo.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PageMetadata",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 232,
+      "signature": "public struct PageMetadata: Sendable, Equatable",
+      "id": "Hokusai:PageMetadata"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PageMetadata.count",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 234,
+      "signature": "public var count: Int",
+      "id": "Hokusai:PageMetadata.count"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PageMetadata.height",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 237,
+      "signature": "public var height: Int?",
+      "id": "Hokusai:PageMetadata.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PageMetadata.init(count:height:primary:subIFDCount:)",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 245,
+      "signature": "public init(count: Int",
+      "id": "Hokusai:PageMetadata.init(count:height:primary:subIFDCount:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PageMetadata.primary",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 240,
+      "signature": "public var primary: Int?",
+      "id": "Hokusai:PageMetadata.primary"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PageMetadata.subIFDCount",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 243,
+      "signature": "public var subIFDCount: Int?",
+      "id": "Hokusai:PageMetadata.subIFDCount"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PDFDocumentMetadata",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 56,
+      "signature": "public struct PDFDocumentMetadata: Sendable, Hashable",
+      "id": "Hokusai:PDFDocumentMetadata"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.author",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 58,
+      "signature": "public var author: String?",
+      "id": "Hokusai:PDFDocumentMetadata.author"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.creationDate",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 65,
+      "signature": "public var creationDate: Date?",
+      "id": "Hokusai:PDFDocumentMetadata.creationDate"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.creator",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 61,
+      "signature": "public var creator: String?",
+      "id": "Hokusai:PDFDocumentMetadata.creator"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PDFDocumentMetadata.init(title:author:subject:keywords:creator:creationDate:modificationDate:)",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 70,
+      "signature": "public init( title: String?",
+      "id": "Hokusai:PDFDocumentMetadata.init(title:author:subject:keywords:creator:creationDate:modificationDate:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.keywords",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 60,
+      "signature": "public var keywords: String?",
+      "id": "Hokusai:PDFDocumentMetadata.keywords"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.modificationDate",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 68,
+      "signature": "public var modificationDate: Date?",
+      "id": "Hokusai:PDFDocumentMetadata.modificationDate"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.subject",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 59,
+      "signature": "public var subject: String?",
+      "id": "Hokusai:PDFDocumentMetadata.subject"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFDocumentMetadata.title",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 57,
+      "signature": "public var title: String?",
+      "id": "Hokusai:PDFDocumentMetadata.title"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PDFMargins",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 30,
+      "signature": "public struct PDFMargins: Sendable, Hashable",
+      "id": "Hokusai:PDFMargins"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "PDFMargins.all(_:)",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 44,
+      "signature": "public static func all(_ value: Double) -> PDFMargins",
+      "id": "Hokusai:PDFMargins.all(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFMargins.bottom",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 33,
+      "signature": "public var bottom: Double",
+      "id": "Hokusai:PDFMargins.bottom"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PDFMargins.init(top:leading:bottom:trailing:)",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 36,
+      "signature": "public init(top: Double",
+      "id": "Hokusai:PDFMargins.init(top:leading:bottom:trailing:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFMargins.leading",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 32,
+      "signature": "public var leading: Double",
+      "id": "Hokusai:PDFMargins.leading"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "PDFMargins.none",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 49,
+      "signature": "public static let none",
+      "id": "Hokusai:PDFMargins.none"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFMargins.top",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 31,
+      "signature": "public var top: Double",
+      "id": "Hokusai:PDFMargins.top"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFMargins.trailing",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 34,
+      "signature": "public var trailing: Double",
+      "id": "Hokusai:PDFMargins.trailing"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PDFOptions",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 91,
+      "signature": "public struct PDFOptions: Sendable, Hashable",
+      "id": "Hokusai:PDFOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFOptions.anchor",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 99,
+      "signature": "public var anchor: Gravity",
+      "id": "Hokusai:PDFOptions.anchor"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFOptions.background",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 104,
+      "signature": "public var background: Color?",
+      "id": "Hokusai:PDFOptions.background"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PDFOptions.init(pageSize:margins:anchor:background:maxEffectiveDPI:metadata:)",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 114,
+      "signature": "public init( pageSize: PDFPageSize",
+      "id": "Hokusai:PDFOptions.init(pageSize:margins:anchor:background:maxEffectiveDPI:metadata:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFOptions.margins",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 96,
+      "signature": "public var margins: PDFMargins",
+      "id": "Hokusai:PDFOptions.margins"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFOptions.maxEffectiveDPI",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 109,
+      "signature": "public var maxEffectiveDPI: Double?",
+      "id": "Hokusai:PDFOptions.maxEffectiveDPI"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFOptions.metadata",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 112,
+      "signature": "public var metadata: PDFDocumentMetadata?",
+      "id": "Hokusai:PDFOptions.metadata"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PDFOptions.pageSize",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 93,
+      "signature": "public var pageSize: PDFPageSize",
+      "id": "Hokusai:PDFOptions.pageSize"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PDFOutputDetails",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 132,
+      "signature": "public struct PDFOutputDetails: Sendable, Hashable",
+      "id": "Hokusai:PDFOutputDetails"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "PDFOutputDetails.pageCount",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 134,
+      "signature": "public let pageCount: Int",
+      "id": "Hokusai:PDFOutputDetails.pageCount"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "PDFOutputDetails.pageHeight",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 140,
+      "signature": "public let pageHeight: Double",
+      "id": "Hokusai:PDFOutputDetails.pageHeight"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "PDFOutputDetails.pageWidth",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 137,
+      "signature": "public let pageWidth: Double",
+      "id": "Hokusai:PDFOutputDetails.pageWidth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "PDFPageOrientation",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 24,
+      "signature": "public enum PDFPageOrientation: Sendable, Hashable",
+      "cases": [
+        "portrait",
+        "landscape"
+      ],
+      "id": "Hokusai:PDFPageOrientation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "PDFPageSize",
+      "file": "hokusai/Sources/Hokusai/Models/PDFModels.swift",
+      "line": 8,
+      "signature": "public enum PDFPageSize: Sendable, Hashable",
+      "cases": [
+        "image(dpi: Double",
+        "a4(PDFPageOrientation",
+        "letter(PDFPageOrientation",
+        "points(width: Double, height: Double)"
+      ],
+      "id": "Hokusai:PDFPageSize"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "PixelInterpretation",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 196,
+      "signature": "public enum PixelInterpretation: Sendable, Equatable",
+      "cases": [
+        "grayscale",
+        "sRGB",
+        "rgb",
+        "cmyk",
+        "lab",
+        "lch",
+        "xyz",
+        "hsv",
+        "scRGB",
+        "multiband",
+        "unknown"
+      ],
+      "id": "Hokusai:PixelInterpretation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PixelMetadata",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 155,
+      "signature": "public struct PixelMetadata: Sendable, Equatable",
+      "id": "Hokusai:PixelMetadata"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PixelMetadata.bitsPerSample",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 171,
+      "signature": "public var bitsPerSample: Int?",
+      "id": "Hokusai:PixelMetadata.bitsPerSample"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PixelMetadata.channels",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 157,
+      "signature": "public var channels: Int",
+      "id": "Hokusai:PixelMetadata.channels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PixelMetadata.hasAlpha",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 160,
+      "signature": "public var hasAlpha: Bool",
+      "id": "Hokusai:PixelMetadata.hasAlpha"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PixelMetadata.init(channels:hasAlpha:interpretation:sampleFormat:bitsPerSample:isPalette:)",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 177,
+      "signature": "public init( channels: Int, hasAlpha: Bool, interpretation: PixelInterpretation, sampleFormat: PixelSampleFormat, bitsPerSample: Int?",
+      "id": "Hokusai:PixelMetadata.init(channels:hasAlpha:interpretation:sampleFormat:bitsPerSample:isPalette:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PixelMetadata.interpretation",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 164,
+      "signature": "public var interpretation: PixelInterpretation",
+      "id": "Hokusai:PixelMetadata.interpretation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PixelMetadata.isPalette",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 175,
+      "signature": "public var isPalette: Bool?",
+      "id": "Hokusai:PixelMetadata.isPalette"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PixelMetadata.sampleFormat",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 167,
+      "signature": "public var sampleFormat: PixelSampleFormat",
+      "id": "Hokusai:PixelMetadata.sampleFormat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "PixelSampleFormat",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 212,
+      "signature": "public enum PixelSampleFormat: Sendable, Equatable",
+      "cases": [
+        "uint8",
+        "int8",
+        "uint16",
+        "int16",
+        "uint32",
+        "int32",
+        "float32",
+        "float64",
+        "complex",
+        "unknown"
+      ],
+      "id": "Hokusai:PixelSampleFormat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "Placement",
+      "file": "hokusai/Sources/Hokusai/Models/Composition.swift",
+      "line": 8,
+      "signature": "public enum Placement: Sendable, Hashable",
+      "cases": [
+        "at(x: Int, y: Int)",
+        "gravity(Gravity, offsetX: Int",
+        "tile(gravity: Gravity"
+      ],
+      "id": "Hokusai:Placement"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PNGOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 65,
+      "signature": "public struct PNGOptions: Sendable, Hashable",
+      "id": "Hokusai:PNGOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGOptions.compressionLevel",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 66,
+      "signature": "public var compressionLevel: Int",
+      "id": "Hokusai:PNGOptions.compressionLevel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PNGOptions.init(compressionLevel:interlaced:palette:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 72,
+      "signature": "public init(compressionLevel: Int",
+      "id": "Hokusai:PNGOptions.init(compressionLevel:interlaced:palette:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGOptions.interlaced",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 68,
+      "signature": "public var interlaced: Bool",
+      "id": "Hokusai:PNGOptions.interlaced"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGOptions.palette",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 70,
+      "signature": "public var palette: PNGPalette?",
+      "id": "Hokusai:PNGOptions.palette"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "PNGPalette",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 46,
+      "signature": "public struct PNGPalette: Sendable, Hashable",
+      "id": "Hokusai:PNGPalette"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGPalette.bitDepth",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 54,
+      "signature": "public var bitDepth: Int",
+      "id": "Hokusai:PNGPalette.bitDepth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGPalette.dither",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 50,
+      "signature": "public var dither: Double",
+      "id": "Hokusai:PNGPalette.dither"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGPalette.effort",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 52,
+      "signature": "public var effort: Int",
+      "id": "Hokusai:PNGPalette.effort"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "PNGPalette.init(quality:dither:effort:bitDepth:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 56,
+      "signature": "public init(quality: Int",
+      "id": "Hokusai:PNGPalette.init(quality:dither:effort:bitDepth:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "PNGPalette.quality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 48,
+      "signature": "public var quality: Int",
+      "id": "Hokusai:PNGPalette.quality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "RawImage",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 75,
+      "signature": "public struct RawImage: Sendable, Hashable",
+      "id": "Hokusai:RawImage"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawImage.byteCount",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 87,
+      "signature": "public var byteCount: Int",
+      "id": "Hokusai:RawImage.byteCount"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RawImage.data",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 76,
+      "signature": "public let data: Data",
+      "id": "Hokusai:RawImage.data"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RawImage.format",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 79,
+      "signature": "public let format: RawPixelFormat",
+      "id": "Hokusai:RawImage.format"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RawImage.height",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 78,
+      "signature": "public let height: Int",
+      "id": "Hokusai:RawImage.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RawImage.premultiplied",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 84,
+      "signature": "public let premultiplied: Bool",
+      "id": "Hokusai:RawImage.premultiplied"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RawImage.rowStride",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 81,
+      "signature": "public let rowStride: Int",
+      "id": "Hokusai:RawImage.rowStride"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RawImage.width",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 77,
+      "signature": "public let width: Int",
+      "id": "Hokusai:RawImage.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "RawPixelFormat",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 21,
+      "signature": "public enum RawPixelFormat: Sendable, Hashable, CaseIterable",
+      "cases": [
+        "gray8",
+        "grayAlpha8",
+        "rgb8",
+        "rgba8",
+        "gray16",
+        "grayAlpha16",
+        "rgb16",
+        "rgba16"
+      ],
+      "id": "Hokusai:RawPixelFormat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawPixelFormat.bitDepth",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 64,
+      "signature": "public var bitDepth: Int",
+      "id": "Hokusai:RawPixelFormat.bitDepth"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawPixelFormat.bytesPerChannel",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 42,
+      "signature": "public var bytesPerChannel: Int",
+      "id": "Hokusai:RawPixelFormat.bytesPerChannel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawPixelFormat.bytesPerPixel",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 50,
+      "signature": "public var bytesPerPixel: Int",
+      "id": "Hokusai:RawPixelFormat.bytesPerPixel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawPixelFormat.channels",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 32,
+      "signature": "public var channels: Int",
+      "id": "Hokusai:RawPixelFormat.channels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawPixelFormat.hasAlpha",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 53,
+      "signature": "public var hasAlpha: Bool",
+      "id": "Hokusai:RawPixelFormat.hasAlpha"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RawPixelFormat.isGray",
+      "file": "hokusai/Sources/Hokusai/Models/RawPixels.swift",
+      "line": 61,
+      "signature": "public var isGray: Bool",
+      "id": "Hokusai:RawPixelFormat.isGray"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ResizeFit",
+      "file": "hokusai/Sources/Hokusai/Models/Enums.swift",
+      "line": 4,
+      "signature": "public enum ResizeFit: Sendable",
+      "cases": [
+        "inside",
+        "outside",
+        "fill",
+        "cover",
+        "contain"
+      ],
+      "id": "Hokusai:ResizeFit"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ResizeKernel",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 70,
+      "signature": "public enum ResizeKernel: Sendable",
+      "cases": [
+        "nearest",
+        "linear",
+        "cubic",
+        "mitchell",
+        "lanczos2",
+        "lanczos3",
+        "mks2013",
+        "mks2021"
+      ],
+      "id": "Hokusai:ResizeKernel"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ResizePosition",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 59,
+      "signature": "public enum ResizePosition: Sendable",
+      "cases": [
+        "center",
+        "north",
+        "south",
+        "east",
+        "west",
+        "northWest",
+        "northEast",
+        "southWest",
+        "southEast",
+        "attention",
+        "entropy"
+      ],
+      "id": "Hokusai:ResizePosition"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "ResolutionUnit",
+      "file": "hokusai/Sources/Hokusai/Models/ImageMetadata.swift",
+      "line": 226,
+      "signature": "public enum ResolutionUnit: Sendable, Equatable",
+      "cases": [
+        "inch",
+        "centimetre"
+      ],
+      "id": "Hokusai:ResolutionUnit"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ResourceFailure",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 61,
+      "signature": "public struct ResourceFailure: Sendable, Equatable",
+      "id": "Hokusai:ResourceFailure"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ResourceFailure.actual",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 66,
+      "signature": "public let actual: Int?",
+      "id": "Hokusai:ResourceFailure.actual"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "ResourceFailure.init(kind:limit:actual:reason:)",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 69,
+      "signature": "public init(kind: ResourceKind, limit: Int?, actual: Int?, reason: String)",
+      "id": "Hokusai:ResourceFailure.init(kind:limit:actual:reason:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ResourceFailure.kind",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 62,
+      "signature": "public let kind: ResourceKind",
+      "id": "Hokusai:ResourceFailure.kind"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ResourceFailure.limit",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 64,
+      "signature": "public let limit: Int?",
+      "id": "Hokusai:ResourceFailure.limit"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ResourceFailure.reason",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 67,
+      "signature": "public let reason: String",
+      "id": "Hokusai:ResourceFailure.reason"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "ResourceKind",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 81,
+      "signature": "public struct ResourceKind: Sendable, Hashable, CustomStringConvertible",
+      "id": "Hokusai:ResourceKind"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ResourceKind.channels",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 98,
+      "signature": "public static let channels",
+      "id": "Hokusai:ResourceKind.channels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ResourceKind.decodedPixels",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 91,
+      "signature": "public static let decodedPixels",
+      "id": "Hokusai:ResourceKind.decodedPixels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "ResourceKind.description",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 100,
+      "signature": "public var description: String",
+      "id": "Hokusai:ResourceKind.description"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ResourceKind.encodedBytes",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 88,
+      "signature": "public static let encodedBytes",
+      "id": "Hokusai:ResourceKind.encodedBytes"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "ResourceKind.name",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 82,
+      "signature": "public let name: String",
+      "id": "Hokusai:ResourceKind.name"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ResourceKind.outputPixels",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 95,
+      "signature": "public static let outputPixels",
+      "id": "Hokusai:ResourceKind.outputPixels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "ResourceKind.queuedEvaluations",
+      "file": "hokusai/Sources/Hokusai/Errors/HokusaiError.swift",
+      "line": 85,
+      "signature": "public static let queuedEvaluations",
+      "id": "Hokusai:ResourceKind.queuedEvaluations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "RuntimeCapabilities",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 122,
+      "signature": "public struct RuntimeCapabilities: Sendable, Hashable",
+      "id": "Hokusai:RuntimeCapabilities"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.blockedInputFormats",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 137,
+      "signature": "public let blockedInputFormats: Set<ImageFormat>",
+      "id": "Hokusai:RuntimeCapabilities.blockedInputFormats"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.cairoVersion",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 128,
+      "signature": "public let cairoVersion: String",
+      "id": "Hokusai:RuntimeCapabilities.cairoVersion"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "RuntimeCapabilities.canDecode(_:)",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 175,
+      "signature": "public func canDecode(_ format: ImageFormat) -> Bool",
+      "id": "Hokusai:RuntimeCapabilities.canDecode(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "RuntimeCapabilities.canEncode(_:)",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 157,
+      "signature": "public func canEncode(_ compression: HEIFCompression) -> Bool",
+      "id": "Hokusai:RuntimeCapabilities.canEncode(_:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "RuntimeCapabilities.canEncode(_:)",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 178,
+      "signature": "public func canEncode(_ format: ImageFormat) -> Bool",
+      "id": "Hokusai:RuntimeCapabilities.canEncode(_:)#2"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.heifCompressions",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 150,
+      "signature": "public let heifCompressions: Set<HEIFCompression>",
+      "id": "Hokusai:RuntimeCapabilities.heifCompressions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.inputFormats",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 131,
+      "signature": "public let inputFormats: Set<ImageFormat>",
+      "id": "Hokusai:RuntimeCapabilities.inputFormats"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.libvipsVersion",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 124,
+      "signature": "public let libvipsVersion: String",
+      "id": "Hokusai:RuntimeCapabilities.libvipsVersion"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.outputFormats",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 142,
+      "signature": "public let outputFormats: Set<ImageFormat>",
+      "id": "Hokusai:RuntimeCapabilities.outputFormats"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.pngPalette",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 154,
+      "signature": "public let pngPalette: Bool",
+      "id": "Hokusai:RuntimeCapabilities.pngPalette"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeCapabilities.textRendering",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 145,
+      "signature": "public let textRendering: Bool",
+      "id": "Hokusai:RuntimeCapabilities.textRendering"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "RuntimeConfiguration",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 18,
+      "signature": "public struct RuntimeConfiguration: Sendable, Hashable",
+      "id": "Hokusai:RuntimeConfiguration"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RuntimeConfiguration.blockUntrustedOperations",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 49,
+      "signature": "public var blockUntrustedOperations: Bool",
+      "id": "Hokusai:RuntimeConfiguration.blockUntrustedOperations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "static": true,
+      "name": "RuntimeConfiguration.defaultMaxOutputPixels",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 52,
+      "signature": "public static let defaultMaxOutputPixels",
+      "id": "Hokusai:RuntimeConfiguration.defaultMaxOutputPixels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "RuntimeConfiguration.init(maxConcurrentEvaluations:maxQueuedEvaluations:vipsConcurrency:blockUntrustedOperations:maxOutputPixels:)",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 66,
+      "signature": "public init( maxConcurrentEvaluations: ConcurrencyLimit",
+      "id": "Hokusai:RuntimeConfiguration.init(maxConcurrentEvaluations:maxQueuedEvaluations:vipsConcurrency:blockUntrustedOperations:maxOutputPixels:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RuntimeConfiguration.maxConcurrentEvaluations",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 26,
+      "signature": "public var maxConcurrentEvaluations: ConcurrencyLimit",
+      "id": "Hokusai:RuntimeConfiguration.maxConcurrentEvaluations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RuntimeConfiguration.maxOutputPixels",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 64,
+      "signature": "public var maxOutputPixels: Int?",
+      "id": "Hokusai:RuntimeConfiguration.maxOutputPixels"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RuntimeConfiguration.maxQueuedEvaluations",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 34,
+      "signature": "public var maxQueuedEvaluations: Int?",
+      "id": "Hokusai:RuntimeConfiguration.maxQueuedEvaluations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "RuntimeConfiguration.vipsConcurrency",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 38,
+      "signature": "public var vipsConcurrency: ConcurrencyLimit",
+      "id": "Hokusai:RuntimeConfiguration.vipsConcurrency"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "RuntimeStatus",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 185,
+      "signature": "public struct RuntimeStatus: Sendable, Hashable",
+      "id": "Hokusai:RuntimeStatus"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeStatus.activeEvaluations",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 197,
+      "signature": "public let activeEvaluations: Int",
+      "id": "Hokusai:RuntimeStatus.activeEvaluations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeStatus.configuration",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 188,
+      "signature": "public let configuration: RuntimeConfiguration",
+      "id": "Hokusai:RuntimeStatus.configuration"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeStatus.isConfigurationFrozen",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 191,
+      "signature": "public let isConfigurationFrozen: Bool",
+      "id": "Hokusai:RuntimeStatus.isConfigurationFrozen"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeStatus.maxConcurrentEvaluations",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 200,
+      "signature": "public let maxConcurrentEvaluations: Int",
+      "id": "Hokusai:RuntimeStatus.maxConcurrentEvaluations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeStatus.queuedEvaluations",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 194,
+      "signature": "public let queuedEvaluations: Int",
+      "id": "Hokusai:RuntimeStatus.queuedEvaluations"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "RuntimeStatus.vipsConcurrency",
+      "file": "hokusai/Sources/Hokusai/Runtime/RuntimeConfiguration.swift",
+      "line": 204,
+      "signature": "public let vipsConcurrency: Int?",
+      "id": "Hokusai:RuntimeStatus.vipsConcurrency"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "SharpenOptions",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 106,
+      "signature": "public struct SharpenOptions: Hashable, Sendable",
+      "id": "Hokusai:SharpenOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "SharpenOptions.flat",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 110,
+      "signature": "public var flat: Double",
+      "id": "Hokusai:SharpenOptions.flat"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "SharpenOptions.init(sigma:flat:jagged:threshold:maxBrightening:maxDarkening:)",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 120,
+      "signature": "public init( sigma: Double",
+      "id": "Hokusai:SharpenOptions.init(sigma:flat:jagged:threshold:maxBrightening:maxDarkening:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "SharpenOptions.jagged",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 112,
+      "signature": "public var jagged: Double",
+      "id": "Hokusai:SharpenOptions.jagged"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "SharpenOptions.maxBrightening",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 116,
+      "signature": "public var maxBrightening: Double",
+      "id": "Hokusai:SharpenOptions.maxBrightening"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "SharpenOptions.maxDarkening",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 118,
+      "signature": "public var maxDarkening: Double",
+      "id": "Hokusai:SharpenOptions.maxDarkening"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "SharpenOptions.sigma",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 108,
+      "signature": "public var sigma: Double",
+      "id": "Hokusai:SharpenOptions.sigma"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "SharpenOptions.threshold",
+      "file": "hokusai/Sources/Hokusai/Models/PipelineModels.swift",
+      "line": 114,
+      "signature": "public var threshold: Double",
+      "id": "Hokusai:SharpenOptions.threshold"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "SmartCropStrategy",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 41,
+      "signature": "public enum SmartCropStrategy: Hashable, Sendable",
+      "cases": [
+        "attention",
+        "entropy"
+      ],
+      "id": "Hokusai:SmartCropStrategy"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TextAlignment",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 38,
+      "signature": "public enum TextAlignment: String, Sendable",
+      "cases": [
+        "left",
+        "center",
+        "right"
+      ],
+      "id": "Hokusai:TextAlignment"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TextContent",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 4,
+      "signature": "public enum TextContent: Sendable, Hashable, ExpressibleByStringLiteral",
+      "cases": [
+        "plain(String)",
+        "markup(String)"
+      ],
+      "id": "Hokusai:TextContent"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TextContent.init(stringLiteral:)",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 14,
+      "signature": "public init(stringLiteral value: String)",
+      "id": "Hokusai:TextContent.init(stringLiteral:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TextLayout",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 45,
+      "signature": "public enum TextLayout: Sendable, Hashable",
+      "cases": [
+        "natural",
+        "width(Int, wrap: TextWrap",
+        "fit(width: Int, height: Int)"
+      ],
+      "id": "Hokusai:TextLayout"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "TextShadow",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 70,
+      "signature": "public struct TextShadow: Sendable, Hashable",
+      "id": "Hokusai:TextShadow"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextShadow.blur",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 74,
+      "signature": "public var blur: Double",
+      "id": "Hokusai:TextShadow.blur"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextShadow.color",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 76,
+      "signature": "public var color: Color",
+      "id": "Hokusai:TextShadow.color"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TextShadow.init(offsetX:offsetY:blur:color:)",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 78,
+      "signature": "public init(offsetX: Int, offsetY: Int, blur: Double",
+      "id": "Hokusai:TextShadow.init(offsetX:offsetY:blur:color:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextShadow.offsetX",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 71,
+      "signature": "public var offsetX: Int",
+      "id": "Hokusai:TextShadow.offsetX"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextShadow.offsetY",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 72,
+      "signature": "public var offsetY: Int",
+      "id": "Hokusai:TextShadow.offsetY"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "TextStroke",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 58,
+      "signature": "public struct TextStroke: Sendable, Hashable",
+      "id": "Hokusai:TextStroke"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStroke.color",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 59,
+      "signature": "public var color: Color",
+      "id": "Hokusai:TextStroke.color"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TextStroke.init(color:width:)",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 63,
+      "signature": "public init(color: Color, width: Double)",
+      "id": "Hokusai:TextStroke.init(color:width:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStroke.width",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 61,
+      "signature": "public var width: Double",
+      "id": "Hokusai:TextStroke.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "TextStyle",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 87,
+      "signature": "public struct TextStyle: Sendable, Hashable",
+      "id": "Hokusai:TextStyle"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.alignment",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 100,
+      "signature": "public var alignment: TextAlignment",
+      "id": "Hokusai:TextStyle.alignment"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.color",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 99,
+      "signature": "public var color: Color",
+      "id": "Hokusai:TextStyle.color"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.dpi",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 107,
+      "signature": "public var dpi: Int",
+      "id": "Hokusai:TextStyle.dpi"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.font",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 89,
+      "signature": "public var font: String",
+      "id": "Hokusai:TextStyle.font"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.fontFile",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 96,
+      "signature": "public var fontFile: URL?",
+      "id": "Hokusai:TextStyle.fontFile"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.fontSize",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 98,
+      "signature": "public var fontSize: Int",
+      "id": "Hokusai:TextStyle.fontSize"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TextStyle.init(font:fontFile:fontSize:color:alignment:justify:lineHeight:dpi:stroke:shadow:rotation:)",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 113,
+      "signature": "public init( font: String",
+      "id": "Hokusai:TextStyle.init(font:fontFile:fontSize:color:alignment:justify:lineHeight:dpi:stroke:shadow:rotation:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.justify",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 102,
+      "signature": "public var justify: Bool",
+      "id": "Hokusai:TextStyle.justify"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.lineHeight",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 105,
+      "signature": "public var lineHeight: Double",
+      "id": "Hokusai:TextStyle.lineHeight"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.rotation",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 111,
+      "signature": "public var rotation: Double",
+      "id": "Hokusai:TextStyle.rotation"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.shadow",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 109,
+      "signature": "public var shadow: TextShadow?",
+      "id": "Hokusai:TextStyle.shadow"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TextStyle.stroke",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 108,
+      "signature": "public var stroke: TextStroke?",
+      "id": "Hokusai:TextStyle.stroke"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TextWrap",
+      "file": "hokusai/Sources/Hokusai/Models/TextModels.swift",
+      "line": 26,
+      "signature": "public enum TextWrap: Sendable, Hashable",
+      "cases": [
+        "word",
+        "character",
+        "wordCharacter",
+        "none"
+      ],
+      "id": "Hokusai:TextWrap"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TIFFCompression",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 166,
+      "signature": "public enum TIFFCompression: Sendable, Hashable, CaseIterable",
+      "cases": [
+        "none",
+        "jpeg",
+        "deflate",
+        "packBits",
+        "ccittFax4",
+        "lzw",
+        "webp",
+        "zstd",
+        "jpeg2000"
+      ],
+      "id": "Hokusai:TIFFCompression"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "TIFFOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 190,
+      "signature": "public struct TIFFOptions: Sendable, Hashable",
+      "id": "Hokusai:TIFFOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFOptions.bigTIFF",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 198,
+      "signature": "public var bigTIFF: Bool",
+      "id": "Hokusai:TIFFOptions.bigTIFF"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFOptions.compression",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 191,
+      "signature": "public var compression: TIFFCompression",
+      "id": "Hokusai:TIFFOptions.compression"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TIFFOptions.init(compression:quality:predictor:tiling:bigTIFF:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 200,
+      "signature": "public init( compression: TIFFCompression",
+      "id": "Hokusai:TIFFOptions.init(compression:quality:predictor:tiling:bigTIFF:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFOptions.predictor",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 194,
+      "signature": "public var predictor: TIFFPredictor",
+      "id": "Hokusai:TIFFOptions.predictor"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFOptions.quality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 193,
+      "signature": "public var quality: Int",
+      "id": "Hokusai:TIFFOptions.quality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFOptions.tiling",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 196,
+      "signature": "public var tiling: TIFFTiling?",
+      "id": "Hokusai:TIFFOptions.tiling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TIFFPredictor",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 171,
+      "signature": "public enum TIFFPredictor: Sendable, Hashable, CaseIterable",
+      "cases": [
+        "none",
+        "horizontal",
+        "floatingPoint"
+      ],
+      "id": "Hokusai:TIFFPredictor"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "TIFFTiling",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 176,
+      "signature": "public struct TIFFTiling: Sendable, Hashable",
+      "id": "Hokusai:TIFFTiling"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFTiling.height",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 178,
+      "signature": "public var height: Int",
+      "id": "Hokusai:TIFFTiling.height"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TIFFTiling.init(width:height:pyramid:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 182,
+      "signature": "public init(width: Int",
+      "id": "Hokusai:TIFFTiling.init(width:height:pyramid:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFTiling.pyramid",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 180,
+      "signature": "public var pyramid: Bool",
+      "id": "Hokusai:TIFFTiling.pyramid"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TIFFTiling.width",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 177,
+      "signature": "public var width: Int",
+      "id": "Hokusai:TIFFTiling.width"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "TrimBackground",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 4,
+      "signature": "public enum TrimBackground: Hashable, Sendable",
+      "cases": [
+        "topLeft",
+        "color(Color)"
+      ],
+      "id": "Hokusai:TrimBackground"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "TrimOptions",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 12,
+      "signature": "public struct TrimOptions: Hashable, Sendable",
+      "id": "Hokusai:TrimOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TrimOptions.background",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 16,
+      "signature": "public var background: TrimBackground",
+      "id": "Hokusai:TrimOptions.background"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "TrimOptions.init(threshold:background:lineArt:margin:)",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 22,
+      "signature": "public init(threshold: Double",
+      "id": "Hokusai:TrimOptions.init(threshold:background:lineArt:margin:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TrimOptions.lineArt",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 18,
+      "signature": "public var lineArt: Bool",
+      "id": "Hokusai:TrimOptions.lineArt"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TrimOptions.margin",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 20,
+      "signature": "public var margin: Int",
+      "id": "Hokusai:TrimOptions.margin"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "TrimOptions.threshold",
+      "file": "hokusai/Sources/Hokusai/Models/ContentAwareModels.swift",
+      "line": 14,
+      "signature": "public var threshold: Double",
+      "id": "Hokusai:TrimOptions.threshold"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "WebPOptions",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 85,
+      "signature": "public struct WebPOptions: Sendable, Hashable",
+      "id": "Hokusai:WebPOptions"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.alphaQuality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 91,
+      "signature": "public var alphaQuality: Int",
+      "id": "Hokusai:WebPOptions.alphaQuality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.effort",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 88,
+      "signature": "public var effort: Int",
+      "id": "Hokusai:WebPOptions.effort"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "WebPOptions.init(quality:effort:lossless:alphaQuality:nearLossless:smartSubsample:preset:)",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 98,
+      "signature": "public init( quality: Int",
+      "id": "Hokusai:WebPOptions.init(quality:effort:lossless:alphaQuality:nearLossless:smartSubsample:preset:)"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.lossless",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 89,
+      "signature": "public var lossless: Bool",
+      "id": "Hokusai:WebPOptions.lossless"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.nearLossless",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 93,
+      "signature": "public var nearLossless: Bool",
+      "id": "Hokusai:WebPOptions.nearLossless"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.preset",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 96,
+      "signature": "public var preset: WebPPreset",
+      "id": "Hokusai:WebPOptions.preset"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.quality",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 86,
+      "signature": "public var quality: Int",
+      "id": "Hokusai:WebPOptions.quality"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "WebPOptions.smartSubsample",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 95,
+      "signature": "public var smartSubsample: Bool",
+      "id": "Hokusai:WebPOptions.smartSubsample"
+    },
+    {
+      "module": "Hokusai",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "WebPPreset",
+      "file": "hokusai/Sources/Hokusai/Models/EncoderOptions.swift",
+      "line": 80,
+      "signature": "public enum WebPPreset: Sendable, Hashable, CaseIterable",
+      "cases": [
+        "`default`",
+        "picture",
+        "photo",
+        "drawing",
+        "icon",
+        "text"
+      ],
+      "id": "Hokusai:WebPPreset"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "func",
+      "name": "Hokusai.response(status:headers:chunkSize:allocator:)",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/Hokusai+Response.swift",
+      "line": 27,
+      "signature": "public func response( status: HTTPResponse.Status",
+      "id": "HokusaiHummingbird:Hokusai.response(status:headers:chunkSize:allocator:)"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "var",
+      "name": "HokusaiError.httpError",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/HokusaiError+HTTP.swift",
+      "line": 35,
+      "signature": "public var httpError: HTTPError",
+      "id": "HokusaiHummingbird:HokusaiError.httpError"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "var",
+      "name": "HokusaiError.httpStatus",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/HokusaiError+HTTP.swift",
+      "line": 19,
+      "signature": "public var httpStatus: HTTPResponse.Status",
+      "id": "HokusaiHummingbird:HokusaiError.httpStatus"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "struct",
+      "name": "HokusaiErrorMiddleware",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/HokusaiError+HTTP.swift",
+      "line": 46,
+      "signature": "public struct HokusaiErrorMiddleware<Context: RequestContext>: RouterMiddleware",
+      "id": "HokusaiHummingbird:HokusaiErrorMiddleware"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "func",
+      "name": "HokusaiErrorMiddleware.handle(_:context:next:)",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/HokusaiError+HTTP.swift",
+      "line": 49,
+      "signature": "public func handle(_ request: Request, context: Context, next: (Request, Context) async throws -> Response) async throws -> Response",
+      "id": "HokusaiHummingbird:HokusaiErrorMiddleware.handle(_:context:next:)"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "init",
+      "name": "HokusaiErrorMiddleware.init()",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/HokusaiError+HTTP.swift",
+      "line": 47,
+      "signature": "public init()",
+      "id": "HokusaiHummingbird:HokusaiErrorMiddleware.init()"
+    },
+    {
+      "module": "HokusaiHummingbird",
+      "repo": "hokusai-hummingbird",
+      "kind": "func",
+      "name": "Request.hokusaiImage(options:maximumSize:memoryLimit:spoolDirectory:)",
+      "file": "hokusai-hummingbird/Sources/HokusaiHummingbird/Request+Hokusai.swift",
+      "line": 32,
+      "signature": "public func hokusaiImage( options: InputOptions",
+      "id": "HokusaiHummingbird:Request.hokusaiImage(options:maximumSize:memoryLimit:spoolDirectory:)"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.byteBuffer(allocator:)",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 47,
+      "signature": "func byteBuffer(allocator: ByteBufferAllocator",
+      "id": "HokusaiNIO:Hokusai.byteBuffer(allocator:)"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(buffer:options:byteTransferStrategy:)",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 23,
+      "signature": "init( buffer: ByteBuffer, options: InputOptions",
+      "id": "HokusaiNIO:Hokusai.init(buffer:options:byteTransferStrategy:)"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "Hokusai.init(spooling:options:memoryLimit:spoolDirectory:)",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 100,
+      "signature": "init<Buffers: AsyncSequence>( spooling buffers: Buffers, options: InputOptions",
+      "id": "HokusaiNIO:Hokusai.init(spooling:options:memoryLimit:spoolDirectory:)"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "Hokusai.writeByteBuffers(allocator:chunkSize:_:)",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 69,
+      "signature": "func writeByteBuffers( allocator: ByteBufferAllocator",
+      "id": "HokusaiNIO:Hokusai.writeByteBuffers(allocator:chunkSize:_:)"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "NIOOutput",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 33,
+      "signature": "public struct NIOOutput: Sendable",
+      "id": "HokusaiNIO:NIOOutput"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "NIOOutput.buffer",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 35,
+      "signature": "public let buffer: ByteBuffer",
+      "id": "HokusaiNIO:NIOOutput.buffer"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "NIOOutput.info",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 37,
+      "signature": "public let info: OutputInfo",
+      "id": "HokusaiNIO:NIOOutput.info"
+    },
+    {
+      "module": "HokusaiNIO",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "Output.byteBuffer",
+      "file": "hokusai/Sources/HokusaiNIO/HokusaiNIO.swift",
+      "line": 82,
+      "signature": "var byteBuffer: ByteBuffer",
+      "id": "HokusaiNIO:Output.byteBuffer"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "GradientStop",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 66,
+      "signature": "public struct GradientStop: Sendable, Hashable",
+      "id": "HokusaiPDF:GradientStop"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "GradientStop.color",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 69,
+      "signature": "public var color: Color",
+      "id": "HokusaiPDF:GradientStop.color"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "GradientStop.init(offset:color:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 71,
+      "signature": "public init(offset: Double, color: Color)",
+      "id": "HokusaiPDF:GradientStop.init(offset:color:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "GradientStop.offset",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 68,
+      "signature": "public var offset: Double",
+      "id": "HokusaiPDF:GradientStop.offset"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorDocument",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 20,
+      "signature": "public struct VectorDocument: Sendable",
+      "id": "HokusaiPDF:VectorDocument"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorDocument.data()",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 41,
+      "signature": "public func data() async throws -> VectorOutput",
+      "id": "HokusaiPDF:VectorDocument.data()"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorDocument.init(_:metadata:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 31,
+      "signature": "public init(_ page: VectorPage, metadata: PDFDocumentMetadata?",
+      "id": "HokusaiPDF:VectorDocument.init(_:metadata:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorDocument.init(pages:metadata:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 25,
+      "signature": "public init(pages: [VectorPage], metadata: PDFDocumentMetadata?",
+      "id": "HokusaiPDF:VectorDocument.init(pages:metadata:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorDocument.metadata",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 22,
+      "signature": "public let metadata: PDFDocumentMetadata?",
+      "id": "HokusaiPDF:VectorDocument.metadata"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorDocument.pages",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 21,
+      "signature": "public let pages: [VectorPage]",
+      "id": "HokusaiPDF:VectorDocument.pages"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorDocument.write(to:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorDocument.swift",
+      "line": 54,
+      "signature": "public func write(to url: URL) async throws -> VectorOutputInfo",
+      "id": "HokusaiPDF:VectorDocument.write(to:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "VectorFontWeight",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 139,
+      "signature": "public enum VectorFontWeight: Int, Sendable, Hashable, CaseIterable",
+      "cases": [
+        "thin",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "heavy",
+        "black"
+      ],
+      "id": "HokusaiPDF:VectorFontWeight"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "VectorImageFit",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 129,
+      "signature": "public enum VectorImageFit: Sendable, Hashable",
+      "cases": [
+        "contain",
+        "cover",
+        "fill"
+      ],
+      "id": "HokusaiPDF:VectorImageFit"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorOutput",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 229,
+      "signature": "public struct VectorOutput: Sendable, Hashable",
+      "id": "HokusaiPDF:VectorOutput"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorOutput.data",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 230,
+      "signature": "public let data: Data",
+      "id": "HokusaiPDF:VectorOutput.data"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorOutput.info",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 231,
+      "signature": "public let info: VectorOutputInfo",
+      "id": "HokusaiPDF:VectorOutput.info"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorOutputInfo",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 222,
+      "signature": "public struct VectorOutputInfo: Sendable, Hashable",
+      "id": "HokusaiPDF:VectorOutputInfo"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorOutputInfo.byteCount",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 225,
+      "signature": "public let byteCount: Int",
+      "id": "HokusaiPDF:VectorOutputInfo.byteCount"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorOutputInfo.pageCount",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 223,
+      "signature": "public let pageCount: Int",
+      "id": "HokusaiPDF:VectorOutputInfo.pageCount"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorPage",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 17,
+      "signature": "public struct VectorPage: Sendable",
+      "id": "HokusaiPDF:VectorPage"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorPage.background(_:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 49,
+      "signature": "public func background(_ paint: VectorPaint) throws -> VectorPage",
+      "id": "HokusaiPDF:VectorPage.background(_:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorPage.image(_:frame:fit:opacity:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 87,
+      "signature": "public func image(_ image: Hokusai, frame: VectorRect, fit: VectorImageFit",
+      "id": "HokusaiPDF:VectorPage.image(_:frame:fit:opacity:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorPage.init(size:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 33,
+      "signature": "public init(size: VectorPageSize",
+      "id": "HokusaiPDF:VectorPage.init(size:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorPage.line(from:to:stroke:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 72,
+      "signature": "public func line(from start: VectorPoint, to end: VectorPoint, stroke: VectorStroke) throws -> VectorPage",
+      "id": "HokusaiPDF:VectorPage.line(from:to:stroke:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorPage.rectangle(_:fill:stroke:cornerRadius:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 58,
+      "signature": "public func rectangle(_ frame: VectorRect, fill: VectorPaint?",
+      "id": "HokusaiPDF:VectorPage.rectangle(_:fill:stroke:cornerRadius:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "let",
+      "name": "VectorPage.size",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 27,
+      "signature": "public let size: VectorPageSize",
+      "id": "HokusaiPDF:VectorPage.size"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "name": "VectorPage.text(_:at:width:style:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorPage.swift",
+      "line": 104,
+      "signature": "public func text(_ content: TextContent, at origin: VectorPoint, width: Double?",
+      "id": "HokusaiPDF:VectorPage.text(_:at:width:style:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "VectorPageSize",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 40,
+      "signature": "public enum VectorPageSize: Sendable, Hashable",
+      "cases": [
+        "a4(PDFPageOrientation",
+        "letter(PDFPageOrientation",
+        "points(width: Double, height: Double)"
+      ],
+      "id": "HokusaiPDF:VectorPageSize"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "VectorPaint",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 78,
+      "signature": "public enum VectorPaint: Sendable, Hashable",
+      "cases": [
+        "color(Color)",
+        "linearGradient(stops: [GradientStop], angle: Double)"
+      ],
+      "id": "HokusaiPDF:VectorPaint"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "func",
+      "static": true,
+      "name": "VectorPaint.linearGradient(from:to:angle:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 86,
+      "signature": "public static func linearGradient(from start: Color, to end: Color, angle: Double",
+      "id": "HokusaiPDF:VectorPaint.linearGradient(from:to:angle:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorPoint",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 8,
+      "signature": "public struct VectorPoint: Sendable, Hashable",
+      "id": "HokusaiPDF:VectorPoint"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorPoint.init(x:y:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 12,
+      "signature": "public init(x: Double, y: Double)",
+      "id": "HokusaiPDF:VectorPoint.init(x:y:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorPoint.x",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 9,
+      "signature": "public var x: Double",
+      "id": "HokusaiPDF:VectorPoint.x"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorPoint.y",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 10,
+      "signature": "public var y: Double",
+      "id": "HokusaiPDF:VectorPoint.y"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorRect",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 19,
+      "signature": "public struct VectorRect: Sendable, Hashable",
+      "id": "HokusaiPDF:VectorRect"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorRect.height",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 23,
+      "signature": "public var height: Double",
+      "id": "HokusaiPDF:VectorRect.height"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorRect.init(x:y:width:height:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 25,
+      "signature": "public init(x: Double, y: Double, width: Double, height: Double)",
+      "id": "HokusaiPDF:VectorRect.init(x:y:width:height:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorRect.width",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 22,
+      "signature": "public var width: Double",
+      "id": "HokusaiPDF:VectorRect.width"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorRect.x",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 20,
+      "signature": "public var x: Double",
+      "id": "HokusaiPDF:VectorRect.x"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorRect.y",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 21,
+      "signature": "public var y: Double",
+      "id": "HokusaiPDF:VectorRect.y"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorStroke",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 110,
+      "signature": "public struct VectorStroke: Sendable, Hashable",
+      "id": "HokusaiPDF:VectorStroke"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorStroke.color",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 111,
+      "signature": "public var color: Color",
+      "id": "HokusaiPDF:VectorStroke.color"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorStroke.init(color:width:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 115,
+      "signature": "public init(color: Color, width: Double",
+      "id": "HokusaiPDF:VectorStroke.init(color:width:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorStroke.width",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 113,
+      "signature": "public var width: Double",
+      "id": "HokusaiPDF:VectorStroke.width"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "VectorTextAlignment",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 151,
+      "signature": "public enum VectorTextAlignment: Int, Sendable, Hashable, CaseIterable",
+      "cases": [
+        "leading",
+        "center",
+        "trailing",
+        "justified"
+      ],
+      "id": "HokusaiPDF:VectorTextAlignment"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "struct",
+      "name": "VectorTextStyle",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 175,
+      "signature": "public struct VectorTextStyle: Sendable, Hashable",
+      "id": "HokusaiPDF:VectorTextStyle"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.alignment",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 182,
+      "signature": "public var alignment: VectorTextAlignment",
+      "id": "HokusaiPDF:VectorTextStyle.alignment"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.color",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 181,
+      "signature": "public var color: Color",
+      "id": "HokusaiPDF:VectorTextStyle.color"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.family",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 176,
+      "signature": "public var family: String",
+      "id": "HokusaiPDF:VectorTextStyle.family"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "init",
+      "name": "VectorTextStyle.init(family:size:weight:italic:color:alignment:wrap:lineSpacing:)",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 187,
+      "signature": "public init( family: String",
+      "id": "HokusaiPDF:VectorTextStyle.init(family:size:weight:italic:color:alignment:wrap:lineSpacing:)"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.italic",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 180,
+      "signature": "public var italic: Bool",
+      "id": "HokusaiPDF:VectorTextStyle.italic"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.lineSpacing",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 185,
+      "signature": "public var lineSpacing: Double",
+      "id": "HokusaiPDF:VectorTextStyle.lineSpacing"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.size",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 178,
+      "signature": "public var size: Double",
+      "id": "HokusaiPDF:VectorTextStyle.size"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.weight",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 179,
+      "signature": "public var weight: VectorFontWeight",
+      "id": "HokusaiPDF:VectorTextStyle.weight"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "var",
+      "name": "VectorTextStyle.wrap",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 183,
+      "signature": "public var wrap: VectorTextWrap",
+      "id": "HokusaiPDF:VectorTextStyle.wrap"
+    },
+    {
+      "module": "HokusaiPDF",
+      "repo": "hokusai",
+      "kind": "enum",
+      "name": "VectorTextWrap",
+      "file": "hokusai/Sources/HokusaiPDF/VectorModels.swift",
+      "line": 160,
+      "signature": "public enum VectorTextWrap: Int, Sendable, Hashable, CaseIterable",
+      "cases": [
+        "word",
+        "character",
+        "wordThenCharacter"
+      ],
+      "id": "HokusaiPDF:VectorTextWrap"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "var",
+      "name": "Application.hokusai",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Application+Hokusai.swift",
+      "line": 6,
+      "signature": "public var hokusai: HokusaiConfiguration",
+      "id": "HokusaiVapor:Application.hokusai"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "name": "Hokusai.response(status:headers:chunkSize:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Hokusai+Response.swift",
+      "line": 26,
+      "signature": "public func response( status: HTTPStatus",
+      "id": "HokusaiVapor:Hokusai.response(status:headers:chunkSize:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "struct",
+      "name": "HokusaiConfiguration",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Application+Hokusai.swift",
+      "line": 10,
+      "signature": "public struct HokusaiConfiguration",
+      "id": "HokusaiVapor:HokusaiConfiguration"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "name": "HokusaiConfiguration.capabilities()",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Application+Hokusai.swift",
+      "line": 32,
+      "signature": "public func capabilities() throws -> RuntimeCapabilities",
+      "id": "HokusaiVapor:HokusaiConfiguration.capabilities()"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "name": "HokusaiConfiguration.configure(_:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Application+Hokusai.swift",
+      "line": 23,
+      "signature": "public func configure(_ configuration: RuntimeConfiguration?",
+      "id": "HokusaiVapor:HokusaiConfiguration.configure(_:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "var",
+      "name": "HokusaiConfiguration.runtimeStatus",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Application+Hokusai.swift",
+      "line": 37,
+      "signature": "public var runtimeStatus: RuntimeStatus",
+      "id": "HokusaiVapor:HokusaiConfiguration.runtimeStatus"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "var",
+      "name": "HokusaiError.abort",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/HokusaiError+HTTP.swift",
+      "line": 35,
+      "signature": "public var abort: Abort",
+      "id": "HokusaiVapor:HokusaiError.abort"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "var",
+      "name": "HokusaiError.httpStatus",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/HokusaiError+HTTP.swift",
+      "line": 19,
+      "signature": "public var httpStatus: HTTPStatus",
+      "id": "HokusaiVapor:HokusaiError.httpStatus"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "struct",
+      "name": "HokusaiErrorMiddleware",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/HokusaiError+HTTP.swift",
+      "line": 46,
+      "signature": "public struct HokusaiErrorMiddleware: AsyncMiddleware",
+      "id": "HokusaiVapor:HokusaiErrorMiddleware"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "init",
+      "name": "HokusaiErrorMiddleware.init()",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/HokusaiError+HTTP.swift",
+      "line": 47,
+      "signature": "public init()",
+      "id": "HokusaiVapor:HokusaiErrorMiddleware.init()"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "name": "HokusaiErrorMiddleware.respond(to:chainingTo:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/HokusaiError+HTTP.swift",
+      "line": 49,
+      "signature": "public func respond(to request: Request, chainingTo next: AsyncResponder) async throws -> Response",
+      "id": "HokusaiVapor:HokusaiErrorMiddleware.respond(to:chainingTo:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "struct",
+      "name": "ImageProcessingRoutes",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/ImageProcessingRoutes.swift",
+      "line": 9,
+      "signature": "public struct ImageProcessingRoutes",
+      "id": "HokusaiVapor:ImageProcessingRoutes"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "static": true,
+      "name": "ImageProcessingRoutes.addText(_:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/ImageProcessingRoutes.swift",
+      "line": 27,
+      "signature": "public static func addText(_ req: Request) async throws -> Response",
+      "id": "HokusaiVapor:ImageProcessingRoutes.addText(_:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "static": true,
+      "name": "ImageProcessingRoutes.convert(_:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/ImageProcessingRoutes.swift",
+      "line": 57,
+      "signature": "public static func convert(_ req: Request) async throws -> Response",
+      "id": "HokusaiVapor:ImageProcessingRoutes.convert(_:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "static": true,
+      "name": "ImageProcessingRoutes.register(to:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/ImageProcessingRoutes.swift",
+      "line": 15,
+      "signature": "public static func register(to routes: RoutesBuilder) throws",
+      "id": "HokusaiVapor:ImageProcessingRoutes.register(to:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "name": "Request.hokusaiImage(field:options:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Request+Hokusai.swift",
+      "line": 63,
+      "signature": "public func hokusaiImage(field: String, options: InputOptions",
+      "id": "HokusaiVapor:Request.hokusaiImage(field:options:)"
+    },
+    {
+      "module": "HokusaiVapor",
+      "repo": "hokusai-vapor",
+      "kind": "func",
+      "name": "Request.hokusaiImage(options:maximumSize:memoryLimit:spoolDirectory:)",
+      "file": "hokusai-vapor/Sources/HokusaiVapor/Request+Hokusai.swift",
+      "line": 36,
+      "signature": "public func hokusaiImage( options: InputOptions",
+      "id": "HokusaiVapor:Request.hokusaiImage(options:maximumSize:memoryLimit:spoolDirectory:)"
+    }
+  ]
+}

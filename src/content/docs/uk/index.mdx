@@ -1,12 +1,12 @@
 ---
 pageId: home
-translatedFrom: 7e969e68b9c7
+translatedFrom: "e1a38ca4f250"
 title: Hokusai
 description: Високопродуктивна обробка зображень у Swift на базі libvips.
 template: splash
 hero:
   title: Hokusai
-  tagline: Високопродуктивна обробка зображень JPEG, PNG, WebP, AVIF і PDF на базі libvips.
+  tagline: Високопродуктивна обробка зображень JPEG, PNG, WebP, AVIF, HEIF, TIFF, GIF і PDF на базі libvips.
   image:
     html: '<img src="/oss/hokusai/hokusai-icon.png" alt="Логотип Hokusai" />'
   actions:
@@ -20,22 +20,31 @@ hero:
 ---
 
 import { CardGrid, Card } from '@astrojs/starlight/components';
+import versions from '../../../versions.json';
 
 <CardGrid>
   <Card icon="code-branch" title="Незмінні конвеєри">Складайте перетворення синхронно, безпечно розгалужуйте їх між завданнями й виконуйте лише у завершальній операції виводу.</Card>
   <Card icon="analytics" title="На базі libvips">Обробляйте зображення на вимогу невеликими ділянками пікселів з ефективною нативною паралельністю.</Card>
-  <Card icon="apple" title="Нативна інтеграція зі Swift">Користуйтеся типізованим API Swift напряму, а також офіційними допоміжними засобами Vapor для запитів і відповідей.</Card>
+  <Card icon="apple" title="Нативна інтеграція зі Swift">Користуйтеся типізованим API Swift напряму, а також офіційними адаптерами Vapor і Hummingbird.</Card>
   <Card icon="document" title="PDF із зображень">Експортуйте виконаний конвеєр в односторінковий PDF на базі Cairo для звітів і згенерованих документів.</Card>
 </CardGrid>
 
 ## Чому Hokusai? \{#why-hokusai}
 
-Hokusai 1.0 — це основний пакет Swift для високопродуктивної серверної обробки зображень. Він приймає вхідні дані `Data` або файловий `URL`, надає типізований вивід у JPEG, PNG, WebP, AVIF і PDF та тримає блокувальне нативне виконання поза кооперативним виконавцем Swift.
+Hokusai — це пакет Swift для високопродуктивної серверної обробки зображень. Він приймає вхідні дані `Data`, файловий `URL`, необроблені пікселі та завантаження, що надходять частинами, надає типізований вивід у JPEG, PNG, WebP, AVIF, HEIF, TIFF, GIF і PDF та тримає блокувальне нативне виконання поза кооперативним виконавцем Swift. Ці сторінки документують Hokusai {versions.hokusai}, Hokusai Vapor {versions.vapor} і Hokusai Hummingbird {versions.hummingbird}.
 
 - **Висока продуктивність:** libvips ефективно обробляє зображення без дочірніх процесів.
 - **Безпечна конкурентність:** незмінні конвеєри можна розгалужувати між завданнями до виконання виводу.
-- **Типізований вивід:** обирайте JPEG, PNG, WebP, AVIF або PDF на базі Cairo через API Swift.
-- **Інтеграція із сервером:** декодуйте завантаження й повертайте відповіді правильного типу через Hokusai Vapor.
+- **Типізований вивід:** обирайте JPEG, PNG, WebP, AVIF, HEIF, TIFF, GIF або PDF на базі Cairo через API Swift.
+- **Інтеграція із сервером:** декодуйте завантаження й повертайте потокові відповіді правильного типу через Hokusai Vapor або Hokusai Hummingbird.
+
+## З чого почати \{#where-to-start}
+
+<CardGrid>
+  <Card icon="rocket" title="Почати"><a href="/oss/hokusai/uk/guide/getting-started/">Установіть Hokusai і запустіть перший конвеєр.</a></Card>
+  <Card icon="magnifier" title="Знайти операцію"><a href="/oss/hokusai/uk/reference/operations/">Усі операції, згруповані за призначенням.</a></Card>
+  <Card icon="puzzle" title="Розв'язати задачу"><a href="/oss/hokusai/uk/examples/">Готові приклади, які можна скопіювати й адаптувати.</a></Card>
+</CardGrid>
 
 ## Короткий приклад \{#quick-example}
 

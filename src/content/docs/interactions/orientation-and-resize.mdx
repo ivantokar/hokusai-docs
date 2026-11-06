@@ -1,0 +1,28 @@
+---
+pageId: interactions.orientation-and-resize
+title: Orientation and resize
+description: Why autoOrient comes before anything that depends on width and height.
+---
+
+import Example from '../../../components/Example.astro';
+
+A phone photo stores its pixels sideways and records the way to turn them in an EXIF tag. `resize(width: 800)` measures the **stored** width unless `autoOrient()` has already applied the tag.
+
+<Example
+  id="order.orientation"
+  results={[
+    { file: 'orient-first.jpg', label: 'autoOrient → resize', alt: 'The scene upright and 800 by 500 pixels.' },
+    { file: 'resize-first.jpg', label: 'resize → autoOrient', alt: 'The scene upright but 1280 by 800 pixels: it was resized to 800 pixels wide before being turned.' },
+  ]}
+/>
+
+| Order | Size |
+| --- | --- |
+| `autoOrient()` then `resize(width: 800)` | **800 × 500**: the long side is 800 as intended |
+| `resize(width: 800)` then `autoOrient()` | **1280 × 800**: the stored width (the short side) was set to 800, then the image was turned |
+
+Both are upright; only the first is the size you asked for. The same applies to `extract`, `smartCrop`, `resize(fit: .cover)` with both dimensions, and anything else that reads width or height. Put `autoOrient()` first (and before `resize` in particular, so JPEG shrink-on-load still applies when the pipeline starts with `autoOrient`).
+
+## Related \{#related}
+- [Rotate, flip & affine](/oss/hokusai/geometry/rotate-flip-affine#auto-orient), [Metadata retention](/oss/hokusai/encoding-output/metadata)
+- [Order of operations](/oss/hokusai/interactions/)

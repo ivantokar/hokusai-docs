@@ -1,0 +1,30 @@
+---
+pageId: recipes.watermark
+title: Watermark
+description: Prepare a logo once and apply it to many images, plus a faint proof tile.
+---
+
+import Example from '../../../components/Example.astro';
+
+**Goal.** Stamp a semi-transparent logo in a corner of every published photo, and offer a faint all-over tile for proofs. **Inputs:** [`scene.png`, `phone.jpg`, `emblem.png`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Needs:** Hokusai 2.2.2.
+
+<Example
+  id="recipe.watermark"
+  results={[
+    { file: 'wm-scene.jpg', label: 'wm-scene.jpg', alt: 'The landscape at 800 pixels wide with the emblem at the lower right, 70 percent opaque.' },
+    { file: 'wm-phone.jpg', label: 'wm-phone.jpg', alt: 'The sideways phone photo, made upright and 500 wide, with the emblem at its lower right.' },
+    { file: 'wm-proof.jpg', label: 'wm-proof.jpg', alt: 'The landscape covered by a faint repeating emblem pattern.' },
+  ]}
+/>
+
+## How it works \{#how}
+- **The mark is prepared once** (`mark`, resized to 120 px) and reused: a layer is just a pipeline, so it is evaluated per image without being re-encoded ([composition](/oss/hokusai/text-composition/composite)).
+- **`autoOrient()` and `resize` come before `composite`**, so the mark has the same size on every output and the placement is measured on the final image ([order](/oss/hokusai/interactions/composite-order)).
+- **`.gravity(.southEast, offsetX: 20, offsetY: 20)`** keeps the mark 20 px from the corner regardless of the photo's size; `opacity: 0.7` lets the photo show through.
+- JPEG output has no alpha, but the photos are opaque, so no `flatten` is needed here. If the base can be transparent, flatten last ([why](/oss/hokusai/interactions/flatten-before-jpeg)).
+
+## Variations \{#variations}
+- **A proof tile:** `.tile(gravity: .center)` with `opacity: 0.18` repeats a small mark over the whole image (the third result).
+- **Scale the mark to the photo:** `mark.resize(width: photoWidth / 8)`.
+- **Text as the watermark:** replace the layer with `Hokusai.text(…)` ([text](/oss/hokusai/text-composition/text)).
+- **A darkening corner for legibility:** a second layer with `.multiply` under the mark.

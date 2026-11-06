@@ -1,0 +1,27 @@
+---
+pageId: interactions.trim-and-extend
+title: Trim and extend
+description: trim removes whatever border exists at that point, including padding you added before it.
+---
+
+import Example from '../../../components/Example.astro';
+
+`trim` removes a border of nearly uniform colour, using the **top-left pixel at that point of the pipeline** as the background. `extend` adds canvas. Their order decides whether the padding survives.
+
+<Example
+  id="order.trim-extend"
+  results={[
+    { file: 'pad-then-trim.png', label: 'extend → trim', alt: 'The emblem at its original 160 pixel size: the padding was trimmed away again.' },
+    { file: 'trim-then-pad.png', label: 'trim → extend', alt: 'The emblem with 30 pixels of white padding all round, 220 pixels square.' },
+  ]}
+/>
+
+| Order | Size | Why |
+| --- | --- | --- |
+| `extend(30)` then `trim()` | **160 × 160** | The white padding matches the top-left pixel, so `trim` removes it |
+| `trim()` then `extend(30)` | **220 × 220** | There was nothing to trim (the emblem touches all four edges), then padding is added and stays |
+
+To normalise logos or screenshots with arbitrary borders to an exact padded size, `trim` first and `extend` last. If you `extend` with a colour that matches the image's border, a later `trim` will undo it.
+
+## Related \{#related}
+- [Crop & canvas](/oss/hokusai/geometry/crop-and-canvas), [Order of operations](/oss/hokusai/interactions/)

@@ -1,0 +1,30 @@
+---
+pageId: integrations.nio
+title: SwiftNIO buffers
+description: "HokusaiNIO: ByteBuffer inputs and outputs, streaming buffers and spooled uploads."
+---
+
+import Example from '../../../components/Example.astro';
+
+`HokusaiNIO` is an optional product that bridges Hokusai and SwiftNIO's `ByteBuffer`. It is what Hokusai Vapor and Hokusai Hummingbird use under the hood, and it is useful directly in any NIO-based server.
+
+```swift
+// Package.swift
+.product(name: "HokusaiNIO", package: "hokusai")
+```
+
+<Example id="nio.buffers" />
+
+| API | Does |
+| --- | --- |
+| `Hokusai(buffer:options:byteTransferStrategy:)` | Adopts the **readable bytes** of a `ByteBuffer` as an immutable input, so the buffer can be released, reused or mutated before the asynchronous evaluation. |
+| `byteBuffer(allocator:)` | Evaluates and encodes into a buffer from `allocator`; returns `NIOOutput` (`buffer`, `info`). The complete result is held in memory: a convenience, not a streaming path. The encoded bytes are copied once, straight into the allocator's buffer. |
+| `writeByteBuffers(allocator:chunkSize:_:)` | The core `writeChunks` with each chunk copied into a buffer from `allocator`. No queue of its own: the next buffer is not produced until `consume` returns, which is how a slow `ResponseBodyWriter` or channel slows encoding down. The same call works for PDF. |
+| `Hokusai(spooling:options:memoryLimit:spoolDirectory:)` with `ByteBuffer`s | The spooled-upload initializer for the body type of NIO servers ([Large uploads](/oss/hokusai/sources-input/uploads)); each buffer is copied once, transiently, to `Data`. |
+| `Output.byteBuffer` | Owned output bytes in a fresh buffer. |
+
+The program printed: `byteBuffer` produced 5,036 bytes (400 × 250); `writeByteBuffers` delivered 9,660 bytes in 3 buffers of at most 4,096 bytes and `OutputInfo.byteCount` agreed; `Output.byteBuffer` wrapped a 7,072-byte PNG. Errors, cancellation and partial-stream behavior are those of `writeChunks` ([terminals](/oss/hokusai/encoding-output/terminals#results)).
+
+## Related \{#related}
+- [Output terminals](/oss/hokusai/encoding-output/terminals), [Large uploads](/oss/hokusai/sources-input/uploads)
+- [Hokusai Hummingbird](/oss/hokusai/integrations/hummingbird), [Hokusai Vapor](/oss/hokusai/vapor/overview)

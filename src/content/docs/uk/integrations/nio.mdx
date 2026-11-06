@@ -1,0 +1,31 @@
+---
+pageId: integrations.nio
+translatedFrom: "a840380eae4f"
+title: Буфери SwiftNIO
+description: "HokusaiNIO: входи й виходи ByteBuffer, потокові буфери та завантаження через проміжний файл."
+---
+
+import Example from '../../../../components/Example.astro';
+
+`HokusaiNIO` — це необов'язковий продукт, що поєднує Hokusai з `ByteBuffer` SwiftNIO. Саме його всередині використовують Hokusai Vapor і Hokusai Hummingbird, і він корисний безпосередньо в будь-якому сервері на NIO.
+
+```swift
+// Package.swift
+.product(name: "HokusaiNIO", package: "hokusai")
+```
+
+<Example id="nio.buffers" />
+
+| API | Що робить |
+| --- | --- |
+| `Hokusai(buffer:options:byteTransferStrategy:)` | Приймає **читабельні байти** `ByteBuffer` як незмінний вхід, тож буфер можна вивільнити, повторно використати чи змінити до асинхронного виконання. |
+| `byteBuffer(allocator:)` | Виконує й кодує в буфер з `allocator`; повертає `NIOOutput` (`buffer`, `info`). Увесь результат тримається в пам'яті: це зручність, а не потоковий шлях. Закодовані байти копіюються один раз, просто в буфер алокатора. |
+| `writeByteBuffers(allocator:chunkSize:_:)` | Основний `writeChunks`, де кожна частина копіюється в буфер з `allocator`. Власної черги немає: наступний буфер не створюється, доки `consume` не повернеться, і саме так повільний `ResponseBodyWriter` чи канал сповільнює кодування. Той самий виклик працює для PDF. |
+| `Hokusai(spooling:options:memoryLimit:spoolDirectory:)` із `ByteBuffer` | Ініціалізатор завантаження через проміжний файл для типу тіла серверів NIO ([Великі завантаження](/oss/hokusai/uk/sources-input/uploads)); кожен буфер копіюється один раз, тимчасово, у `Data`. |
+| `Output.byteBuffer` | Власні байти виводу у свіжому буфері. |
+
+Програма вивела: `byteBuffer` дав 5 036 байтів (400 × 250); `writeByteBuffers` доставив 9 660 байтів у 3 буферах не більше ніж по 4 096 байтів, і `OutputInfo.byteCount` збігся; `Output.byteBuffer` обгорнув PNG на 7 072 байти. Помилки, скасування й поведінка часткових потоків — як у `writeChunks` ([завершальні операції](/oss/hokusai/uk/encoding-output/terminals#results)).
+
+## Пов'язане \{#related}
+- [Завершальні операції виводу](/oss/hokusai/uk/encoding-output/terminals), [Великі завантаження](/oss/hokusai/uk/sources-input/uploads)
+- [Hokusai Hummingbird](/oss/hokusai/uk/integrations/hummingbird), [Hokusai Vapor](/oss/hokusai/uk/vapor/overview)

@@ -1,0 +1,94 @@
+---
+pageId: text-composition.text
+translatedFrom: "429758437f89"
+title: Згенерований текст
+description: Відтворення тексту як зображення або малювання на фото з компонуванням, типографікою, обведенням, тінню та розміткою.
+---
+
+import Example from '../../../../components/Example.astro';
+
+Hokusai відтворює текст через libvips і Pango. `Hokusai.text(_:layout:style:)` повертає **звичайний незмінний конвеєр** (прозоре зображення тексту), який можна перетворювати, накладати чи кодувати окремо; `drawText` — скорочення для накладання цього конвеєра на наявний. Для відтворення тексту потрібна libvips, зібрана з Pango (`Hokusai.capabilities().textRendering`), а збірка без неї повідомляє `HokusaiError.unsupported` із завершальної операції, а не з виклику.
+
+## Компонування \{#layout}
+`TextLayout` задає розмір текстового блока:
+
+- `.natural` (типово): такого розміру, якого потребує текст; рядки розриваються лише на переносах.
+- `.width(_:wrap:)`: переносить рядки за шириною в пікселях за розміру шрифту й DPI стилю. `wrap` — `.word` (типово), `.character`, `.wordCharacter` (розрив між словами та всередині надто довгого слова) або `.none`.
+- `.fit(width:height:)`: найбільша роздільність, за якої текст вміщується в блок. `dpi` стилю не використовується, а `lineHeight` має лишатися `1`.
+
+<Example
+  id="text.layouts"
+  results={[
+    { file: 'natural.png', label: '.natural', alt: 'Речення в один довгий рядок, 954 на 38 пікселів.' },
+    { file: 'wrapped.png', label: '.width(420)', alt: 'Речення, перенесене на три рядки, 393 на 120 пікселів.' },
+    { file: 'clipped.png', label: '.width(420, wrap: .none)', alt: 'Речення знову в один рядок; перенесення не відбулося.' },
+    { file: 'fitted.png', label: '.fit(420 × 120)', alt: 'Речення, вписане в блок 420 на 120, три рядки, 393 на 120 пікселів.' },
+  ]}
+/>
+
+Виміряні розміри наведено в кожному підписі. Зверніть увагу, що `.width(420)` дав зображення завширшки 393 пікселі, бо рядки розірвалися до досягнення межі, а `wrap: .none` у цій збірці поводився як `.natural` (954 × 38), тож не покладайтеся на нього для обрізання тексту; обрізайте через `extract`, якщо потрібно.
+
+## Типографіка: TextStyle \{#style}
+| Властивість | Тип | За замовчуванням | Межі |
+| --- | --- | --- | --- |
+| `font` | `String` | `"sans"` | Родина й стиль Pango без розміру, напр. `"Helvetica Bold"`; **не** шлях до файлу. |
+| `fontFile` | `URL?` | `nil` | Локальний файл TTF чи OTF, доступний для `font` на цей рендер. Потребує libvips із fontconfig; файл, який libvips не може завантажити, — лише попередження, і використовується названий `font`. |
+| `fontSize` | `Int` | `24` | `1…2000` пунктів за `dpi`. |
+| `color` | `Color` | чорний | |
+| `alignment` | `TextAlignment` | `.left` | `.left`, `.center`, `.right`. |
+| `justify` | `Bool` | `false` | Розтягує перенесені рядки на повну ширину. |
+| `lineHeight` | `Double` | `1` | `0.5…5`, кратне природній висоті рядка шрифту. |
+| `dpi` | `Int` | `72` | `1…2400`; ігнорується в `.fit`. |
+| `stroke` | `TextStroke?` | `nil` | Обведення: `color`, `width` у `(0, 64]`. |
+| `shadow` | `TextShadow?` | `nil` | `offsetX`/`offsetY` у межах ±10 000, `blur` `0…64` (типово `1.2`), `color` (його непрозорість — це непрозорість тіні). |
+| `rotation` | `Double` | `0` | Градуси за годинниковою стрілкою; скінченне. |
+
+<Example
+  id="text.styles"
+  results={[
+    { file: 'plain.png', label: 'звичайний', alt: 'Слово Hokusai темно-синім жирним шрифтом.' },
+    { file: 'stroke.png', label: 'обведення', alt: 'Білі літери з темно-синім контуром.' },
+    { file: 'shadow.png', label: 'тінь', alt: 'Темно-сині літери з м’якою тінню праворуч донизу.' },
+    { file: 'rotated.png', label: 'обертання −12', alt: 'Слово, нахилене на дванадцять градусів проти годинникової стрілки, на більшому полотні.' },
+    { file: 'centred.png', label: 'по центру, lineHeight 1.4', alt: 'Два рядки по центру: Hokusai над Swift image processing, з просторим міжрядковим інтервалом.' },
+  ]}
+/>
+
+Шрифти надходять із хоста: установіть потрібні застосунку й вказуйте ім'я встановленої родини. Постачайте шрифти разом із застосунком і завантажуйте через `fontFile`, коли хост неможливо контролювати.
+
+## Розмітка \{#markup}
+`TextContent` — це `.plain(String)` або `.markup(String)`; рядковий літерал є звичайним. Звичайний текст завжди екранується, тож будь-який рядок користувача безпечно відтворювати. `.markup` — це [розмітка Pango](https://docs.gtk.org/Pango/pango_markup.html) (не HTML і не CSS) для змішаних шрифтів, розмірів і кольорів; хибна розмітка викликає помилку під час відтворення тексту.
+
+<Example
+  id="text.markup"
+  results={[
+    { file: 'markup.png', label: 'розмітка', alt: 'Sale великим жирним, мінус 30 відсотків червоним, потім курсив і моноширинний текст у другому рядку.' },
+    { file: 'plain-escaped.png', label: 'звичайний, екранований', alt: 'Текст a менше b і c, відтворений буквально.' },
+  ]}
+/>
+
+## Малювання на зображенні \{#draw-text}
+`drawText(_:placement:layout:style:)` накладає відтворений текст за тими самими правилами розміщення, обрізання й змішування, що й будь-який інший шар ([Композиція](/oss/hokusai/uk/text-composition/composite)). `placement` — це `.at(x:y:)` або `.gravity(_:offsetX:offsetY:)`.
+
+<Example
+  id="text.draw"
+  results={[
+    { file: 'caption.webp', label: 'drawText', alt: 'Пейзаж із білим підписом Pharos Point та м’якою тінню в нижньому лівому куті.' },
+  ]}
+/>
+
+## Помилки \{#errors}
+<Example id="text.limits" />
+
+| Виклик | Результат |
+| --- | --- |
+| `Hokusai.text("Hello", style: TextStyle(fontSize: 24))` | зображення 52 × 19 |
+| порожній текст | `invalidOption(name: "text", …"must not be empty")` |
+| `font`, що є шляхом (`/fonts/Inter.ttf`) | `invalidOption(name: "font", …"is a family name; pass a font file as fontFile")` |
+| `fontSize: 3000` | `invalidOption`: «must be from 1 through 2000» |
+| `.fit` з `lineHeight`, відмінним від 1 | `invalidOption`: «must be 1 with a fit layout» |
+| хибна розмітка | `invalidInput`: «the text is not valid Pango markup» |
+
+## Пов'язане \{#related}
+- [Композиція](/oss/hokusai/uk/text-composition/composite)
+- [Текст на соціальній картці](/oss/hokusai/uk/recipes/social-card)

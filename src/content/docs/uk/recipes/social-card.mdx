@@ -1,0 +1,32 @@
+---
+pageId: recipes.social-card
+translatedFrom: "eb4a98e7edad"
+title: Соціальна картка
+description: Зображення для попереднього перегляду посилання 1200 × 630 із заголовком з будь-якого фото.
+---
+
+import Example from '../../../../components/Example.astro';
+
+**Мета.** Перетворити фото й заголовок на зображення 1200 × 630, яке месенджери та соцмережі показують для посилання. **Вхідні дані:** [`scene.png` і `phone.jpg`](https://github.com/ivantokar/hokusai-docs/tree/main/examples/fixtures). **Потрібно:** Hokusai 2.2.2 із відтворенням тексту (`capabilities().textRendering`).
+
+<Example
+  id="recipe.social-card"
+  results={[
+    { file: 'card.webp', label: 'card.webp', alt: 'Пейзаж, обрізаний до 1200 на 630, із заголовком Keeping the light, a year at Pharos Point білим у лівому нижньому куті.' },
+    { file: 'card.jpg', label: 'card.jpg (запасний)', alt: 'Та сама картка як JPEG для краулерів, що не читають WebP.' },
+    { file: 'card-from-phone.webp', label: 'з фото з телефона', alt: 'Картка, зроблена з фото з телефона, що лежало боком: вертикальна, з коротшим заголовком.' },
+  ]}
+  wide
+/>
+
+## Як це працює \{#how}
+1. **`autoOrient()`** робить фото з телефона вертикальним до того, як щось його виміряє, тож та сама функція працює для будь-якого завантаження ([чому](/oss/hokusai/uk/interactions/orientation-and-resize)).
+2. **`resize(width: 1200, height: 630, fit: .cover, position: .attention)`** заповнює картку точно й обрізає до цікавої частини: маяк лишається в кадрі, навіть позацентровий ([позиція](/oss/hokusai/uk/geometry/resize#position)).
+3. **`drawText(…)`** розміщує заголовок через `.gravity(.southWest, offsetX:, offsetY:)`, тож він лишається за 56 px від лівого й 48 px від нижнього краю за будь-якого розміру картки. `layout: .width(900)` переносить довгі заголовки; тінь робить білий текст читабельним на будь-якому небі ([текст](/oss/hokusai/uk/text-composition/text)).
+4. **`webp(quality: 82)`** для вебу й **JPEG** як запасний для краулерів.
+
+## Варіації \{#variations}
+- **Довші заголовки:** `.width(900)` переносить за 900 px; зменште `fontSize` або використайте `.fit(width: 900, height: 200)`, щоб гарантувати, що текст вміщується в блок.
+- **Інші співвідношення сторін** (1:1, 1,91:1): змінюйте лише рамку `resize`.
+- **Фото з темним морем і яскравим небом:** лишіть тінь або накладіть затемнювальний шар `.multiply` під текстом ([режими змішування](/oss/hokusai/uk/text-composition/composite#blend)).
+- **Власні шрифти:** `TextStyle(fontFile:)`, коли на хості не встановлено ваш шрифт.

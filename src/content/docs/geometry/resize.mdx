@@ -1,0 +1,131 @@
+---
+pageId: geometry.resize
+title: Resize
+description: Change an image's size, with exact control over fit, cropping position and resampling.
+---
+
+import Example from '../../../components/Example.astro';
+
+`resize` changes the pixel dimensions of an image. Reach for it to make thumbnails, fit uploads into a layout, or produce an exact box such as a 1200 × 630 social card. The sample image used on this page is a 1600 × 1000 landscape whose subject, a lighthouse, sits in the right third, so the effect of every option is visible.
+
+## Minimal example \{#minimal-example}
+<Example
+  id="resize.basic"
+  results={[
+    { file: 'width-400.webp', label: 'width: 400', alt: 'The landscape reduced to 400 by 250 pixels, complete.' },
+    { file: 'box-400.webp', label: '400 × 400', alt: 'The landscape cropped to a 400 by 400 square around the lighthouse.' },
+  ]}
+/>
+
+With one dimension, the other follows the aspect ratio. With both, `fit` decides how the image meets the box, and the default, `.cover`, fills the box and crops the overflow.
+
+## Parameters \{#parameters}
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `width` | `Int?` | `nil` | Pixels, `1…2,147,483,647`. At least one of `width` and `height` is required. |
+| `height` | `Int?` | `nil` | Same range. |
+| `fit` | `ResizeFit` | `.cover` | `.inside`, `.outside`, `.fill`, `.cover`, `.contain`. |
+| `position` | `ResizePosition` | `.center` | Where a `.cover` crop is taken from: nine compass points, `.attention`, `.entropy`. |
+| `kernel` | `ResizeKernel` | `.lanczos3` | `.nearest`, `.linear`, `.cubic`, `.mitchell`, `.lanczos2`, `.lanczos3`, `.mks2013`, `.mks2021`. |
+| `withoutEnlargement` | `Bool` | `false` | Keep the current size instead of enlarging. |
+| `withoutReduction` | `Bool` | `false` | Keep the current size instead of reducing. |
+| `background` | `Color` | `.transparent` | Padding colour for `.contain`. |
+
+A call with neither `width` nor `height`, or with a value outside the range, throws `HokusaiError.invalidOption` immediately, when the pipeline is built.
+
+## Choosing a fit \{#fit}
+<Example
+  id="resize.fits"
+  results={[
+    { file: 'cover.png', label: '.cover', alt: 'A 480 by 480 square filled with a centred crop of the landscape.' },
+    { file: 'contain.png', label: '.contain', alt: 'The whole landscape inside a 480 by 480 square, with pale padding above and below.' },
+    { file: 'fill.png', label: '.fill', alt: 'The whole landscape stretched into a 480 by 480 square, distorting the lighthouse.' },
+    { file: 'inside.png', label: '.inside', alt: 'The whole landscape reduced to fit within 480 by 480, so 480 by 300 pixels.' },
+    { file: 'outside.png', label: '.outside', alt: 'The landscape reduced until it covers 480 by 480, so 768 by 480 pixels, uncropped.' },
+  ]}
+/>
+
+All five fits for a 480 × 480 box. Note the sizes: only `.cover`, `.contain` and `.fill` return exactly the requested box.
+
+| Fit | Aspect ratio | Result size | Use it for |
+| --- | --- | --- | --- |
+| `.cover` | kept; overflow is cropped | exactly `width × height` | thumbnails and cards that must be filled (not with `withoutEnlargement` on small sources, see below) |
+| `.contain` | kept; the rest is padded with `background` | exactly `width × height` | showing the whole image in a fixed slot |
+| `.fill` | ignored; stretched | exactly `width × height` | rare; deliberate distortion |
+| `.inside` | kept | the largest size within both bounds | "no larger than" limits |
+| `.outside` | kept | the smallest size covering both bounds | when you will crop it yourself |
+
+
+## Where a cover crop is taken \{#position}
+A `.cover` crop discards part of the image, and `position` picks what survives. The default centres the box. Here a square is cut from the landscape:
+
+<Example
+  id="resize.positions"
+  results={[
+    { file: 'center.png', label: '.center', alt: 'A square taken from the middle of the landscape; the lighthouse is cut near the right edge.' },
+    { file: 'west.png', label: '.west', alt: 'A square taken from the left edge of the landscape: sky and hills, no lighthouse.' },
+    { file: 'east.png', label: '.east', alt: 'A square taken from the right edge of the landscape with the lighthouse centred.' },
+    { file: 'attention.png', label: '.attention', alt: 'A square chosen automatically; it contains the lighthouse and sun.' },
+    { file: 'entropy.png', label: '.entropy', alt: 'A square chosen automatically by local variation; it also contains the lighthouse.' },
+  ]}
+/>
+
+The nine compass positions (`.north`, `.south`, `.east`, `.west` and the four corners, plus `.center`) anchor the crop box to that side. `.attention` favours skin tones, saturated colour and detail; `.entropy` favours the region with the most local variation. Both are content-aware and are the same selection that `smartCrop` makes. `position` has no effect with any fit other than `.cover`.
+
+
+## Not enlarging, not reducing \{#guards}
+<Example
+  id="resize.enlargement"
+  results={[
+    { file: 'enlarged.png', label: 'default', alt: 'The emblem enlarged from 100 to 300 pixels, visibly softer.' },
+    { file: 'guarded.png', label: 'withoutEnlargement', alt: 'The emblem left at 100 pixels.' },
+  ]}
+/>
+
+When the computed size is larger than the current image in either dimension, `withoutEnlargement: true` replaces it with the current size; it is not clamped proportionally. `withoutReduction` is the mirror image. Use `withoutEnlargement` for "at most this wide" limits when images of unknown size arrive. What a guarded request returns depends on the fit, and one combination fails:
+
+<Example id="resize.guards" />
+
+| Fit (480 × 480 request, 100 × 100 source, `withoutEnlargement: true`) | Result |
+| --- | --- |
+| `.inside` | 100 × 100: the image is left alone |
+| `.contain` | 480 × 480: the image stays 100 pixels and is padded into the box |
+| `.cover` | throws `HokusaiError.transform` (`extract`): the unenlarged image is smaller than the crop box |
+
+So with a box on a possibly small image, use `.inside` for a limit or `.contain` for a padded slot, not `.cover`; or read `metadata()` first and choose the fit.
+
+## Resampling kernels \{#kernels}
+The kernel is the filter that computes new pixels. The default, `.lanczos3`, is sharp and is right for almost everything. `.nearest` copies pixels without blending, which preserves hard pixel edges and suits pixel art; the others trade sharpness for smoothness. Each image below was shrunk to 40 pixels with the named kernel, then enlarged with `.nearest` only so the pixels can be seen.
+
+<Example
+  id="resize.kernels"
+  results={[
+    { file: 'nearest.png', label: '.nearest', alt: 'The emblem reduced with nearest-neighbour: jagged edges.' },
+    { file: 'linear.png', label: '.linear', alt: 'The emblem reduced with linear interpolation: soft edges.' },
+    { file: 'cubic.png', label: '.cubic', alt: 'The emblem reduced with a cubic kernel.' },
+    { file: 'mitchell.png', label: '.mitchell', alt: 'The emblem reduced with the Mitchell kernel: smooth, slightly soft.' },
+    { file: 'lanczos3.png', label: '.lanczos3', alt: 'The emblem reduced with Lanczos 3: sharp edges.' },
+  ]}
+/>
+
+`.mks2013` and `.mks2021` (Magic Kernel Sharp) need libvips 8.17 or newer, above Hokusai's 8.16 baseline. On an older build, asking for one throws `HokusaiError.unsupported` when the step is added, so check `Hokusai.capabilities()` or handle the error. Use `hokusai info` to see your libvips version.
+
+## Combining resize with other operations \{#combinations}
+- **Order changes pixels, not just speed.** Resizing before a blur blurs at the new scale; blurring first and then shrinking gives a different, softer result. See [Order of operations](/oss/hokusai/interactions/).
+- **Orientation first.** Phone photos carry an EXIF orientation. Put `autoOrient()` before `resize`, or a portrait photo is resized with its width and height swapped. See [Orientation](/oss/hokusai/geometry/rotate-flip-affine#auto-orient).
+- **`extract` after `resize` addresses the resized pixels**, not the original ones ([Crop & canvas](/oss/hokusai/geometry/crop-and-canvas)).
+- **Shrink-on-load.** When a still JPEG or WebP pipeline starts with `resize` (optionally after `autoOrient`), the decoder scales while reading. The output dimensions are identical to the normal path; only the work is smaller. A `resize` that comes after another operation does not get this.
+
+## Errors and constraints \{#errors}
+| Situation | Result |
+| --- | --- |
+| Neither `width` nor `height`, or a value outside `1…Int32.max` | `HokusaiError.invalidOption`, thrown when building the pipeline |
+| A colour component outside `0…1` in `background` | `HokusaiError.invalidOption`, thrown immediately |
+| `.mks2013` / `.mks2021` on libvips older than 8.17 | `HokusaiError.unsupported`, thrown when the step is added |
+| `.cover` with both dimensions and `withoutEnlargement: true` on an image smaller than the box | `HokusaiError.transform` (`extract`), thrown when the pipeline is evaluated |
+| A result over `RuntimeConfiguration.maxOutputPixels` (2³⁰ pixels by default) | `HokusaiError.resource` (`outputPixels`), thrown when the pipeline is evaluated, before any pixel is computed |
+
+## Related \{#related}
+- [Crop & canvas](/oss/hokusai/geometry/crop-and-canvas): `extract`, `extend`, `trim`, `smartCrop`
+- [Encoding & output](/oss/hokusai/encoding-output/): the output formats used above
+- [Social card recipe](/oss/hokusai/recipes/social-card)

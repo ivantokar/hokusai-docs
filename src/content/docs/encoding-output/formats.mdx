@@ -1,0 +1,91 @@
+---
+pageId: encoding-output.formats
+title: Encoders
+description: "JPEG, PNG, WebP, AVIF, HEIF, TIFF and GIF: every option, its bounds, and what each costs in bytes."
+---
+
+import Example from '../../../components/Example.astro';
+
+An **encoder** chooses the output format and its settings. Each has a short form with the common options and an `options:` form that takes the full options struct; both end in the same `encode(using:)`. PDF is covered in [PDF](/oss/hokusai/pdf/). What your installation can write is reported by `Hokusai.capabilities().outputFormats` and `hokusai info`.
+
+<Example
+  id="encode.formats"
+  results={[
+    { file: 'converted.jpg', label: 'JPEG q80', alt: 'The landscape as a JPEG.' },
+    { file: 'converted.png', label: 'PNG', alt: 'The landscape as a PNG.' },
+    { file: 'converted.webp', label: 'WebP q80', alt: 'The landscape as a lossy WebP.' },
+    { file: 'converted-lossless.webp', label: 'WebP lossless', alt: 'The landscape as a lossless WebP.' },
+    { file: 'converted.avif', label: 'AVIF q50', alt: 'The landscape as an AVIF.' },
+    { file: 'converted.tiff', label: 'TIFF deflate', alt: 'The landscape as a TIFF (shown as a PNG preview).' },
+    { file: 'converted.gif', label: 'GIF', alt: 'The landscape as a GIF with a 256-colour palette.' },
+  ]}
+/>
+
+The same 800 × 500 image in every format: JPEG 27.3 KB, PNG 188.9 KB, WebP 12.0 KB (109.3 KB lossless), AVIF 5.6 KB, TIFF 133.0 KB, GIF 68.0 KB. These are measurements for this synthetic image on this libvips; your photographs will differ, so measure your own.
+
+## Options and bounds \{#options}
+| Encoder | Short form (defaults) | Full options | Bounds |
+| --- | --- | --- | --- |
+| `jpeg` | `quality: 80, progressive: false` | `JPEGOptions`: `quality`, `progressive`, `chromaSubsampling` (`.automatic`, `.yuv420`, `.yuv444`), `optimizeCoding` | `quality` `1…100` |
+| `png` | `compressionLevel: 6, interlaced: false` | `PNGOptions`: `compressionLevel`, `interlaced`, `palette: PNGPalette?` | level `0…9`; palette `quality` `0…100`, `dither` `0…1`, `effort` `1…10`, `bitDepth` 1, 2, 4 or 8 |
+| `webp` | `quality: 80, effort: 4, lossless: false` | `WebPOptions`: adds `alphaQuality`, `nearLossless`, `smartSubsample`, `preset` (`.default`, `.picture`, `.photo`, `.drawing`, `.icon`, `.text`) | `quality` `1…100`, `effort` `0…6`, `alphaQuality` `0…100` |
+| `avif` | `quality: 50, effort: 4, lossless: false` | `AVIFOptions`: adds `bitDepth` (`.eight`, `.ten`, `.twelve`), `chromaSubsampling` | `quality` `1…100`, `effort` `0…9` |
+| `heif` | `compression: .hevc, quality: 50, lossless: false` | `HEIFOptions`: `compression` (`.hevc`, `.av1`), `quality`, `effort`, `lossless`, `bitDepth`, `chromaSubsampling` | `quality` `1…100`, `effort` `0…9` |
+| `tiff` | `compression: .none, quality: 75` | `TIFFOptions`: `compression` (`.none`, `.jpeg`, `.deflate`, `.packBits`, `.ccittFax4`, `.lzw`, `.webp`, `.zstd`, `.jpeg2000`), `predictor`, `tiling: TIFFTiling?`, `bigTIFF` | `quality` `1…100`; tile `16…32768`, multiples of 16 |
+| `gif` | `GIFOptions()` | `dither`, `effort`, `bitDepth`, `interlaced` (still, single frame) | `dither` `0…1`, `effort` `1…10`, `bitDepth` `1…8` |
+
+Out-of-range values throw `HokusaiError.invalidOption` when the encoder is selected. AVIF always encodes AV1, never the HEVC libvips would pick by default; `OutputInfo.format` names the format actually written. `heif` with `.hevc` is often unavailable in a libvips build (`capabilities().heifCompressions`).
+
+## Quality and size \{#quality}
+Quality is not comparable between formats, and the byte cost of each step differs. A 380 × 380 close-up of the lighthouse, encoded at three qualities:
+
+<Example
+  id="encode.quality"
+  results={[
+    { file: 'q10.jpg', label: 'JPEG 10 · 3.7 KB', alt: 'The close-up as a JPEG at quality 10: visible banding and blocks in the sky.' },
+    { file: 'q40.jpg', label: 'JPEG 40 · 5.5 KB', alt: 'The close-up as a JPEG at quality 40: mild banding.' },
+    { file: 'q85.jpg', label: 'JPEG 85 · 9.7 KB', alt: 'The close-up as a JPEG at quality 85: clean.' },
+    { file: 'q10.webp', label: 'WebP 10 · 1.4 KB', alt: 'The close-up as a WebP at quality 10.' },
+    { file: 'q40.webp', label: 'WebP 40 · 2.0 KB', alt: 'The close-up as a WebP at quality 40.' },
+    { file: 'q85.webp', label: 'WebP 85 · 3.7 KB', alt: 'The close-up as a WebP at quality 85.' },
+  ]}
+/>
+
+| Quality | JPEG bytes | WebP bytes |
+| --- | --- | --- |
+| 10 | 3,663 | 1,436 |
+| 40 | 5,536 | 1,990 |
+| 85 | 9,682 | 3,662 |
+
+For photographs, start at JPEG 80 to 85 or WebP 80 and compare on your own images.
+
+## PNG \{#png}
+PNG is lossless; `compressionLevel` trades time for size, and `palette` (indexed colour) trades colours for size.
+
+<Example
+  id="encode.png"
+  results={[
+    { file: 'level-1.png', label: 'level 1 · 12.6 KB', alt: 'The emblem as a PNG at compression level 1.' },
+    { file: 'level-9.png', label: 'level 9 · 6.2 KB', alt: 'The emblem as a PNG at compression level 9.' },
+    { file: 'palette.png', label: '4-bit palette · 3.8 KB', alt: 'The emblem as a 16-colour indexed PNG.' },
+  ]}
+/>
+
+Palette output needs libimagequant or quantizr in the libvips build (`capabilities().pngPalette`); without them libvips would silently write full colour, so Hokusai reports it instead. It is opt-in because it changes the colour representation and takes longer.
+
+## Formats without alpha \{#alpha}
+JPEG cannot store alpha. A transparent image encoded as JPEG without `flatten` has its transparent corners turned **black** (observed with libvips 8.18):
+
+<Example
+  id="encode.alpha-jpeg"
+  results={[
+    { file: 'unflattened.jpg', label: 'no flatten', alt: 'The emblem as a JPEG with black corners where it was transparent.' },
+    { file: 'flattened.jpg', label: 'flatten(.white)', alt: 'The emblem as a JPEG with white corners.' },
+  ]}
+/>
+
+Flatten onto a colour you choose ([Channels & alpha](/oss/hokusai/channels-transparency/alpha-and-channels)).
+
+## Related \{#related}
+- [Output terminals](/oss/hokusai/encoding-output/terminals), [Metadata retention](/oss/hokusai/encoding-output/metadata)
+- [Formats & compatibility](/oss/hokusai/reference/formats-and-compatibility)

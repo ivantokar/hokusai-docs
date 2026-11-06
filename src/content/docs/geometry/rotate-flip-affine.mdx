@@ -1,0 +1,72 @@
+---
+pageId: geometry.rotate-flip-affine
+title: Rotate, flip & affine
+description: Apply EXIF orientation, rotate by any angle, mirror and apply an affine transform.
+---
+
+import Example from '../../../components/Example.astro';
+
+These operations move pixels around without changing their colour: `autoOrient` applies the orientation a camera recorded, `rotate` turns the image by any angle, `flip` and `flop` mirror it, and `affine` applies a general 2 × 2 transform.
+
+## autoOrient \{#auto-orient}
+Cameras often store pixels sideways and record, in an EXIF tag, how to turn them for display. `autoOrient()` applies that tag to the pixels, so later operations and every viewer see the upright image. The sample `phone.jpg` is stored as 1000 × 1600 pixels with orientation 6.
+
+<Example
+  id="geometry.auto-orient"
+  results={[
+    { file: 'stored.jpg', label: 'as stored', alt: 'The lighthouse scene lying on its side, as the pixels are actually stored.' },
+    { file: 'upright.jpg', label: 'autoOrient()', alt: 'The same scene upright, 1600 by 1000 pixels.' },
+  ]}
+/>
+
+Without `autoOrient()`, `resize(width: 800)` of this photo would size the *stored* width, which is the short side of the picture. Put it before `resize` (and before `extract`, `smartCrop` or anything else that depends on width and height). It does nothing for an image that has no orientation tag or whose orientation is already "up". Whether the output keeps an orientation tag is a separate decision, made by the [metadata policy](/oss/hokusai/encoding-output/): by default the orientation tag is kept, `removeAll` drops it without touching the pixels (above, that is why *as stored* shows the sideways pixels).
+
+## rotate \{#rotate}
+`rotate(by:background:interpolation:)` turns the image **clockwise** by `degrees` (finite, any sign).
+
+| Parameter | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `by` | `Double` | required | Degrees, clockwise. A non-finite value throws `invalidOption`. |
+| `background` | `Color` | `.transparent` | Fills the corners a non-right-angle rotation exposes. |
+| `interpolation` | `Interpolation` | `.bilinear` | `.nearest`, `.bilinear`, `.bicubic`, `.lbb`, `.nohalo`, `.vsqbs`. |
+
+<Example
+  id="geometry.rotate"
+  results={[
+    { file: 'rotate-90.png', label: '90°', alt: 'The 200-pixel emblem turned a quarter turn; still 200 by 200.' },
+    { file: 'rotate-30.png', label: '30°, paper background', alt: 'The emblem tilted 30 degrees on a larger canvas whose exposed corners are paper-coloured.' },
+    { file: 'rotate-30-transparent.png', label: '30°, default', alt: 'The same tilted emblem with transparent exposed corners.' },
+  ]}
+/>
+
+Exact right angles are lossless: width and height swap and no pixel is resampled. Any other angle resamples with `interpolation` and **grows the canvas to hold the rotated image** (200 × 200 at 30° becomes 273 × 273). Use `.nearest` for pixel art and the default otherwise. For camera orientation use [`autoOrient()`](#auto-orient), not `rotate`.
+
+## flip and flop \{#flip-flop}
+`flip()` mirrors top to bottom; `flop()` mirrors left to right. Both are exact and take no options.
+
+<Example
+  id="geometry.flip-flop"
+  results={[
+    { file: 'flip.png', label: 'flip()', alt: 'The landscape upside down: sea above, sky below.' },
+    { file: 'flop.png', label: 'flop()', alt: 'The landscape mirrored left to right: the lighthouse is now at the left.' },
+  ]}
+/>
+
+## affine \{#affine}
+`affine(_:inputOffset:outputOffset:outputArea:edges:interpolation:)` applies `x' = a·x + b·y`, `y' = c·x + d·y` from an `AffineMatrix(a:b:c:d:)`. `inputOffset` and `outputOffset` (`AffineOffset`) shift before and after the matrix, `outputArea` (`AffineArea(x:y:width:height:)`) crops the result, and `edges` (an `ExtendMode`, default transparent) fills what maps from outside the source. The matrix must be invertible (`a·d − b·c ≠ 0`) and all values finite and of reasonable size, or `invalidOption` is thrown.
+
+<Example
+  id="geometry.affine"
+  results={[
+    { file: 'shear.png', label: 'shear b: 0.4', alt: 'The emblem sheared so it leans, on a wider canvas with paper-coloured corners.' },
+    { file: 'scale-crop.png', label: 'scale + outputArea', alt: 'The emblem stretched horizontally and squeezed vertically, then cropped to 260 by 100.' },
+  ]}
+/>
+
+## Order and combinations \{#combinations}
+- `autoOrient()` first, then size-dependent operations ([Orientation and resize](/oss/hokusai/interactions/orientation-and-resize)).
+- Rotating by a non-right angle enlarges the canvas, so a following `extract` or `resize` sees the larger size.
+- A rotated image has transparent corners; encoding to JPEG, which has no alpha, needs a `flatten` first ([Transparency](/oss/hokusai/channels-transparency/)).
+
+## Related \{#related}
+- [Resize](/oss/hokusai/geometry/resize), [Crop & canvas](/oss/hokusai/geometry/crop-and-canvas)

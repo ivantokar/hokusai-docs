@@ -1,0 +1,39 @@
+---
+pageId: integrations.docker
+title: Docker
+description: Build and run a Hokusai service in a container with a libvips that is new enough.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import dockerfile from '../../../../examples/docker/Dockerfile?raw';
+
+Hokusai 2 needs **libvips 8.16 or newer**. Ubuntu 24.04 LTS ships 8.15 and Debian 12 an older one, so `apt install libvips-dev` is not enough there: the build fails because older versions are rejected at compile time. Debian 13 and Ubuntu 25.10 and newer ship 8.16 or later, but official Swift images are not published for them, so the Dockerfile below builds libvips from a release tarball in the build stage and copies it into a slim runtime image. It is the same approach Hokusai's own CI uses to pin a native baseline.
+
+## The Dockerfile \{#dockerfile}
+<Code code={dockerfile} lang="dockerfile" title="examples/docker/Dockerfile" />
+
+It was built and run for this page (the image is about 323 MB):
+
+```text
+$ docker build -t hokusai-docs-check examples/docker
+$ docker run --rm hokusai-docs-check
+libvips 8.16.1, Cairo 1.18.0
+can write: jpeg, pdf, png, tiff, webp
+resized to 32 × 32, 516 bytes (webp)
+```
+
+The application in `examples/docker/app` is a few lines: it prints `Hokusai.capabilities()`, resizes a generated image and encodes WebP.
+
+## Choices in the Dockerfile \{#choices}
+- **Multi-stage.** The `swift` image has the toolchain and compilers; the runtime is a plain `ubuntu:noble` with only the shared libraries libvips needs. The Swift runtime libraries (`/usr/lib/swift/linux/*.so`) are copied from the build stage, which is how the container runs without a toolchain; `--static-swift-stdlib` is an alternative.
+- **`VIPS_VERSION`.** Pin it as a build argument and bump it deliberately. `hokusai info` shows what the container has.
+- **Libraries are what you install.** The build above had no palette, AVIF, HEIF encoder or GIF libraries in the image, and the program's `capabilities()` said so: `can write: jpeg, pdf, png, tiff, webp`. A libvips build supports only what its dependencies provide at build time, so add the corresponding `-dev` packages (and their runtime packages in the final stage) for each format you need, then check `capabilities()` again. Do not assume a codec is present: ask the runtime ([capabilities](/oss/hokusai/runtime-performance/runtime#capabilities)).
+- **Fonts.** Text rendering needs fonts in the runtime image (`fonts-dejavu-core` above) and a libvips built with Pango; `TextStyle(fontFile:)` loads a file you ship.
+- **A non-root user** runs the process.
+
+## Running a server \{#server}
+For a Vapor or Hummingbird service replace the `Resizer` product with your own, expose the port, and set `RuntimeConfiguration` at startup. In a container, set `maxConcurrentEvaluations` and `maxQueuedEvaluations` from the CPU and memory limits you give it: memory is roughly the concurrent evaluations times the decoded size of the images they hold ([performance](/oss/hokusai/runtime-performance/performance)). Set `blockUntrustedOperations` for services that decode uploads from untrusted users.
+
+## Related \{#related}
+- [Hokusai Vapor](/oss/hokusai/vapor/overview), [Hokusai Hummingbird](/oss/hokusai/integrations/hummingbird)
+- [Installation](/oss/hokusai/guide/installation)

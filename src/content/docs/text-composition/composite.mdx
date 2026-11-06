@@ -1,0 +1,89 @@
+---
+pageId: text-composition.composite
+title: Composition
+description: Layer images with placement, opacity, blend modes and colour space.
+---
+
+import Example from '../../../components/Example.astro';
+
+`composite(_:space:)` draws one or more `CompositeLayer`s over a pipeline, in array order, in **one native operation**. A layer is itself a pipeline, so you can prepare a logo once and apply it to many images. Only a layer's image transformations apply; its encoder and metadata settings are ignored and it is never encoded to be composed.
+
+## CompositeLayer \{#layer}
+| Property | Default | Notes |
+| --- | --- | --- |
+| image | required | Another `Hokusai` pipeline. |
+| `placement` / `x`, `y` | `.at(x: 0, y: 0)` | `CompositeLayer(_:x:y:blend:opacity:)` is the short form. |
+| `blend` | `.over` | How layer pixels combine with what is below. |
+| `opacity` | `1` | Multiplies the layer's alpha, `0…1`; outside that range throws `invalidOption` when `composite` is called. |
+
+## Placement \{#placement}
+`Placement` is the position of the layer's top-left corner, spelled three ways:
+
+- `.at(x:y:)`: exact pixel coordinates. They may be negative or reach past the base; the layer is clipped to the base.
+- `.gravity(_:offsetX:offsetY:)`: anchored to a compass point of the base. At an edge the offset is padding towards the inside (for `.southEast`, left and up); along a centred axis it is a signed shift.
+- `.tile(gravity:)`: the layer repeated edge to edge over the whole base, one tile aligned to `gravity`; for image layers.
+
+<Example
+  id="composite.placement"
+  results={[
+    { file: 'at.webp', label: '.at(20, 20)', alt: 'The landscape with the emblem near the top left corner.' },
+    { file: 'gravity.webp', label: '.southEast, offset 16', alt: 'The landscape with the emblem near the bottom right corner at 85 percent opacity.' },
+    { file: 'clipped.webp', label: '.at(−45, 300)', alt: 'Only part of the emblem is visible in the bottom left corner: the rest is clipped.' },
+    { file: 'tile.webp', label: '.tile, opacity 0.25', alt: 'The emblem repeated as a faint pattern over the whole landscape.' },
+  ]}
+/>
+
+## Blend modes \{#blend}
+`BlendMode` follows the Porter-Duff and PDF sets that libvips implements: `clear`, `source`, `over` (default), `in`, `out`, `atop`, the `destination…` variants, `xor`, `add`, `saturate`, `multiply`, `screen`, `overlay`, `darken`, `lighten`, `colorDodge`, `colorBurn`, `hardLight`, `softLight`, `difference`, `exclusion`. `source` replaces what is below, `clear` erases it; `in`, `out` and `atop` keep part of the layer or the base according to the other side's alpha.
+
+Here the layer is a black-to-white ramp over the landscape:
+
+<Example
+  id="composite.blend"
+  results={[
+    { file: 'over.webp', label: '.over', alt: 'The landscape fully covered by an opaque grey ramp: only the ramp shows.' },
+    { file: 'multiply.webp', label: '.multiply', alt: 'The landscape darkened towards the left where the ramp is black.' },
+    { file: 'screen.webp', label: '.screen', alt: 'The landscape lightened towards the right where the ramp is white.' },
+    { file: 'overlay.webp', label: '.overlay', alt: 'The landscape with contrast increased, dark on the left and bright on the right.' },
+    { file: 'difference.webp', label: '.difference', alt: 'The landscape with colours inverted progressively towards the right.' },
+    { file: 'softLight.webp', label: '.softLight', alt: 'The landscape with a gentle light-to-dark gradient.' },
+  ]}
+/>
+
+`.over` with an opaque layer simply replaces the base. Use `.multiply` to darken, `.screen` to lighten, `.overlay` and `.softLight` to add contrast, `.difference` for comparison, and keep `.over` for logos with transparency.
+
+## Colour space \{#space}
+`space` is the colour space layers are blended in: `.srgb` (default) blends the stored values, as design tools and browsers do; `.linear` blends linear light, which mixes colours as light does. A 50 % black layer over a grey ramp:
+
+<Example
+  id="composite.space"
+  results={[
+    { file: 'srgb.png', label: '.srgb', alt: 'A ramp from black to mid grey: the black layer halves the stored values.' },
+    { file: 'linear.png', label: '.linear', alt: 'A ramp from black to a lighter grey than the sRGB result.' },
+  ]}
+/>
+
+In `.linear` a half-transparent black layer comes out **lighter** than in `.srgb`, as the example shows. Use `.linear` for physically plausible light mixing; keep the default to match what a browser would draw.
+
+## Order \{#order}
+Later layers draw over earlier layers, and the array order is the stacking order. Because a layer is a pipeline, you can blur, resize or recolour it first:
+
+<Example
+  id="composite.order"
+  results={[
+    { file: 'small-on-top.webp', label: 'big, then small', alt: 'A small inverted emblem drawn on top of a larger emblem.' },
+    { file: 'big-on-top.webp', label: 'reversed', alt: 'The larger emblem drawn on top, hiding the small inverted one.' },
+    { file: 'layer-pipeline.webp', label: 'layer blurred first', alt: 'A softly blurred emblem over the landscape.' },
+  ]}
+/>
+
+## Errors \{#errors}
+| Situation | Result |
+| --- | --- |
+| `opacity` outside `0…1` or not finite | `invalidOption`, thrown by `composite` |
+| A layer that fails to load or evaluate | the error of the terminal that evaluates the base |
+
+## Related \{#related}
+- [Generated text](/oss/hokusai/text-composition/text)
+- [Channels & alpha](/oss/hokusai/channels-transparency/alpha-and-channels)
+- [Watermark recipe](/oss/hokusai/recipes/watermark)
