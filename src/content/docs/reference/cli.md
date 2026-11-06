@@ -1,4 +1,5 @@
 ---
+pageId: reference.cli
 title: CLI Reference
 ---
 

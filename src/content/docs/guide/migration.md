@@ -1,4 +1,5 @@
 ---
+pageId: guide.migration
 title: Migrating from 0.x
 ---
 

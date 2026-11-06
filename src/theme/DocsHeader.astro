@@ -2,10 +2,12 @@
 import config from 'virtual:starlight/user-config';
 import Search from 'virtual:starlight/components/Search';
 import ThemeToggle from 'virtual:starlight/components/ThemeSelect';
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
 
-const docsHome = import.meta.env.BASE_URL;
-const { siteTitle } = Astro.locals.starlightRoute;
-const docsRoot = docsHome.replace(/\/$/, '');
+const t = Astro.locals.t;
+const { siteTitle, locale } = Astro.locals.starlightRoute;
+const docsRoot = import.meta.env.BASE_URL.replace(/\/$/, '');
+const docsHome = locale ? `${docsRoot}/${locale}/` : `${docsRoot}/`;
 const libraryLogo = `${docsRoot}/hokusai-icon.png`;
 ---
 
@@ -15,11 +17,12 @@ const libraryLogo = `${docsRoot}/hokusai-icon.png`;
       <img class="site-theme-library-logo" src={libraryLogo} alt="" />
       <span class="site-theme-library-name">{siteTitle}</span>
     </a>
-    <span>Documentation</span>
+    <span>{t('hokusai.documentation')}</span>
   </div>
   <div class="site-theme-header-actions">
-    <a class="site-theme-main-site" href="https://ivantokar.com">ivantokar.com</a>
+    <a class="site-theme-main-site" href="https://ivantokar.com">{t('hokusai.mainSite')}</a>
     {config.pagefind && <Search />}
+    <LanguageSelect />
     <ThemeToggle />
   </div>
 </header>

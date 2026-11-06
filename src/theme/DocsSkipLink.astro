@@ -17,7 +17,7 @@ const isProduction = import.meta.env.PROD && !!googleTagManagerId;
   )
 }
 
-<a class="sl-skip-link" href="#_top">Skip to content</a>
+<a class="sl-skip-link" href="#_top">{Astro.locals.t('skipLink.label')}</a>
 
 <style>
   @layer starlight.core {

@@ -1,5 +1,13 @@
-<site-theme-toggle class="site-theme-toggle">
-  <button type="button" aria-label="Switch to light mode" title="Switch to light mode">
+---
+const t = Astro.locals.t;
+---
+
+<site-theme-toggle
+  class="site-theme-toggle"
+  data-to-light={t('hokusai.switchToLight')}
+  data-to-dark={t('hokusai.switchToDark')}
+>
+  <button type="button" aria-label={t('hokusai.switchToLight')} title={t('hokusai.switchToLight')}>
     <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="12" cy="12" r="4" />
       <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
@@ -16,7 +24,7 @@
       const button = this.querySelector('button');
       const updateLabel = () => {
         const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        const label = `Switch to ${nextTheme} mode`;
+        const label = (nextTheme === 'dark' ? this.dataset.toDark : this.dataset.toLight) ?? '';
         button?.setAttribute('aria-label', label);
         button?.setAttribute('title', label);
       };

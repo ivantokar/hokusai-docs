@@ -1,5 +1,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { satteri } from "@astrojs/markdown-satteri";
+import headingIds from "./plugins/heading-ids.mjs";
 import { expressiveCodeTheme } from "./src/theme/expressive-code.ts";
 import { googleTagManagerScript } from "./src/theme/gtm.ts";
 
@@ -9,6 +11,7 @@ const head = googleTagManagerScript
   : [];
 
 export default defineConfig({
+  markdown: { processor: satteri({ hastPlugins: [headingIds] }) },
   site: process.env.DOCS_SITE ?? "https://ivantokar.com",
   base: process.env.DOCS_BASE ?? "/oss/hokusai",
   integrations: [
@@ -16,10 +19,17 @@ export default defineConfig({
       title: "Hokusai",
       description: "High-performance Swift image processing powered by libvips.",
       head,
+      // English stays at the existing URLs; Ukrainian lives under /uk/.
+      defaultLocale: "root",
+      locales: {
+        root: { label: "English", lang: "en" },
+        uk: { label: "Українська", lang: "uk" },
+      },
       expressiveCode: expressiveCodeTheme,
       customCss: ["./src/theme/starlight.css"],
       components: {
         Header: "./src/theme/DocsHeader.astro",
+        LanguageSelect: "./src/theme/LanguageSelect.astro",
         SkipLink: "./src/theme/DocsSkipLink.astro",
         ThemeProvider: "./src/theme/ThemeProvider.astro",
         ThemeSelect: "./src/theme/ThemeToggle.astro",
@@ -35,6 +45,7 @@ export default defineConfig({
         { slug: "index" },
         {
           label: "Introduction",
+          translations: { uk: "Вступ" },
           items: [
             "guide/getting-started",
             "guide/installation",
@@ -43,6 +54,7 @@ export default defineConfig({
         },
         {
           label: "Core Library",
+          translations: { uk: "Основна бібліотека" },
           items: [
             "guide/pipelines",
             "guide/transformations",
@@ -51,10 +63,12 @@ export default defineConfig({
         },
         {
           label: "Vapor Integration",
+          translations: { uk: "Інтеграція з Vapor" },
           items: ["vapor/overview", "vapor/uploads-and-responses"],
         },
         {
           label: "API",
+          translations: { uk: "API" },
           items: [
             "reference/api",
             "reference/cli",
@@ -63,6 +77,7 @@ export default defineConfig({
         },
         {
           label: "Resources",
+          translations: { uk: "Ресурси" },
           items: ["examples", "changelog"],
         },
       ],
