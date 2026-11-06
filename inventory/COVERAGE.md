@@ -21,7 +21,7 @@ Status scale: **docs** — none = no page; overview = family landing page and st
 | PDF | 88 | #174 | detailed | verified | generated | `pdf.index`, `pdf.raster`, `pdf.vector`, `guide.composition-and-pdf` |
 | Runtime & performance | 38 | #178 | detailed | verified | none | `runtime-performance.index`, `runtime-performance.runtime`, `runtime-performance.performance` |
 | Troubleshooting & migration | 22 | #178 | detailed | verified | none | `troubleshooting-migration.index`, `troubleshooting-migration.troubleshooting`, `guide.migration`, `changelog` |
-| Integrations | 30 | #177 | detailed | verified | none | `integrations.index`, `vapor.overview`, `vapor.uploads-and-responses`, `integrations.vapor-service`, `integrations.hummingbird`, `integrations.macos`, `integrations.docker` |
+| Integrations | 30 | #177 | detailed | verified | none | `integrations.index`, `vapor.overview`, `vapor.uploads-and-responses`, `integrations.vapor-service`, `integrations.hummingbird`, `integrations.nio`, `integrations.macos`, `integrations.docker` |
 
 Recipes (#176): 8 pages, example verified, visual generated: `recipes.index`, `recipes.social-card`, `recipes.thumbnails`, `recipes.watermark`, `recipes.avatar`, `recipes.contact-sheet`, `recipes.pdf-report`, `recipes.upload-normalisation`.
 

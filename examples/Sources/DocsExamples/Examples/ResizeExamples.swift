@@ -122,4 +122,5 @@ let allExamples: [Example] = [
     .recipeSocialCard, .recipeThumbnails, .recipeWatermark, .recipeAvatar, .recipeContactSheet, .recipeReport, .recipeUpload,
     .runtimeCapabilities, .runtimeConfigure,
     .inspectMetadata,
+    .nioBuffers,
 ]

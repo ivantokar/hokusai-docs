@@ -9,6 +9,7 @@ let package = Package(
     dependencies: [
         // The version the documentation targets; keep in step with ../src/versions.json.
         .package(url: "https://github.com/ivantokar/hokusai.git", exact: "2.2.2"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.90.0"),
     ],
     targets: [
         .executableTarget(
@@ -16,6 +17,8 @@ let package = Package(
             dependencies: [
                 .product(name: "Hokusai", package: "hokusai"),
                 .product(name: "HokusaiPDF", package: "hokusai"),
+                .product(name: "HokusaiNIO", package: "hokusai"),
+                .product(name: "NIOCore", package: "swift-nio"),
             ]
         ),
     ]

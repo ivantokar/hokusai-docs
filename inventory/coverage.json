@@ -354,6 +354,7 @@
         "vapor.uploads-and-responses",
         "integrations.vapor-service",
         "integrations.hummingbird",
+        "integrations.nio",
         "integrations.macos",
         "integrations.docker"
       ],
