@@ -1,6 +1,6 @@
 ---
 pageId: guide.getting-started
-translatedFrom: d594b27c0c48
+translatedFrom: 6734e0be50f3
 title: Початок роботи
 ---
 
@@ -12,7 +12,7 @@ Hokusai перетворює вихідне зображення на незмі
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ivantokar/hokusai.git", from: "1.0.0")
+    .package(url: "https://github.com/ivantokar/hokusai.git", from: "2.0.0")
 ]
 ```
 

@@ -1,58 +1,50 @@
 ---
 pageId: reference.cli
-translatedFrom: 02c6217e21d7
+translatedFrom: 0d0cff934d51
 title: Довідник CLI
 ---
 
-Офіційний виконуваний файл `hokusai` допомагає перевіряти, перетворювати й тестувати продуктивність локальних зображень. Він входить до пакета Hokusai.
+Офіційний виконуваний файл `hokusai` перевіряє, перетворює й тестує продуктивність локальних зображень. Він входить до пакета Hokusai і є тонким клієнтом публічного API `Hokusai`.
 
-## Середовище виконання та метадані {#runtime-and-metadata}
+## Запуск конвеєра {#run-a-pipeline}
+
+`hokusai run` — це конвеєр, записаний так, як його пише бібліотека: вхід, кроки з іменами методів API в порядку застосування та вивід.
 
 ```bash
+hokusai run photo.jpg auto-orient resize --width 1200 --height 630 --fit cover \
+  blur --sigma 1.5 webp --quality 82 -o social.webp --json
+
+hokusai run --text "Hokusai" --font-size 48 png -o title.png
+
+cat photo.jpg | hokusai run - resize --width 400 jpeg -o - > small.jpg
+```
+
+Зображення декодується один раз і кодується один раз, скільки б кроків не було. Вхід — це шлях, `-` для стандартного вводу або `--text` / `--markup` для згенерованого тексту, з параметрами `InputOptions` та `InputLimits`. `-o <path>` записує файл (його розширення обирає кодувальник, якщо крок кодувальника не задано); `-o -` пише у стандартний вивід і потребує кроку кодувальника. `--json` друкує `OutputInfo` запису. Для кожної публічної операції є крок і для кожного кодувальника (`jpeg`, `png`, `webp`, `avif`, `heif`, `tiff`, `gif`, `pdf`), а також `metadata-policy`. Кожен крок приймає параметри свого методу зі значеннями методу за замовчуванням.
+
+```bash
+hokusai run --help
+hokusai run photo.jpg resize --help
+```
+
+## Середовище та метадані {#runtime-and-metadata}
+
+```bash
+hokusai --version
 hokusai info
 hokusai inspect --input photo.jpg
 ```
 
-`info` показує версії Hokusai та libvips. `inspect` повідомляє розміри зображення, канали, наявність альфа-каналу та визначений формат.
+`info` показує версії Hokusai, libvips і Cairo та можливості встановленого середовища. `inspect` повідомляє метадані джерела; для скриптів доступний `--json`.
 
-## Команди для зображень {#image-commands}
+## Застарілі команди {#deprecated-commands}
 
-```bash
-hokusai resize --input photo.jpg --output social.webp \
-  --width 1200 --height 630 --fit cover
-
-hokusai thumbnail --input photo.jpg --output thumb.jpg --width 400
-
-hokusai convert --input photo.jpg --output document.pdf
-
-hokusai crop --input photo.jpg --output crop.jpg \
-  --x 100 --y 80 --width 640 --height 480
-
-hokusai rotate --input photo.jpg --output rotated.png --angle 90
-```
-
-`resize` підтримує режими вписування `inside`, `outside`, `fill`, `cover` і `contain`, а також ядра та запобіжники масштабування. `thumbnail` підтримує стратегії обрізання `none`, `centre`, `attention` і `entropy`.
-
-## Відтворення тексту {#text-rendering}
-
-```bash
-hokusai text --input photo.jpg --output titled.webp \
-  --text "Hello, Hokusai" --x 80 --y 680 \
-  --font "sans Bold" --font-size 48 \
-  --color 255,255,255,255 --stroke-width 2 \
-  --stroke-color 0,0,0,255
-```
-
-Команда `text` підтримує вирівнювання, межі переносу, обведення, тінь, непрозорість і обертання. Шрифти мають бути доступні локально на хості.
+`resize`, `thumbnail`, `convert`, `rotate`, `crop` і `text` ще працюють, виводять повідомлення про застарілість у стандартний потік помилок і будуть вилучені в наступному мажорному релізі. Використовуйте `hokusai run`. Їхні значення за замовчуванням збігаються з бібліотекою: `resize` вписує з `cover`, а текст має 24 пункти й чорний колір.
 
 ## Бенчмарк конвеєра {#benchmark-a-pipeline}
 
 ```bash
-hokusai benchmark pipeline --input photo.jpg --sigma 50
+hokusai benchmark run --help
+hokusai benchmark compare --help
 ```
 
-Докладні параметри дивіться у довідці команди: якість і зусилля кодувальника, кількість прогрівальних та вимірювальних ітерацій, перевизначення паралельності, перебір рівнів паралельності та вивід у JSON:
-
-```bash
-hokusai benchmark pipeline --help
-```
+`benchmark run` перебирає кількість обчислень і паралельність libvips, для кожної комірки запускаючи новий робочий процес, і записує версіонований JSON-результат. `benchmark compare` повідомляє різницю за комірками між двома результатами.

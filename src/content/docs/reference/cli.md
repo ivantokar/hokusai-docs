@@ -3,55 +3,47 @@ pageId: reference.cli
 title: CLI Reference
 ---
 
-The first-party `hokusai` executable helps inspect, transform, and benchmark local images. It is included with the Hokusai package.
+The first-party `hokusai` executable inspects, transforms, and benchmarks local images. It is included with the Hokusai package and is a thin client of the public `Hokusai` API.
 
-## Runtime and metadata
+## Run a pipeline {#run-a-pipeline}
+
+`hokusai run` is a pipeline written the way the library writes it: an input, steps named after the API methods in the order they apply, and an output.
 
 ```bash
+hokusai run photo.jpg auto-orient resize --width 1200 --height 630 --fit cover \
+  blur --sigma 1.5 webp --quality 82 -o social.webp --json
+
+hokusai run --text "Hokusai" --font-size 48 png -o title.png
+
+cat photo.jpg | hokusai run - resize --width 400 jpeg -o - > small.jpg
+```
+
+The image is decoded once and encoded once, however many steps there are. The input is a path, `-` for standard input, or `--text` / `--markup` for generated text, with the options of `InputOptions` and `InputLimits`. `-o <path>` writes a file (its extension chooses the encoder when no encoder step is given); `-o -` writes to standard output and needs an encoder step. `--json` prints the `OutputInfo` of the write. There is a step for every public operation and one for every encoder (`jpeg`, `png`, `webp`, `avif`, `heif`, `tiff`, `gif`, `pdf`), plus `metadata-policy`. Each step takes the options of its method with the method's defaults.
+
+```bash
+hokusai run --help
+hokusai run photo.jpg resize --help
+```
+
+## Runtime and metadata {#runtime-and-metadata}
+
+```bash
+hokusai --version
 hokusai info
 hokusai inspect --input photo.jpg
 ```
 
-`info` displays the Hokusai and libvips versions. `inspect` reports image dimensions, channels, alpha availability, and detected format.
+`info` displays the Hokusai, libvips and Cairo versions and the capabilities of the installed runtime. `inspect` reports the source metadata; `--json` is available for scripts.
 
-## Image commands
+## Deprecated commands {#deprecated-commands}
 
-```bash
-hokusai resize --input photo.jpg --output social.webp \
-  --width 1200 --height 630 --fit cover
+`resize`, `thumbnail`, `convert`, `rotate`, `crop` and `text` still work, print a deprecation notice on standard error, and will be removed in the next major version. Use `hokusai run`. Their defaults match the library: `resize` fits with `cover` and text is 24 points, black.
 
-hokusai thumbnail --input photo.jpg --output thumb.jpg --width 400
-
-hokusai convert --input photo.jpg --output document.pdf
-
-hokusai crop --input photo.jpg --output crop.jpg \
-  --x 100 --y 80 --width 640 --height 480
-
-hokusai rotate --input photo.jpg --output rotated.png --angle 90
-```
-
-`resize` supports `inside`, `outside`, `fill`, `cover`, and `contain` fit modes, along with kernels and scaling guards. `thumbnail` supports `none`, `centre`, `attention`, and `entropy` crop strategies.
-
-## Text rendering
+## Benchmark a pipeline {#benchmark-a-pipeline}
 
 ```bash
-hokusai text --input photo.jpg --output titled.webp \
-  --text "Hello, Hokusai" --x 80 --y 680 \
-  --font "sans Bold" --font-size 48 \
-  --color 255,255,255,255 --stroke-width 2 \
-  --stroke-color 0,0,0,255
+hokusai benchmark run --help
+hokusai benchmark compare --help
 ```
 
-The text command supports alignment, wrapping bounds, stroke, shadow, opacity, and rotation. Fonts must be available locally on the host.
-
-## Benchmark a pipeline
-
-```bash
-hokusai benchmark pipeline --input photo.jpg --sigma 50
-```
-
-Use the command's help for detailed options, including encoder quality and effort, warmup/iteration counts, concurrency overrides, a concurrency sweep, and JSON output:
-
-```bash
-hokusai benchmark pipeline --help
-```
+`benchmark run` sweeps evaluations and libvips concurrency, starting a fresh worker process for every cell, and writes a versioned JSON result. `benchmark compare` reports per-cell deltas between two results.

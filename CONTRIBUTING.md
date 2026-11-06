@@ -7,7 +7,7 @@ npm install
 npm run dev      # http://localhost:4321/oss/hokusai/ (English) and /oss/hokusai/uk/ (Ukrainian)
 ```
 
-`npm run check` runs everything CI runs: translation parity, the production build, and checks of the built site.
+`npm run check` runs everything CI runs: translation parity, public-API coverage, the production build, and checks of the built site.
 
 ## Languages
 
@@ -33,6 +33,10 @@ Edit the English page, then update the Ukrainian page and run `npm run i18n:stam
 ### What CI checks
 
 `i18n:check` (every English page has a Ukrainian pair with a matching `pageId` and a current `translatedFrom`) and `check:dist` after the build: both languages exist for every route, `<html lang>`, canonical and `hreflang` alternates, sitemap entries, identical heading anchors in both languages, and that every internal link and anchor resolves.
+
+## Structure, versions and coverage
+
+See [docs/structure.md](docs/structure.md) (navigation and URL policy), [docs/versioning-and-ownership.md](docs/versioning-and-ownership.md) (documented version, who owns what, the operation page template) and [inventory/README.md](inventory/README.md) (public-API inventory and coverage). A page that documents an operation must be listed in its family in `inventory/coverage.json`.
 
 ## Pull requests
 

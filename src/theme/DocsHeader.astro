@@ -2,6 +2,7 @@
 import config from 'virtual:starlight/user-config';
 import Search from 'virtual:starlight/components/Search';
 import ThemeToggle from 'virtual:starlight/components/ThemeSelect';
+import versions from '../versions.json';
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
 
 const t = Astro.locals.t;
@@ -17,7 +18,7 @@ const libraryLogo = `${docsRoot}/hokusai-icon.png`;
       <img class="site-theme-library-logo" src={libraryLogo} alt="" />
       <span class="site-theme-library-name">{siteTitle}</span>
     </a>
-    <span>{t('hokusai.documentation')}</span>
+    <span>{t('hokusai.documentation')} {versions.hokusai}</span>
   </div>
   <div class="site-theme-header-actions">
     <a class="site-theme-main-site" href="https://ivantokar.com">{t('hokusai.mainSite')}</a>

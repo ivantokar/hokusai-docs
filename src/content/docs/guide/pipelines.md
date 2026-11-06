@@ -28,16 +28,16 @@ Those terminals run blocking libvips work off Swift's cooperative executor. Buil
 
 Loading an image initializes the runtime lazily. Calling `Hokusai.initialize()` is optional but useful at app startup to surface native dependency problems before serving traffic.
 
-Do not call `Hokusai.shutdown()` during normal application or server lifecycle handling. It is only for final process teardown in short-lived tools after native images have been released.
+Hokusai has no public shutdown call: do not add a shutdown hook to your server lifecycle.
 
 ## Metadata
 
-Inspect a pipeline's source metadata before you make layout decisions:
+Inspect the source's metadata before you make layout decisions. `metadata()` is asynchronous and describes the source as it was opened, not the transformed pipeline:
 
 ```swift
 let image = try Hokusai(data: upload)
-let metadata = try image.metadata()
+let metadata = try await image.metadata()
 print("\(metadata.width) × \(metadata.height)")
 ```
 
-Output metadata is removed by default. Call `preserveMetadata()` only when a downstream consumer needs embedded metadata.
+What the output keeps is a `MetadataPolicy` selected with `metadataPolicy(_:)`. By default EXIF, XMP, IPTC and comments are removed while the ICC profile, orientation and density are kept; use `.preserveAll` only when a downstream consumer needs the embedded metadata.

@@ -30,7 +30,7 @@ let output = try await base
 ```swift
 let report = try await Hokusai(url: URL(fileURLWithPath: "chart.png"))
     .resize(width: 1240)
-    .pdf(pageSize: .a4, dpi: 150)
+    .pdf(pageSize: .a4)
     .write(to: URL(fileURLWithPath: "report.pdf"))
 ```
 
@@ -38,9 +38,10 @@ let report = try await Hokusai(url: URL(fileURLWithPath: "chart.png"))
 
 ```swift
 app.post("resize") { req async throws -> Response in
-    let image = try req.hokusaiImage()
-    let resized = try image.resize(width: 800, height: 600, fit: .cover)
-    return try await resized.response(format: "webp", quality: 82)
+    try await req.hokusaiImage()
+        .resize(width: 800, height: 600, fit: .cover)
+        .webp(quality: 82)
+        .response()
 }
 ```
 
