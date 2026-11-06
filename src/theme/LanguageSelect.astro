@@ -1,0 +1,71 @@
+---
+// Language switch: plain links to the same page in the other language, so it works without
+// JavaScript. A small script appends the current #anchor; headings share ids across
+// languages (see plugins/rehype-heading-ids.mjs), so the anchor lands in the same section.
+const t = Astro.locals.t;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const pathname = Astro.url.pathname;
+const relative = pathname.startsWith(base) ? pathname.slice(base.length) : pathname.replace(/^\//, '');
+const page = relative.replace(/^uk(\/|$)/, '');
+const current = /^uk(\/|$)/.test(relative) ? 'uk' : 'en';
+
+const languages = [
+  { code: 'en', short: 'EN', name: 'English', href: `${base}${page}` },
+  { code: 'uk', short: 'UK', name: 'Українська', href: `${base}uk/${page}` },
+];
+---
+
+<nav class="site-theme-language" aria-label={t('hokusai.language')}>
+  {
+    languages.map((language) => (
+      <a
+        href={language.href}
+        lang={language.code}
+        hreflang={language.code}
+        title={language.name}
+        aria-label={language.name}
+        aria-current={language.code === current ? 'true' : undefined}
+        data-language-link
+      >
+        {language.short}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-language-link]')) {
+    link.addEventListener('click', () => {
+      const url = new URL(link.href);
+      url.hash = window.location.hash;
+      link.href = url.toString();
+    });
+  }
+</script>
+
+<style>
+  .site-theme-language {
+    align-items: center;
+    display: flex;
+    gap: 0.125rem;
+  }
+
+  a {
+    border-radius: 0.25rem;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--sl-color-white);
+  }
+
+  a[aria-current='true'] {
+    background-color: var(--sl-color-accent-low);
+    color: var(--sl-color-white);
+  }
+</style>

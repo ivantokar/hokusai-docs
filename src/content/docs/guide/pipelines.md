@@ -1,4 +1,5 @@
 ---
+pageId: guide.pipelines
 title: Pipelines & Concurrency
 ---
 

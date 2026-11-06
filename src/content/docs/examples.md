@@ -1,4 +1,5 @@
 ---
+pageId: examples
 title: Examples
 ---
 

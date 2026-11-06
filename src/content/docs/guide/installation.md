@@ -1,4 +1,5 @@
 ---
+pageId: guide.installation
 title: Installation & Requirements
 ---
 

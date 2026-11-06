@@ -13,13 +13,14 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:4321/oss/hokusai/>.
+Open <http://localhost:4321/oss/hokusai/> (English) or <http://localhost:4321/oss/hokusai/uk/> (Ukrainian).
 
 ## Build and preview
 
 ```sh
 npm run build     # outputs to dist/
 npm run preview   # serves the build at http://localhost:4321/oss/hokusai/
+npm run check     # translation parity + build + built-site checks (what CI runs)
 ```
 
 ## Configuration (all optional)
@@ -39,9 +40,16 @@ The private website mounts this repository as a Git submodule at `apps/hokusai-d
 
 ## Layout
 
-- `src/content/docs/` – pages
+- `src/content/docs/` – English pages; `uk/` holds the Ukrainian pair of each
+- `src/content/i18n/` – interface strings for the custom components
+- `scripts/` – translation parity and built-site checks
+- `plugins/` – `{#id}` heading anchors for translated headings
 - `src/theme/` – documentation-owned theme (header, theme toggle, CSS, code theme)
 - `public/` – static assets
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), including how to add or change a page in both languages.
 
 ## License
 

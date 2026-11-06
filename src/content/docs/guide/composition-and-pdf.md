@@ -1,4 +1,5 @@
 ---
+pageId: guide.composition-and-pdf
 title: Text, Composition & PDF
 ---
 
