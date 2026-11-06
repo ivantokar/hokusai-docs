@@ -1,0 +1,222 @@
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import './tokens.css';
+
+/* Shared visual tokens for ivantokar.com and all Starlight documentation apps. */
+:root,
+::backdrop {
+    --sl-font: 'Space Grotesk', sans-serif;
+    --sl-font-mono: 'IBM Plex Mono', monospace;
+    --sl-color-white: var(--ivantokar-text);
+    --sl-color-gray-1: #e4e4e4;
+    --sl-color-gray-2: var(--ivantokar-muted);
+    --sl-color-gray-3: #858585;
+    --sl-color-gray-4: #515151;
+    --sl-color-gray-5: var(--ivantokar-border);
+    --sl-color-gray-6: var(--ivantokar-panel);
+    --sl-color-black: var(--ivantokar-bg);
+    --sl-color-orange-low: #3b2714;
+    --sl-color-orange: #fe8019;
+    --sl-color-orange-high: #ffd7ad;
+    --sl-color-red-low: #351616;
+    --sl-color-red: var(--ivantokar-link-hover);
+    --sl-color-red-high: #ffc4bd;
+    --sl-color-accent-low: #351616;
+    --sl-color-accent: var(--ivantokar-accent);
+    --sl-color-accent-high: #ffc4bd;
+    --sl-color-text: var(--ivantokar-muted);
+    --sl-color-text-accent: var(--ivantokar-accent);
+    --sl-color-text-invert: var(--ivantokar-bg);
+    --sl-color-bg: var(--ivantokar-bg);
+    --sl-color-bg-nav: var(--ivantokar-bg);
+    --sl-color-bg-sidebar: var(--ivantokar-bg);
+    --sl-color-bg-inline-code: var(--ivantokar-code-bg);
+    --sl-color-bg-accent: var(--ivantokar-accent);
+    --sl-color-hairline-light: var(--ivantokar-border);
+    --sl-color-hairline: var(--ivantokar-border);
+    --sl-color-hairline-shade: var(--ivantokar-border);
+    --sl-color-backdrop-overlay: rgb(15 15 15 / 0.72);
+    --sl-nav-height: 5rem;
+    --sl-nav-pad-x: 1.5rem;
+    --sl-sidebar-width: 17.5rem;
+    --sl-content-width: 48rem;
+    --sl-content-gap-y: 1.25rem;
+}
+
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+    --sl-color-white: var(--ivantokar-text);
+    --sl-color-gray-1: #2b2724;
+    --sl-color-gray-2: var(--ivantokar-muted);
+    --sl-color-gray-3: #827970;
+    --sl-color-gray-4: #aca49b;
+    --sl-color-gray-5: var(--ivantokar-border);
+    --sl-color-gray-6: var(--ivantokar-panel);
+    --sl-color-gray-7: var(--ivantokar-bg);
+    --sl-color-black: var(--ivantokar-bg);
+    --sl-color-orange-low: #f7e1bd;
+    --sl-color-orange: #b57614;
+    --sl-color-orange-high: #5b3500;
+    --sl-color-red-low: #f4d5d1;
+    --sl-color-red: var(--ivantokar-link-hover);
+    --sl-color-red-high: #5b0003;
+    --sl-color-accent-low: #f4d5d1;
+    --sl-color-accent: var(--ivantokar-accent);
+    --sl-color-accent-high: #5b0003;
+    --sl-color-text: var(--ivantokar-muted);
+    --sl-color-text-accent: var(--ivantokar-link-hover);
+    --sl-color-text-invert: var(--ivantokar-bg);
+    --sl-color-bg: var(--ivantokar-bg);
+    --sl-color-bg-nav: var(--ivantokar-bg);
+    --sl-color-bg-sidebar: var(--ivantokar-bg);
+    --sl-color-bg-inline-code: var(--ivantokar-code-bg);
+    --sl-color-bg-accent: #1c1917;
+    --sl-color-hairline-light: var(--ivantokar-border);
+    --sl-color-hairline: var(--ivantokar-border);
+    --sl-color-hairline-shade: var(--ivantokar-border);
+    --sl-color-backdrop-overlay: rgb(28 25 23 / 0.42);
+}
+
+.site-theme-header {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.site-theme-brand {
+    align-items: center;
+    display: flex;
+    gap: 0.65rem;
+    min-width: 0;
+}
+
+.site-theme-brand a {
+    align-items: center;
+    color: var(--sl-color-white);
+    display: inline-flex;
+    font-size: 1.25rem;
+    font-weight: 600;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.site-theme-library-logo {
+    border-radius: 0.35rem;
+    display: block;
+    height: 1.75rem;
+    object-fit: cover;
+    width: 1.75rem;
+}
+
+.site-theme-brand > span {
+    color: var(--sl-color-gray-3);
+    font-family: var(--__sl-font-mono);
+    font-size: var(--sl-text-xs);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.site-theme-header-actions {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.site-theme-main-site {
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+}
+
+.site-theme-main-site:hover,
+.site-theme-main-site:focus-visible {
+    color: var(--sl-color-text-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.site-theme-toggle {
+    align-items: center;
+    display: inline-flex;
+}
+
+.site-theme-toggle button {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: var(--sl-color-gray-2);
+    cursor: pointer;
+    display: inline-flex;
+    height: 1.75rem;
+    justify-content: center;
+    padding: 0.25rem;
+    transition: color 180ms ease, transform 220ms ease;
+    width: 1.75rem;
+}
+
+.site-theme-toggle button:hover,
+.site-theme-toggle button:focus-visible,
+.site-theme-brand a:hover,
+.site-theme-brand a:focus-visible {
+    color: var(--sl-color-orange);
+}
+
+.site-theme-toggle button:hover,
+.site-theme-toggle button:focus-visible {
+    transform: translateY(-1px);
+}
+
+.site-theme-toggle svg {
+    fill: none;
+    height: 1rem;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    width: 1rem;
+}
+
+.site-theme-toggle .moon,
+:root[data-theme='light'] .site-theme-toggle .sun {
+    display: none;
+}
+
+:root[data-theme='light'] .site-theme-toggle .moon {
+    display: block;
+}
+
+.sl-markdown-content a:hover:not(:where(.not-content *)) {
+    color: var(--sl-color-red);
+}
+
+.hero-html img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.sl-markdown-content .card {
+    --sl-card-border: var(--ivantokar-accent);
+    --sl-card-bg: color-mix(in srgb, var(--ivantokar-accent) 15%, var(--ivantokar-bg));
+}
+
+@media (max-width: 50rem) {
+    .site-theme-brand a {
+      font-size: 1rem;
+    }
+
+    .site-theme-brand span {
+      font-size: 0.625rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-theme-toggle button {
+      transform: none;
+      transition: color 150ms ease;
+    }
+}
