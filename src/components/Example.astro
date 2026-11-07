@@ -30,7 +30,7 @@ const kb = (bytes: number) => (bytes >= 1024 * 1024 ? `${(bytes / 1048576).toFix
           const shown = file.preview ?? file.file;
           return (
             <li>
-              <img src={`${base}/generated/${id}/${shown}`} alt={result.alt} loading="lazy" width={file.width} height={file.height} />
+              <div class="print"><img src={`${base}/generated/${id}/${shown}`} alt={result.alt} loading="lazy" width={file.width} height={file.height} /></div>
               <figcaption>
                 {result.label && <strong>{result.label}</strong>}
                 <span>{file.format.toUpperCase()} · {file.width} × {file.height} · {kb(file.bytes)}</span>
@@ -46,22 +46,51 @@ const kb = (bytes: number) => (bytes >= 1024 * 1024 ? `${(bytes / 1048576).toFix
 <style>
   .verified-results {
     display: grid;
-    gap: 0.75rem;
+    gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
     list-style: none;
-    margin: 1rem 0 1.5rem;
+    margin: 1.25rem 0 1.75rem;
     padding: 0;
   }
   .verified-results.wide { grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
   li { margin: 0; }
+  /* Each result is mounted like a print: a solid matte, a hairline frame and a soft shadow. */
+  .print {
+    background: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.8rem;
+    box-shadow: 0 8px 18px -12px rgb(5 20 30 / 0.55);
+    padding: 0.4rem;
+  }
   img {
     background: repeating-conic-gradient(var(--sl-color-gray-5) 0% 25%, var(--sl-color-gray-6) 0% 50%) 50% / 16px 16px;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.25rem;
+    border-radius: 0.45rem;
+    display: block;
     height: auto;
     max-width: 100%;
     width: 100%;
   }
-  figcaption { display: flex; flex-direction: column; font-size: var(--sl-text-xs); gap: 0.125rem; margin-top: 0.25rem; }
-  figcaption span { color: var(--sl-color-gray-3); }
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--sl-text-xs);
+    gap: 0.125rem;
+    margin-top: 0.4rem;
+  }
+  figcaption strong {
+    color: var(--sl-color-white);
+    font-family: var(--hk-font-display, inherit);
+    font-weight: 700;
+  }
+  figcaption strong::before {
+    background: var(--sl-color-accent);
+    border-radius: 0.12rem;
+    content: '';
+    display: inline-block;
+    height: 0.38em;
+    margin-inline-end: 0.4em;
+    transform: rotate(-8deg);
+    width: 0.38em;
+  }
+  figcaption span { color: var(--sl-color-gray-3); font-family: var(--sl-font-mono); }
 </style>

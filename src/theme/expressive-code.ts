@@ -1,5 +1,9 @@
 export const expressiveCodeTheme = {
-  themes: ["gruvbox-dark-hard", "gruvbox-light-hard"],
+  themes: ["vitesse-dark", "vitesse-light"],
   useStarlightDarkModeSwitch: true,
   useStarlightUiThemeColors: true,
+  styleOverrides: {
+    borderRadius: "0.6rem",
+    codeFontFamily: "'IBM Plex Mono', ui-monospace, monospace",
+  },
 };
