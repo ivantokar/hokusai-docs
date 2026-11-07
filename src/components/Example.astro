@@ -30,7 +30,7 @@ const kb = (bytes: number) => (bytes >= 1024 * 1024 ? `${(bytes / 1048576).toFix
           const shown = file.preview ?? file.file;
           return (
             <li>
-              <div class="print"><img src={`${base}/generated/${id}/${shown}`} alt={result.alt} loading="lazy" width={file.width} height={file.height} /></div>
+              <div class="print"><div class="matte"><img src={`${base}/generated/${id}/${shown}`} alt={result.alt} loading="lazy" width={file.width} height={file.height} /></div></div>
               <figcaption>
                 {result.label && <strong>{result.label}</strong>}
                 <span>{file.format.toUpperCase()} · {file.width} × {file.height} · {kb(file.bytes)}</span>
@@ -54,17 +54,22 @@ const kb = (bytes: number) => (bytes >= 1024 * 1024 ? `${(bytes / 1048576).toFix
   }
   .verified-results.wide { grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
   li { margin: 0; }
-  /* Each result is mounted like a print: a solid matte, a hairline frame and a soft shadow. */
+  /* Each result is mounted like a print: a solid mount, a hairline frame and a soft shadow. The transparency
+     checkerboard is light in both themes, so dark text and logos stay legible on a dark page. */
   .print {
     background: var(--sl-color-gray-6);
     border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.8rem;
+    border-radius: 0.6rem;
     box-shadow: 0 8px 18px -12px rgb(5 20 30 / 0.55);
-    padding: 0.4rem;
+    padding: 0.35rem;
+  }
+  .matte {
+    background: repeating-conic-gradient(#d9e1e6 0% 25%, #f2f6f8 0% 50%) 0 0 / 16px 16px;
+    border-radius: 0.3rem;
+    line-height: 0;
+    overflow: hidden;
   }
   img {
-    background: repeating-conic-gradient(var(--sl-color-gray-5) 0% 25%, var(--sl-color-gray-6) 0% 50%) 50% / 16px 16px;
-    border-radius: 0.45rem;
     display: block;
     height: auto;
     max-width: 100%;
