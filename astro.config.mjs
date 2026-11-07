@@ -18,7 +18,12 @@ export default defineConfig({
     starlight({
       title: "Hokusai",
       description: "High-performance Swift image processing powered by libvips.",
-      head,
+      head: [
+        ...head,
+        { tag: "link", attrs: { rel: "icon", type: "image/png", href: `${process.env.DOCS_BASE ?? "/oss/hokusai"}/hokusai-icon.png` } },
+        { tag: "meta", attrs: { property: "og:image", content: `${process.env.DOCS_SITE ?? "https://ivantokar.com"}${process.env.DOCS_BASE ?? "/oss/hokusai"}/hokusai-logo-swifts.png` } },
+        { tag: "meta", attrs: { name: "theme-color", content: "#a8e1fb" } },
+      ],
       // English stays at the existing URLs; Ukrainian lives under /uk/.
       defaultLocale: "root",
       locales: {

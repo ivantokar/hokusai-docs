@@ -1,222 +1,398 @@
-@import '@fontsource/space-grotesk/400.css';
-@import '@fontsource/space-grotesk/500.css';
-@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource-variable/nunito/index.css';
+@import '@fontsource-variable/inter/index.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import './tokens.css';
 
-/* Shared visual tokens for ivantokar.com and all Starlight documentation apps. */
+/* Comfortaa is the closest match to the geometric wordmark, but only its Latin letters are used:
+   its Cyrillic design (a "т" that looks like an "m") reads badly in Ukrainian, which falls back to Nunito. */
+@font-face {
+  font-display: swap;
+  font-family: 'Comfortaa Latin';
+  font-style: normal;
+  font-weight: 300 700;
+  src: url('@fontsource-variable/comfortaa/files/comfortaa-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Comfortaa Latin';
+  font-style: normal;
+  font-weight: 300 700;
+  src: url('@fontsource-variable/comfortaa/files/comfortaa-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ------------------------------------------------------------------ Starlight mapping */
 :root,
 ::backdrop {
-    --sl-font: 'Space Grotesk', sans-serif;
-    --sl-font-mono: 'IBM Plex Mono', monospace;
-    --sl-color-white: var(--ivantokar-text);
-    --sl-color-gray-1: #e4e4e4;
-    --sl-color-gray-2: var(--ivantokar-muted);
-    --sl-color-gray-3: #858585;
-    --sl-color-gray-4: #515151;
-    --sl-color-gray-5: var(--ivantokar-border);
-    --sl-color-gray-6: var(--ivantokar-panel);
-    --sl-color-black: var(--ivantokar-bg);
-    --sl-color-orange-low: #3b2714;
-    --sl-color-orange: #fe8019;
-    --sl-color-orange-high: #ffd7ad;
-    --sl-color-red-low: #351616;
-    --sl-color-red: var(--ivantokar-link-hover);
-    --sl-color-red-high: #ffc4bd;
-    --sl-color-accent-low: #351616;
-    --sl-color-accent: var(--ivantokar-accent);
-    --sl-color-accent-high: #ffc4bd;
-    --sl-color-text: var(--ivantokar-muted);
-    --sl-color-text-accent: var(--ivantokar-accent);
-    --sl-color-text-invert: var(--ivantokar-bg);
-    --sl-color-bg: var(--ivantokar-bg);
-    --sl-color-bg-nav: var(--ivantokar-bg);
-    --sl-color-bg-sidebar: var(--ivantokar-bg);
-    --sl-color-bg-inline-code: var(--ivantokar-code-bg);
-    --sl-color-bg-accent: var(--ivantokar-accent);
-    --sl-color-hairline-light: var(--ivantokar-border);
-    --sl-color-hairline: var(--ivantokar-border);
-    --sl-color-hairline-shade: var(--ivantokar-border);
-    --sl-color-backdrop-overlay: rgb(15 15 15 / 0.72);
-    --sl-nav-height: 5rem;
-    --sl-nav-pad-x: 1.5rem;
-    --sl-sidebar-width: 17.5rem;
-    --sl-content-width: 48rem;
-    --sl-content-gap-y: 1.25rem;
+  --sl-font: 'Inter Variable', system-ui, sans-serif;
+  --sl-font-system-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --sl-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --hk-font-display: 'Comfortaa Latin', 'Nunito Variable', 'Inter Variable', system-ui, sans-serif;
+  --hk-radius: 1.1rem;
+  --hk-radius-sm: 0.6rem;
+
+  --sl-color-white: var(--hk-text);
+  --sl-color-gray-1: var(--hk-text);
+  --sl-color-gray-2: var(--hk-muted);
+  --sl-color-gray-3: var(--hk-faint);
+  --sl-color-gray-4: var(--hk-border);
+  --sl-color-gray-5: var(--hk-border);
+  --sl-color-gray-6: var(--hk-surface);
+  --sl-color-gray-7: var(--hk-bg);
+  --sl-color-black: var(--hk-bg);
+
+  --sl-color-accent-low: color-mix(in srgb, var(--hk-vermillion) 16%, var(--hk-bg));
+  --sl-color-accent: var(--hk-vermillion);
+  --sl-color-accent-high: var(--hk-vermillion);
+  --sl-color-text: var(--hk-muted);
+  --sl-color-text-accent: var(--hk-link);
+  --sl-color-text-invert: var(--hk-on-vermillion);
+  --sl-color-bg: var(--hk-bg);
+  --sl-color-bg-nav: var(--hk-bg);
+  --sl-color-bg-sidebar: var(--hk-bg);
+  --sl-color-bg-inline-code: var(--hk-code-bg);
+  --sl-color-bg-accent: var(--hk-vermillion);
+  --sl-color-hairline-light: var(--hk-border);
+  --sl-color-hairline: var(--hk-border);
+  --sl-color-hairline-shade: var(--hk-border);
+  --sl-color-backdrop-overlay: rgb(5 14 21 / 0.72);
+
+  /* Asides: note = sky, tip = sky-green, caution = sun, danger = vermillion */
+  --sl-color-blue-low: color-mix(in srgb, var(--hk-sky) 22%, var(--hk-bg));
+  --sl-color-blue: var(--hk-sky-deep);
+  --sl-color-blue-high: var(--hk-link);
+  --sl-color-orange-low: color-mix(in srgb, #f2b43a 20%, var(--hk-bg));
+  --sl-color-orange: #e0a02a;
+  --sl-color-orange-high: #f2c35f;
+  --sl-color-red-low: color-mix(in srgb, var(--hk-vermillion) 18%, var(--hk-bg));
+  --sl-color-red: var(--hk-vermillion);
+  --sl-color-red-high: color-mix(in srgb, var(--hk-vermillion) 70%, white);
+
+  --sl-nav-height: 4.5rem;
+  --sl-nav-pad-x: 1.5rem;
+  --sl-sidebar-width: 18rem;
+  --sl-content-width: 50rem;
+  --sl-content-gap-y: 1.25rem;
 }
 
 :root[data-theme='light'],
 [data-theme='light'] ::backdrop {
-    --sl-color-white: var(--ivantokar-text);
-    --sl-color-gray-1: #2b2724;
-    --sl-color-gray-2: var(--ivantokar-muted);
-    --sl-color-gray-3: #827970;
-    --sl-color-gray-4: #aca49b;
-    --sl-color-gray-5: var(--ivantokar-border);
-    --sl-color-gray-6: var(--ivantokar-panel);
-    --sl-color-gray-7: var(--ivantokar-bg);
-    --sl-color-black: var(--ivantokar-bg);
-    --sl-color-orange-low: #f7e1bd;
-    --sl-color-orange: #b57614;
-    --sl-color-orange-high: #5b3500;
-    --sl-color-red-low: #f4d5d1;
-    --sl-color-red: var(--ivantokar-link-hover);
-    --sl-color-red-high: #5b0003;
-    --sl-color-accent-low: #f4d5d1;
-    --sl-color-accent: var(--ivantokar-accent);
-    --sl-color-accent-high: #5b0003;
-    --sl-color-text: var(--ivantokar-muted);
-    --sl-color-text-accent: var(--ivantokar-link-hover);
-    --sl-color-text-invert: var(--ivantokar-bg);
-    --sl-color-bg: var(--ivantokar-bg);
-    --sl-color-bg-nav: var(--ivantokar-bg);
-    --sl-color-bg-sidebar: var(--ivantokar-bg);
-    --sl-color-bg-inline-code: var(--ivantokar-code-bg);
-    --sl-color-bg-accent: #1c1917;
-    --sl-color-hairline-light: var(--ivantokar-border);
-    --sl-color-hairline: var(--ivantokar-border);
-    --sl-color-hairline-shade: var(--ivantokar-border);
-    --sl-color-backdrop-overlay: rgb(28 25 23 / 0.42);
+  --sl-color-text-invert: var(--hk-on-vermillion);
+  --sl-color-accent-high: var(--hk-vermillion);
+  --sl-color-backdrop-overlay: rgb(18 24 31 / 0.38);
+  --sl-color-orange: #a66a05;
+  --sl-color-orange-high: #5d3b00;
+  --sl-color-blue-high: #123f60;
+  --sl-color-red-high: #7a1308;
 }
 
-.site-theme-header {
-    align-items: center;
-    display: flex;
-    gap: 1rem;
-    height: 100%;
-    justify-content: space-between;
+body {
+  background-color: var(--hk-bg);
 }
+
+/* Links: Prussian-blue ink, vermillion on hover. */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--hk-link);
+  text-decoration-color: color-mix(in srgb, var(--hk-link) 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+.sl-markdown-content a:hover:not(:where(.not-content *)) {
+  color: var(--hk-vermillion);
+  text-decoration-color: currentColor;
+}
+
+/* ------------------------------------------------------------------ Typography */
+h1, h2, h3, h4,
+.sl-markdown-content :is(h1, h2, h3, h4) {
+  font-family: var(--hk-font-display);
+  letter-spacing: -0.01em;
+}
+h1 { font-weight: 600; }
+.sl-markdown-content h2 {
+  font-weight: 600;
+  margin-top: 2.75rem;
+}
+/* A small vermillion seal before each section, like a hanko stamp on a print. */
+.sl-markdown-content h2::before {
+  background: var(--hk-vermillion);
+  border-radius: 0.2rem;
+  content: '';
+  display: inline-block;
+  height: 0.5em;
+  margin-inline-end: 0.55rem;
+  transform: translateY(-0.05em) rotate(-8deg);
+  width: 0.5em;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+  padding-bottom: 0.65rem;
+  position: relative;
+}
+/* A band of seigaiha under every section heading, the full width of the column. */
+.sl-markdown-content .sl-heading-wrapper.level-h2::after {
+  background: var(--hk-wave) repeat-x left bottom / 60px 30px;
+  bottom: 0;
+  content: '';
+  height: 9px;
+  inset-inline: 0;
+  pointer-events: none;
+  position: absolute;
+}
+.sl-markdown-content h3 { font-weight: 600; }
+/* Anchor links keep their place beside the heading (Starlight puts them in a wrapper). */
+.sl-markdown-content h2::before { position: static; }
+
+.sl-markdown-content :not(pre) > code {
+  background: var(--hk-code-bg);
+  border: 1px solid var(--hk-border);
+  border-radius: 0.4rem;
+  padding: 0.08em 0.38em;
+}
+
+/* ------------------------------------------------------------------ Header */
+.site-theme-header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+  justify-content: space-between;
+}
+header.header,
+:root header.header {
+  background-color: var(--hk-bg);
+  border-bottom: 0;
+}
+header.header::after {
+  background: var(--hk-wave) repeat-x left top / 60px 30px;
+  bottom: -9px;
+  content: '';
+  height: 9px;
+  inset-inline: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+header.header { position: relative; }
 
 .site-theme-brand {
-    align-items: center;
-    display: flex;
-    gap: 0.65rem;
-    min-width: 0;
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  min-width: 0;
 }
-
 .site-theme-brand a {
-    align-items: center;
-    color: var(--sl-color-white);
-    display: inline-flex;
-    font-size: 1.25rem;
-    font-weight: 600;
-    gap: 0.5rem;
-    text-decoration: none;
+  align-items: center;
+  color: var(--hk-text);
+  display: inline-flex;
+  gap: 0.6rem;
+  text-decoration: none;
 }
-
+/* The swallow sits on the logo's own pale-sky pill so it reads on light and dark pages alike. */
 .site-theme-library-logo {
-    border-radius: 0.35rem;
-    display: block;
-    height: 1.75rem;
-    object-fit: cover;
-    width: 1.75rem;
+  background: var(--hk-sky);
+  border-radius: 999px;
+  display: block;
+  height: 2.25rem;
+  object-fit: contain;
+  padding: 0.3rem;
+  width: 2.25rem;
 }
-
+.site-theme-library-name {
+  font-family: var(--hk-font-display);
+  font-size: 1.55rem;
+  font-variation-settings: 'wght' 300;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+}
+/* The version is a vermillion seal. */
 .site-theme-brand > span {
-    color: var(--sl-color-gray-3);
-    font-family: var(--__sl-font-mono);
-    font-size: var(--sl-text-xs);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+  background: var(--hk-vermillion);
+  border-radius: 0.3rem;
+  color: var(--hk-on-vermillion);
+  font-family: var(--sl-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  padding: 0.18rem 0.45rem;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
-
 .site-theme-header-actions {
-    align-items: center;
-    display: flex;
-    gap: 1rem;
+  align-items: center;
+  display: flex;
+  gap: 0.9rem;
 }
-
 .site-theme-main-site {
-    color: var(--sl-color-gray-2);
-    font-size: var(--sl-text-sm);
-    text-decoration: none;
+  color: var(--hk-muted);
+  font-size: var(--sl-text-sm);
+  text-decoration: none;
 }
-
 .site-theme-main-site:hover,
 .site-theme-main-site:focus-visible {
-    color: var(--sl-color-text-accent);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+  color: var(--hk-vermillion);
 }
-
-.site-theme-toggle {
-    align-items: center;
-    display: inline-flex;
-}
-
+.site-theme-toggle { align-items: center; display: inline-flex; }
 .site-theme-toggle button {
-    align-items: center;
-    background: transparent;
-    border: 0;
-    color: var(--sl-color-gray-2);
-    cursor: pointer;
-    display: inline-flex;
-    height: 1.75rem;
-    justify-content: center;
-    padding: 0.25rem;
-    transition: color 180ms ease, transform 220ms ease;
-    width: 1.75rem;
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--hk-border);
+  border-radius: 999px;
+  color: var(--hk-muted);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  transition: color 160ms ease, border-color 160ms ease, transform 200ms ease;
+  width: 2rem;
 }
-
-.site-theme-toggle button:hover,
-.site-theme-toggle button:focus-visible,
-.site-theme-brand a:hover,
-.site-theme-brand a:focus-visible {
-    color: var(--sl-color-orange);
-}
-
 .site-theme-toggle button:hover,
 .site-theme-toggle button:focus-visible {
-    transform: translateY(-1px);
+  border-color: var(--hk-vermillion);
+  color: var(--hk-vermillion);
+  transform: translateY(-1px);
 }
-
 .site-theme-toggle svg {
-    fill: none;
-    height: 1rem;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.8;
-    width: 1rem;
+  fill: none;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 1rem;
 }
-
 .site-theme-toggle .moon,
-:root[data-theme='light'] .site-theme-toggle .sun {
-    display: none;
+:root[data-theme='light'] .site-theme-toggle .sun { display: none; }
+:root[data-theme='light'] .site-theme-toggle .moon { display: block; }
+
+/* ------------------------------------------------------------------ Sidebar */
+.sidebar-content { padding-top: 1.25rem; }
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background: var(--hk-vermillion);
+  border-radius: 999px;
+  color: var(--hk-on-vermillion);
+  font-weight: 600;
+}
+.sidebar-content details > summary .large {
+  font-family: var(--hk-font-display);
+  font-weight: 600;
+}
+.sidebar-content a { border-radius: 999px; }
+.sidebar-content ul ul { border-inline-start-color: var(--hk-border); }
+
+/* ------------------------------------------------------------------ Content blocks */
+.sl-markdown-content table:not(:where(.not-content *)) {
+  border-collapse: separate;
+  border-spacing: 0;
+  display: table;
+  font-size: var(--sl-text-sm);
+  overflow: hidden;
+  width: 100%;
+}
+.sl-markdown-content table:not(:where(.not-content *)) th {
+  background: var(--hk-surface-2);
+  color: var(--hk-text);
+  font-family: var(--hk-font-display);
+  font-weight: 600;
+}
+.sl-markdown-content table:not(:where(.not-content *)) :is(th, td) {
+  border-bottom: 1px solid var(--hk-border);
+  padding: 0.55rem 0.8rem;
 }
 
-:root[data-theme='light'] .site-theme-toggle .moon {
-    display: block;
+.expressive-code { margin-block: 1.25rem; }
+.expressive-code .frame { border-radius: var(--hk-radius-sm); }
+.expressive-code .frame pre { border-radius: var(--hk-radius-sm); }
+
+.starlight-aside {
+  border-inline-start-width: 0.28rem;
+  border-radius: var(--hk-radius-sm);
 }
 
-.sl-markdown-content a:hover:not(:where(.not-content *)) {
-    color: var(--sl-color-red);
-}
-
-.hero-html img {
-    display: block;
-    height: auto;
-    max-width: 100%;
-}
-
+/* Cards: rounded like the logo's panel, with a sky tint and a vermillion icon. */
 .sl-markdown-content .card {
-    --sl-card-border: var(--ivantokar-accent);
-    --sl-card-bg: color-mix(in srgb, var(--ivantokar-accent) 15%, var(--ivantokar-bg));
+  --sl-card-border: var(--hk-border);
+  --sl-card-bg: var(--hk-surface-2);
+  border-radius: var(--hk-radius);
+  box-shadow: none;
 }
+.sl-markdown-content .card .title { font-family: var(--hk-font-display); font-weight: 600; }
+.sl-markdown-content .card .icon {
+  background: var(--hk-vermillion);
+  border: 0;
+  border-radius: 999px;
+  color: var(--hk-on-vermillion);
+}
+.sl-markdown-content .card a { text-decoration: none; }
+
+/* Language switch */
+.site-theme-language a[aria-current='true'] {
+  background: var(--hk-sky);
+  color: var(--hk-ink);
+}
+
+/* Pagination, TOC */
+.right-sidebar-panel a[aria-current='true'] { color: var(--hk-vermillion); }
+.pagination-links a { border-radius: var(--hk-radius-sm); }
+
+/* ------------------------------------------------------------------ Home page */
+.hero-html img { display: block; height: auto; max-width: 100%; }
+
+[data-has-hero] .hero {
+  align-items: center;
+  background: var(--hk-sky) var(--hk-wave-panel) repeat left bottom / 60px 30px;
+  border-radius: 2.2rem;
+  color: var(--hk-ink);
+  margin: 1.5rem auto 2.5rem;
+  max-width: 68rem;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  position: relative;
+}
+/* The seigaiha fades away towards the top so the title sits on plain sky. */
+[data-has-hero] .hero::before {
+  background: linear-gradient(to bottom, var(--hk-sky) 55%, color-mix(in srgb, var(--hk-sky) 0%, transparent));
+  content: '';
+  inset: 0 0 22% 0;
+  pointer-events: none;
+  position: absolute;
+}
+[data-has-hero] .hero > * { position: relative; }
+[data-has-hero] .hero h1 {
+  color: var(--hk-ink);
+  font-family: var(--hk-font-display);
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-variation-settings: 'wght' 300;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-transform: lowercase;
+}
+[data-has-hero] .hero .tagline { color: #2e4756; font-size: clamp(1.05rem, 2vw, 1.3rem); }
+[data-has-hero] .hero .sl-link-button {
+  border-radius: 999px;
+  font-family: var(--hk-font-display);
+  font-weight: 700;
+}
+[data-has-hero] .hero .sl-link-button.primary {
+  background: var(--hk-vermillion);
+  border-color: var(--hk-vermillion);
+  color: #fff;
+}
+[data-has-hero] .hero .sl-link-button.secondary {
+  background: transparent;
+  border-color: var(--hk-ink);
+  color: var(--hk-ink);
+}
+[data-has-hero] .hero .sl-link-button:hover { filter: brightness(1.06); }
+[data-has-hero] .hero-html img { filter: drop-shadow(0 6px 10px rgb(10 40 60 / 0.18)); }
 
 @media (max-width: 50rem) {
-    .site-theme-brand a {
-      font-size: 1rem;
-    }
-
-    .site-theme-brand span {
-      font-size: 0.625rem;
-    }
+  .site-theme-main-site { display: none; }
+  .site-theme-library-name { font-size: 1.25rem; }
+  .site-theme-brand > span { display: none; }
+  [data-has-hero] .hero { border-radius: 1.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .site-theme-toggle button {
-      transform: none;
-      transition: color 150ms ease;
-    }
+  .site-theme-toggle button { transform: none; transition: color 120ms ease; }
 }
