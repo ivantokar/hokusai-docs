@@ -1,10 +1,28 @@
-# hokusai-docs
+<p align="center">
+  <img src="public/hokusai-logo-swifts.png" alt="Hokusai" width="160">
+</p>
 
-Documentation for [Hokusai](https://github.com/ivantokar/hokusai), built with [Astro Starlight](https://starlight.astro.build). Published at <https://ivantokar.com/oss/hokusai/>.
+# Hokusai documentation
 
-## Local development
+**Read the documentation: <https://ivantokar.com/oss/hokusai/>** (English) · [Українською](https://ivantokar.com/oss/hokusai/uk/)
 
-Prerequisites: Node.js 22+ and npm. Nothing else (no private site, workspace packages or credentials) is required.
+[Hokusai](https://github.com/ivantokar/hokusai) is a Swift library for server-side image processing, built on [libvips](https://www.libvips.org/). You build an immutable pipeline (resize, crop, filters, text, layers) and run it once to get JPEG, PNG, WebP, AVIF, HEIF, TIFF, GIF or PDF. This repository holds the site that teaches it: guides for every operation, recipes, integrations and a CLI reference, in English and Ukrainian. Every code sample and every image on the site is produced by running the library.
+
+## What the documentation covers
+
+| Package | What it is for |
+| --- | --- |
+| [**Hokusai**](https://github.com/ivantokar/hokusai) | The core library, with the optional `HokusaiNIO` (SwiftNIO buffers) and `HokusaiPDF` (vector PDF documents) products and the `hokusai` command-line tool |
+| [**Hokusai Vapor**](https://github.com/ivantokar/hokusai-vapor) | Adapter for [Vapor](https://vapor.codes): read an upload into a pipeline and stream the result as a response |
+| [**Hokusai Hummingbird**](https://github.com/ivantokar/hokusai-hummingbird) | The same for [Hummingbird](https://github.com/hummingbird-project/hummingbird) |
+
+The adapters are thin: they connect a web framework to the core library and change nothing about how images are processed. Documented versions: Hokusai 2.2.2, Hokusai Vapor 2.1.0, Hokusai Hummingbird 2.1.0.
+
+Where to start on the site: [getting started](https://ivantokar.com/oss/hokusai/guide/getting-started/) · [find an operation](https://ivantokar.com/oss/hokusai/reference/operations/) · [recipes](https://ivantokar.com/oss/hokusai/recipes/) · [Vapor and Hummingbird](https://ivantokar.com/oss/hokusai/integrations/).
+
+## Run the documentation locally
+
+You need Node.js 22+ and npm, nothing else.
 
 ```sh
 git clone https://github.com/ivantokar/hokusai-docs.git
@@ -15,45 +33,30 @@ npm run dev
 
 Open <http://localhost:4321/oss/hokusai/> (English) or <http://localhost:4321/oss/hokusai/uk/> (Ukrainian).
 
-## Build and preview
-
 ```sh
-npm run build     # outputs to dist/
-npm run preview   # serves the build at http://localhost:4321/oss/hokusai/
+npm run build     # production build into dist/
+npm run preview   # serve the build at http://localhost:4321/oss/hokusai/
 npm run check     # translation parity, API coverage, examples snapshot, build and built-site checks
 ```
 
-## Configuration (all optional)
-
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `DOCS_SITE` | `https://ivantokar.com` | Canonical site origin |
-| `DOCS_BASE` | `/oss/hokusai` | Base path |
-| `PUBLIC_GTM_ID` | unset | Google Tag Manager ID; no analytics is injected when unset |
-
-## Publication
-
-The private website mounts this repository as a Git submodule at `apps/hokusai-docs` and builds the **pinned** commit. To publish a change:
-
-1. Merge the documentation change here.
-2. In the website repository, update the submodule pointer (`git -C apps/hokusai-docs pull && git add apps/hokusai-docs`), commit and deploy.
-
-## Layout
-
-- `src/content/docs/` – English pages; `uk/` holds the Ukrainian pair of each
-- `src/content/i18n/` – interface strings for the custom components
-- `examples/` – executable Swift examples that produce the code and images shown on the site (see CONTRIBUTING)
-- `public/generated/` – the images those examples produced, with `manifest.json`
-- `inventory/` – public-API inventory and coverage matrix
-- `scripts/` – translation parity, coverage, snippet and built-site checks
-- `plugins/` – `{#id}` heading anchors for translated headings
-- `src/theme/` – documentation-owned theme (header, theme toggle, CSS, code theme)
-- `public/` – static assets
-
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md), including how to add or change a page in both languages.
+See [CONTRIBUTING.md](CONTRIBUTING.md): how to add or change a page in both languages, how the executable examples and their images work, and the design rules.
+
+## Repository layout
+
+- `src/content/docs/`: English pages; `uk/` holds the Ukrainian pair of each
+- `examples/`: Swift programs that produce the code and images shown on the site
+- `public/generated/`: the images those programs produced, with `manifest.json`
+- `inventory/`: the public API of each documented release and where each symbol is documented
+- `src/theme/`, `src/components/`: the site's design; `scripts/`, `plugins/`: checks and build helpers
+
+## For maintainers: publishing
+
+The site at ivantokar.com includes this repository as a Git submodule (`apps/hokusai-docs`) and builds the pinned commit. To publish a change: merge it here, then update the submodule pointer in the website repository (`git -C apps/hokusai-docs pull && git add apps/hokusai-docs`) and deploy.
+
+Optional build settings, all unset by default and not needed for local work: `DOCS_SITE` (canonical origin, default `https://ivantokar.com`), `DOCS_BASE` (base path, default `/oss/hokusai`), and `PUBLIC_GTM_ID` (a Google Tag Manager container ID; the production site sets it to enable analytics, and nothing is injected when it is unset).
 
 ## License
 
-Code: MIT (see `LICENSE`). The fixtures in `examples/fixtures` and the images in `public/generated` are generated by code in this repository and are released under the same MIT license; they contain no third-party material. The Hokusai name and logo images in `public/` are the project's branding and not covered by the MIT grant.
+Code: MIT (see `LICENSE`). The fixtures in `examples/fixtures` and the images in `public/generated` are generated by code in this repository and are released under the same MIT license; they contain no third-party material. The Hokusai name and logo in `public/` are the project's branding and not covered by the MIT grant.
