@@ -39,16 +39,16 @@ css = f"""/*
 :root[data-theme='light'] {{
   --hk-bg: #fbfaf6;
   --hk-surface: #ffffff;
-  --hk-surface-2: #eef7fc;
+  --hk-surface-2: #f6f1e6;
   --hk-text: #12181f;
   --hk-muted: #475763;
   --hk-faint: #75858f;
-  --hk-border: #d3e3ec;
+  --hk-border: #e6dec9;
   --hk-sky-deep: #2b7aa8;
   --hk-link: #1d5a85;
   --hk-vermillion: #c8321f;
-  --hk-code-bg: #f3f8fb;
-  --hk-wave: {wave("#cde6f3", "#f7fcff", "#eef8fe")};
+  --hk-code-bg: #f5f0e4;
+  --hk-wave: {wave("#e9dfc8", "#fbf8f0", "#f6efe0")};
 }}
 """
 open("src/theme/tokens.css", "w").write(css)
