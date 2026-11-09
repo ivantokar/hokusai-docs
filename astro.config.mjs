@@ -117,7 +117,7 @@ export default defineConfig({
           label: "Integrations",
           translations: { uk: "Інтеграції" },
           collapsed: true,
-          items: ["integrations", "vapor/overview", "vapor/uploads-and-responses", "integrations/vapor-service", "integrations/hummingbird", "integrations/nio", "integrations/macos", "integrations/docker"],
+          items: ["integrations", "vapor/overview", "vapor/uploads-and-responses", "integrations/vapor-service", "integrations/hummingbird", "integrations/nio", "integrations/macos", "integrations/docker", "integrations/examples"],
         },
         {
           label: "Runtime & Performance",
