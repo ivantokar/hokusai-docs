@@ -1,6 +1,6 @@
 ---
 pageId: integrations.index
-translatedFrom: "3837975cefdc"
+translatedFrom: "e82389f57f24"
 title: Інтеграції
 description: Hokusai у вебфреймворках і NIO.
 ---
@@ -15,7 +15,7 @@ description: Hokusai у вебфреймворках і NIO.
 
 ## Демонстраційні застосунки {#demos}
 
-Виконувані демо є в [hokusai-examples](https://github.com/ivantokar/hokusai-examples): одна вебпісочниця, яку віддають бекенд на Vapor і бекенд на Hummingbird, та нативна пісочниця для macOS; усі вони генерують Swift-код, що відтворює зібране. Ці сторінки від них не залежать: кожен фрагмент тут виконується або компілюється цим репозиторієм.
+Виконувані демо є в [hokusai-examples](https://github.com/ivantokar/hokusai-examples) ([як їх запускати, тестувати й переносити](/oss/hokusai/uk/integrations/examples)): одна вебпісочниця, яку віддають бекенд на Vapor і бекенд на Hummingbird, та нативна пісочниця для macOS; усі вони генерують Swift-код, що відтворює зібране. Ці сторінки від них не залежать: кожен фрагмент тут виконується або компілюється цим репозиторієм.
 
 ## Посібники {#guides}
 
@@ -24,6 +24,7 @@ description: Hokusai у вебфреймворках і NIO.
 - [Hokusai Hummingbird](/oss/hokusai/uk/integrations/hummingbird)
 - [macOS](/oss/hokusai/uk/integrations/macos)
 - [Docker](/oss/hokusai/uk/integrations/docker)
+- [Приклади: запуск, тестування й перенесення демо](/oss/hokusai/uk/integrations/examples)
 
 ## Читайте далі {#read-next}
 

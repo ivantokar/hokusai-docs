@@ -14,7 +14,7 @@ Adapters share only the major version of the core library.
 
 ## Demo applications {#demos}
 
-Runnable demos live in [hokusai-examples](https://github.com/ivantokar/hokusai-examples): one web playground served by a Vapor backend and by a Hummingbird backend, and a native macOS playground, all generating the Swift that reproduces what you build. These pages do not depend on them: every snippet here is executed or compiled by this repository.
+Runnable demos live in [hokusai-examples](https://github.com/ivantokar/hokusai-examples) ([how to run, test and adopt them](/oss/hokusai/integrations/examples)): one web playground served by a Vapor backend and by a Hummingbird backend, and a native macOS playground, all generating the Swift that reproduces what you build. These pages do not depend on them: every snippet here is executed or compiled by this repository.
 
 ## Guides {#guides}
 
@@ -23,6 +23,7 @@ Runnable demos live in [hokusai-examples](https://github.com/ivantokar/hokusai-e
 - [Hokusai Hummingbird](/oss/hokusai/integrations/hummingbird)
 - [macOS](/oss/hokusai/integrations/macos)
 - [Docker](/oss/hokusai/integrations/docker)
+- [Examples: run, test and adopt the demos](/oss/hokusai/integrations/examples)
 
 ## Read next
 
