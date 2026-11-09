@@ -1,6 +1,6 @@
 ---
 pageId: integrations.index
-translatedFrom: "c17b88ccf297"
+translatedFrom: "3837975cefdc"
 title: Інтеграції
 description: Hokusai у вебфреймворках і NIO.
 ---
@@ -15,7 +15,7 @@ description: Hokusai у вебфреймворках і NIO.
 
 ## Демонстраційні застосунки {#demos}
 
-Виконуваний демо-застосунок Vapor із вебінтерфейсом є в [hokusai-vapor-example](https://github.com/ivantokar/hokusai-vapor-example); єдиний репозиторій прикладів та веб- і macOS-пісочниці для macOS відстежуються в [hokusai#161–#165](https://github.com/ivantokar/hokusai/issues/161). Ці сторінки від них не залежать: кожен фрагмент тут виконується або компілюється цим репозиторієм.
+Виконувані демо є в [hokusai-examples](https://github.com/ivantokar/hokusai-examples): одна вебпісочниця, яку віддають бекенд на Vapor і бекенд на Hummingbird, та нативна пісочниця для macOS; усі вони генерують Swift-код, що відтворює зібране. Ці сторінки від них не залежать: кожен фрагмент тут виконується або компілюється цим репозиторієм.
 
 ## Посібники {#guides}
 

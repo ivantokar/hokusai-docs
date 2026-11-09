@@ -14,7 +14,7 @@ Adapters share only the major version of the core library.
 
 ## Demo applications {#demos}
 
-A runnable Vapor demo with a web UI lives in [hokusai-vapor-example](https://github.com/ivantokar/hokusai-vapor-example); the unified examples repository and the web and macOS playgrounds are tracked in [hokusai#161–#165](https://github.com/ivantokar/hokusai/issues/161). These pages do not depend on them: every snippet here is executed or compiled by this repository.
+Runnable demos live in [hokusai-examples](https://github.com/ivantokar/hokusai-examples): one web playground served by a Vapor backend and by a Hummingbird backend, and a native macOS playground, all generating the Swift that reproduces what you build. These pages do not depend on them: every snippet here is executed or compiled by this repository.
 
 ## Guides {#guides}
 
