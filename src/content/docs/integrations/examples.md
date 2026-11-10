@@ -71,6 +71,8 @@ It runs Hokusai locally through the public API, with no server and no network. I
 4. **Inspect** reads the facts back from the exported bytes: which metadata survived, the raw pixel layout, the pages of a PDF or the frames of a GIF.
 5. The **Runtime Lab** shows streaming, the queue and failures; **Export / PDF** compares every encoder and builds a vector PDF with selectable text.
 
+Two things worth trying. **No photo?** Choose *Start from text* on the empty page: the recipe then makes its own pixels with `Hokusai.text`, and the generated Swift (for Vapor and Hummingbird, a `GET` route) needs no upload. **Kernels and matrices** are edited as grids of numbers: add a *Convolution kernel*, *Colour matrix* or *Affine transform* step and start from a preset such as *Emboss*, *Sepia* or *Shear*.
+
 The preview only shrinks the *result* for display. The recipe always runs on the full original, so crops and text land exactly where the export puts them.
 
 ## The smallest integration {#minimal}
