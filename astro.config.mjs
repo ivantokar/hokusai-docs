@@ -21,7 +21,9 @@ export default defineConfig({
       head: [
         ...head,
         { tag: "link", attrs: { rel: "icon", type: "image/png", href: `${process.env.DOCS_BASE ?? "/oss/hokusai"}/hokusai-icon.png` } },
-        { tag: "meta", attrs: { property: "og:image", content: `${process.env.DOCS_SITE ?? "https://ivantokar.com"}${process.env.DOCS_BASE ?? "/oss/hokusai"}/hokusai-logo-swifts.png` } },
+        { tag: "meta", attrs: { property: "og:image", content: `${process.env.DOCS_SITE ?? "https://ivantokar.com"}${process.env.DOCS_BASE ?? "/oss/hokusai"}/hokusai-og.webp` } },
+        { tag: "meta", attrs: { property: "og:image:width", content: "1200" } },
+        { tag: "meta", attrs: { property: "og:image:height", content: "630" } },
         { tag: "meta", attrs: { name: "theme-color", content: "#a8e1fb" } },
       ],
       // English stays at the existing URLs; Ukrainian lives under /uk/.
