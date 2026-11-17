@@ -218,6 +218,21 @@ header.header { position: relative; }
 .site-theme-main-site:focus-visible {
   color: var(--hk-vermillion);
 }
+.site-theme-github {
+  align-items: center;
+  border: 1px solid var(--hk-border);
+  border-radius: 999px;
+  color: var(--hk-muted);
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+.site-theme-github:hover,
+.site-theme-github:focus-visible {
+  color: var(--hk-vermillion);
+}
 .site-theme-toggle { align-items: center; display: inline-flex; }
 .site-theme-toggle button {
   align-items: center;
@@ -372,6 +387,7 @@ header.header { position: relative; }
   border-color: var(--hk-ink);
   color: var(--hk-ink);
 }
+[data-has-hero] .hero .sl-link-button.minimal { color: #0c1d2a; }
 [data-has-hero] .hero .sl-link-button:hover { filter: brightness(1.06); }
 [data-has-hero] .hero-html img { filter: drop-shadow(0 6px 10px rgb(10 40 60 / 0.18)); }
 

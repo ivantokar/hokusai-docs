@@ -4,12 +4,14 @@ import Search from 'virtual:starlight/components/Search';
 import ThemeToggle from 'virtual:starlight/components/ThemeSelect';
 import versions from '../versions.json';
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
+import { Icon } from '@astrojs/starlight/components';
 
 const t = Astro.locals.t;
 const { siteTitle, locale } = Astro.locals.starlightRoute;
 const docsRoot = import.meta.env.BASE_URL.replace(/\/$/, '');
 const docsHome = locale ? `${docsRoot}/${locale}/` : `${docsRoot}/`;
 const libraryLogo = `${docsRoot}/hokusai-icon.png`;
+const github = config.social?.find((link) => link.icon === 'github');
 ---
 
 <header class="site-theme-header">
@@ -24,6 +26,11 @@ const libraryLogo = `${docsRoot}/hokusai-icon.png`;
     <a class="site-theme-main-site" href="https://ivantokar.com">{t('hokusai.mainSite')}</a>
     {config.pagefind && <Search />}
     <LanguageSelect />
+    {github && (
+      <a class="site-theme-github" href={github.href} rel="noopener noreferrer" aria-label={github.label} title={github.label}>
+        <Icon name="github" size="1.1rem" />
+      </a>
+    )}
     <ThemeToggle />
   </div>
 </header>
