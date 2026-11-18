@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="public/hokusai-logo-swifts.png" alt="Hokusai" width="160">
-</p>
-
 # Hokusai documentation
 
 **Read the documentation: <https://ivantokar.com/oss/hokusai/>** (English) · [Українською](https://ivantokar.com/oss/hokusai/uk/)
