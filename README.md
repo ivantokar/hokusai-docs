@@ -10,15 +10,20 @@
 
 ## What the documentation covers
 
+The documentation covers the whole family:
+
 | Package | What it is for |
 | --- | --- |
 | [**Hokusai**](https://github.com/ivantokar/hokusai) | The core library, with the optional `HokusaiNIO` (SwiftNIO buffers) and `HokusaiPDF` (vector PDF documents) products and the `hokusai` command-line tool |
 | [**Hokusai Vapor**](https://github.com/ivantokar/hokusai-vapor) | Adapter for [Vapor](https://vapor.codes): read an upload into a pipeline and stream the result as a response |
 | [**Hokusai Hummingbird**](https://github.com/ivantokar/hokusai-hummingbird) | The same for [Hummingbird](https://github.com/hummingbird-project/hummingbird) |
+| [**Hokusai examples**](https://github.com/ivantokar/hokusai-examples) | Runnable web and macOS playgrounds |
 
 The adapters are thin: they connect a web framework to the core library and change nothing about how images are processed. Documented versions: Hokusai 2.2.2, Hokusai Vapor 2.1.0, Hokusai Hummingbird 2.1.0.
 
 Runnable demos (a web playground on Vapor and on Hummingbird, and a macOS playground): [hokusai-examples](https://github.com/ivantokar/hokusai-examples).
+
+**Contents:** [What the documentation covers](#what-the-documentation-covers) · [Run it locally](#run-the-documentation-locally) · [Contributing](#contributing) · [Repository layout](#repository-layout) · [Publishing](#for-maintainers-publishing) · [License](#license)
 
 Where to start on the site: [getting started](https://ivantokar.com/oss/hokusai/guide/getting-started/) · [find an operation](https://ivantokar.com/oss/hokusai/reference/operations/) · [recipes](https://ivantokar.com/oss/hokusai/recipes/) · [Vapor and Hummingbird](https://ivantokar.com/oss/hokusai/integrations/).
 
